@@ -2,10 +2,12 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
+
+if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
@@ -24,7 +26,7 @@ class Accordion_Shortcodes {
 	
 		if (!self::$add_script) return;
 		
-		wp_enqueue_script('accordion-shortcodes-scripts', plugins_url('accordion.js', __FILE__), array('jquery'), '1.0', true);
+		wp_enqueue_script('accordion-shortcodes-scripts', plugins_url('accordion.js', __FILE__), array('jquery'), '1.0.1', true);
 	
 	}
 	
@@ -54,5 +56,7 @@ class Accordion_Shortcodes {
 }
 
 $Accordion_Shortcodes = new Accordion_Shortcodes;
+
+endif;
 
 ?>
