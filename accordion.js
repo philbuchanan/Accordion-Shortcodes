@@ -3,7 +3,7 @@
 	
 	var allPanels = $('.accordion > dd').hide(),
 		duration = 250,
-		autoClose = true;
+		autoClose = accordionSettings.autoClose;
 	
 	$('.accordion > dt').click(function() {
 		if (autoClose) {

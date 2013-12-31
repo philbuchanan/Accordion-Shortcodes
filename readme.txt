@@ -2,9 +2,9 @@
 Contributors: philbuchanan
 Tags: accordion, shortcodes
 Donate link: http://philbuchanan.com/
-Requires at least: 3.0
+Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,13 +13,15 @@ Adds a few shortcodes to allow for accordion dropdowns.
 == Description ==
 Adds a few shortcodes to allow for accordion dropdowns.
 
-Features:
+= Features =
 
 * Adds two shortcodes for adding an accordion to your site
-* No settings
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
-* Set the HTML tag for the title element of each item
+* Set the HTML tag for the title element of each item (optional)
+* Disable auto closing of accordion items (optinoal)
+
+= The Shortcodes =
 
 The two shortcodes that are added are:
 
@@ -29,7 +31,7 @@ and
 
 `[accordion-item title="" tag=""]`
 
-Usage example:
+= Usage Example =
 
     [accordion]
     [accordion-item title="Title of accordion item"]Dropdown content goes here.[/accordion-item]
@@ -53,6 +55,10 @@ This will output the following HTML:
         </dd>
     </dt>
 
+= Auto Closing Accordion Items =
+
+If you'd like to **not** have the accordion items close automatically when you open the next item simply set `autoclose="false"` on the opening accordion tag like this: `[accordion autoclose="false"]`
+
 == Sample CSS ==
 
 Here is some sample CSS to get you started if you want to customize the look and feel of the accordion.
@@ -69,11 +75,15 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion dd {padding-bottom: 15px;}
 
 == Installation ==
-1. Upload accordion-shortcodes folder to the /wp-content/plugins/ directory.
+1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 3. Add the shortcodes to your content.
 
 == Changelog ==
+= 1.0.2 =
+* Added setting to disable auto closing of accordion items
+* Better handling of accordion items with no title attribute set
+
 = 1.0.1 =
 * Minor code tweaks
 * Updated readme
@@ -82,9 +92,13 @@ Here is some sample CSS to get you started if you want to customize the look and
 * Initial release.
 
 == Upgrade Notice ==
+= 1.0.2 =
+* Added setting to disable auto closing of accordion items
+* Better handling of accordion items with no title attribute set
+
 = 1.0.1 =
 * Minor code tweaks
 * Updated readme
 
 = 1.0 =
-* Initial release.
+* Initial release
