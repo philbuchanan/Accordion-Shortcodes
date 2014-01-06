@@ -29,6 +29,13 @@
 			$(this).addClass('open');
 		
 		}
+		// If item is open, close it
+		else if (settings.clickToClose) {
+		
+			$(this).next().slideUp(duration);
+			$(this).removeClass('open');
+		
+		}
 		return false;
 	
 	});
