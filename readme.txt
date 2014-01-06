@@ -4,7 +4,7 @@ Tags: accordion, shortcodes
 Donate link: http://philbuchanan.com/
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,7 +31,7 @@ and
 
 `[accordion-item title="" tag=""]`
 
-= Usage Example =
+= Basic Usage Example =
 
     [accordion]
     [accordion-item title="Title of accordion item"]Dropdown content goes here.[/accordion-item]
@@ -55,11 +55,9 @@ This will output the following HTML:
         </dd>
     </dt>
 
-= Auto Closing Accordion Items =
+== Other Notes ==
 
-If you'd like to **not** have the accordion items close automatically when you open the next item simply set `autoclose="false"` on the opening accordion tag like this: `[accordion autoclose="false"]`
-
-== Sample CSS ==
+= Sample CSS =
 
 Here is some sample CSS to get you started if you want to customize the look and feel of the accordion.
 
@@ -74,12 +72,32 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion dt.open {}
     .accordion dd {padding-bottom: 15px;}
 
+= Advanced Settings =
+
+There are a few advanced settings you can add to the opening accordion shortcode. The full shortcode, with all the default settings looks like this:
+
+    [accordion autoclose="true" openfirst="false"]
+
+**autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
+
+**openfirst**: Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+
+= Issues/Suggestions =
+
+For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
+
 == Installation ==
 1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 3. Add the shortcodes to your content.
 
 == Changelog ==
+= 1.0.3 =
+* Added option to open the first item by default
+* Fixed an issue where clicking an already open item will close and reopen it
+* Added better inline documentation
+* Added minified JavaScript file
+
 = 1.0.2 =
 * Added setting to disable auto closing of accordion items
 * Better handling of accordion items with no title attribute set
@@ -89,9 +107,15 @@ Here is some sample CSS to get you started if you want to customize the look and
 * Updated readme
 
 = 1.0 =
-* Initial release.
+* Initial release
 
 == Upgrade Notice ==
+= 1.0.3 =
+* Added option to open the first item by default
+* Fixed an issue where clicking an already open item will close and reopen it
+* Added better inline documentation
+* Added minified JavaScript file
+
 = 1.0.2 =
 * Added setting to disable auto closing of accordion items
 * Better handling of accordion items with no title attribute set
