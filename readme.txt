@@ -80,14 +80,11 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
     [accordion autoclose="true" openfirst="false" clicktoclose="false"]
 
-**autoclose**
-Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
+**autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
 
-**openfirst**
-Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+**openfirst**: Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
 
-**clicktoclose**
-Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
+**clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
 You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
 
