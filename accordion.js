@@ -4,7 +4,16 @@
 	var allPanels  = $('.accordion > dd').hide(),
 		firstPanel = $('.accordion > dd:first-of-type'),
 		duration   = 250,
-		settings   = accordionSettings;
+		settings   = {
+			autoClose: true,
+			openFirst: false,
+			clickToClose: false
+		};
+	
+	// Check for accordion settings variable passed from WordPress
+	if (typeof accordionSettings !== 'undefined') {
+		settings = accordionSettings;
+	}
 	
 	// Open the first accordion item
 	if (settings.openFirst) {
