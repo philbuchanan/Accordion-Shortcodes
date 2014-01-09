@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -16,6 +16,9 @@ class Accordion_Shortcodes {
 	
 	function __construct() {
 	
+		# Load text domain
+		load_plugin_textdomain('accordion_shortcodes', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+		
 		# Register JavaScript
 		add_action('wp_enqueue_scripts', array(__CLASS__, 'register_script'));
 		
@@ -38,7 +41,7 @@ class Accordion_Shortcodes {
 	# Registers the minified accordion JavaScript file
 	static function register_script() {
 	
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion.min.js', __FILE__), array('jquery'), '1.0.4', true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion.min.js', __FILE__), array('jquery'), '1.0.5', true);
 	
 	}
 	
@@ -85,7 +88,7 @@ class Accordion_Shortcodes {
 		), $atts));
 		
 		return sprintf('<dt><%3$s>%1$s</%3$s></dt><dd>%2$s</dd>',
-			$title ? $title : '<span style="color:red;">Please enter a title attribute: [accordion-item title="Item title"]</span>',
+			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$tag
 		);

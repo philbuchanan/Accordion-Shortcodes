@@ -4,7 +4,7 @@ Tags: accordion, shortcodes
 Donate link: http://philbuchanan.com/
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. Add the shortcodes to your content.
 
 == Changelog ==
+= 1.0.5 =
+* Added localization support for error messages
+
 = 1.0.4 =
 * Added option to close an open item by clicking the title
 
@@ -120,6 +123,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.0.5 =
+Added localization support for error messages.
+
 = 1.0.4 =
 Added an option to close an item by clicking the title.
 

@@ -5,6 +5,7 @@
 		firstPanel = $('.accordion > dd:first-of-type'),
 		duration   = 250,
 		settings   = {
+			// Set defaults
 			autoClose: true,
 			openFirst: false,
 			clickToClose: false
