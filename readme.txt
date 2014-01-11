@@ -4,7 +4,7 @@ Tags: accordion, shortcodes
 Donate link: http://philbuchanan.com/
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.0.4
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,20 +42,16 @@ and
 
 This will output the following HTML:
 
-    <dl class="accordion">
-        <dt>
-            <h3>Title of accordion item</h3>
-        </dt>
-        <dd>
+    <div class="accordion">
+        <h3 class="accordion-title">Title of accordion item</h3>
+        <div class="accordion-content">
             Dropdown content goes here.
-        </dd>
-        <dt>
-            <h3>Second accordion item</h3>
-        </dt>
-        <dd>
+        </div>
+        <h3 class="accordion-title">Second accordion item</h3>
+        <div class="accordion-content">
             Dropdown content goes here.
-        </dd>
-    </dt>
+        </div>
+    </div>
 
 == Other Notes ==
 
@@ -64,15 +60,20 @@ This will output the following HTML:
 Here is some sample CSS to get you started if you want to customize the look and feel of the accordion.
 
     /* Accordion Styles */
-    .accordion {border-bottom: 1px solid #dbdbdb;}
-    .accordion dt {
+    .accordion {
+    	border-bottom: 1px solid #dbdbdb;
+    	margin-bottom: 20px;
+    }
+    .accordion-title {
         border-top: 1px solid #dbdbdb;
-        padding: 15px 0;
+        margin: 0;
+        padding: 20px 0;
         cursor: pointer;
     }
-    .accordion dt:first-child {border: none;}
-    .accordion dt.open {cursor: default;}
-    .accordion dd {padding-bottom: 15px;}
+    .accordion-title:hover {}
+    .accordion-title:first-child {border: none;}
+    .accordion-title.open {cursor: default;}
+    .accordion-content {padding-bottom: 20px;}
 
 = Advanced Settings =
 
@@ -80,14 +81,11 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
     [accordion autoclose="true" openfirst="false" clicktoclose="false"]
 
-**autoclose**
-Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
+**autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
 
-**openfirst**
-Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+**openfirst**: Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
 
-**clicktoclose**
-Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
+**clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
 You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
 
@@ -99,8 +97,15 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 3. Add the shortcodes to your content.
+4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your themes stylesheet to make the accordion look the way you want.
 
 == Changelog ==
+= 1.1 =
+* **WARNING**: This update makes HTML structure changes and will require changes to your CSS
+* New HTML structure, based on class names
+* HTML now validates properly
+* Added localization support for error messages
+
 = 1.0.4 =
 * Added option to close an open item by clicking the title
 
@@ -123,6 +128,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.1 =
+**WARNING**: This update makes HTML structure changes and will require changes to your CSS.
+
 = 1.0.4 =
 Added an option to close an item by clicking the title.
 

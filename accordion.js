@@ -1,10 +1,12 @@
 (function($) {
 	'use strict';
 	
-	var allPanels  = $('.accordion > dd').hide(),
-		firstPanel = $('.accordion > dd:first-of-type'),
+	var allTitles  = $('.accordion-title'),
+		allPanels  = $('.accordion-content').hide(),
+		firstPanel = $('.accordion-content:first-of-type'),
 		duration   = 250,
 		settings   = {
+			// Set defaults
 			autoClose: true,
 			openFirst: false,
 			clickToClose: false
@@ -22,7 +24,7 @@
 	}
 	
 	// Add event listener
-	$('.accordion > dt').click(function() {
+	allTitles.click(function() {
 	
 		// Only open the item if item isn't already open
 		if (!$(this).hasClass('open')) {
@@ -30,7 +32,7 @@
 			// Close all accordion items
 			if (settings.autoClose) {
 				allPanels.slideUp(duration);
-				$('.accordion > dt').removeClass('open');
+				allTitles.removeClass('open');
 			}
 			
 			// Open clicked item
