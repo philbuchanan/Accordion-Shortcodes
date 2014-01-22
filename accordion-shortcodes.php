@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.1
+ * Version: 1.1.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -16,8 +16,10 @@ class Accordion_Shortcodes {
 	
 	function __construct() {
 	
+		$basename = plugin_basename(__FILE__);
+		
 		# Load text domain
-		load_plugin_textdomain('accordion_shortcodes', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+		load_plugin_textdomain('accordion_shortcodes', false, dirname($basename) . '/languages/');
 		
 		# Register JavaScript
 		add_action('wp_enqueue_scripts', array(__CLASS__, 'register_script'));
@@ -28,6 +30,9 @@ class Accordion_Shortcodes {
 		
 		# Print script in wp_footer
 		add_action('wp_footer', array(__CLASS__, 'print_script'));
+		
+		# Add link to documentation
+		add_filter("plugin_action_links_$basename", array(__CLASS__, 'add_documentation_link'));
 	
 	}
 	
@@ -41,7 +46,7 @@ class Accordion_Shortcodes {
 	# Registers the minified accordion JavaScript file
 	static function register_script() {
 	
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion.min.js', __FILE__), array('jquery'), '1.1', true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion.min.js', __FILE__), array('jquery'), '1.1.1', true);
 	
 	}
 	
@@ -92,6 +97,17 @@ class Accordion_Shortcodes {
 			do_shortcode($content),
 			$tag
 		);
+	
+	}
+	
+	# Add documentation link on plugin page
+	static function add_documentation_link($links) {
+	
+		$settings_link = '<a href="http://wordpress.org/plugins/accordion-shortcodes/">' . __('Documentation', 'accordion_shortcodes') . '</a>';
+		
+		array_push($links, $settings_link);
+		
+		return $links;
 	
 	}
 
