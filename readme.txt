@@ -60,6 +60,28 @@ This will output the following HTML:
 
 There are a few [advances settings](http://wordpress.org/plugins/accordion-shortcodes/other_notes/) for the plugin.
 
+== Installation ==
+1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
+2. Activate the plugin through the Plugins menu in WordPress.
+3. Add the shortcodes to your content.
+4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your themes stylesheet to make the accordion look the way you want.
+
+== Frequently Asked Questions ==
+
+= Why isn't the JavaScript file loading on my site? =
+
+This is most likely caused by a poorly coded theme. The plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
+
+= How can I change the look of the accordion? =
+No CSS is added by default to the accordion.
+
+Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
+
+== Screenshots ==
+
+1. The shortcodes in the editor
+2. The accordion on the live site (note that CSS has been added to the themes stylesheet)
+
 == Other Notes ==
 
 = Sample CSS =
@@ -99,28 +121,6 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 = Issues/Suggestions =
 
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
-
-== Installation ==
-1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
-2. Activate the plugin through the Plugins menu in WordPress.
-3. Add the shortcodes to your content.
-4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your themes stylesheet to make the accordion look the way you want.
-
-== Frequently Asked Questions ==
-
-= Why isn't the JavaScript file loading on my site? =
-
-This is most likely caused by a poorly coded theme. The plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
-
-= How can I change the look of the accordion? =
-No CSS is added by default to the accordion.
-
-Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
-
-== Screenshots ==
-
-1. The shortcodes in the editor
-2. The accordion on the live site (note that CSS has been added to the themes stylesheet)
 
 == Changelog ==
 = 1.1.1=
