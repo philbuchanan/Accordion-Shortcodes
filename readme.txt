@@ -1,6 +1,7 @@
 === Accordion Shortcodes ===
 Contributors: philbuchanan
 Author URI: http://philbuchanan.com/
+Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
