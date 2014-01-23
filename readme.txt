@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,7 +118,10 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
-= 1.1.1=
+= 1.1.2 =
+* Fixed an issue with the readme change log
+
+= 1.1.1 =
 * Added link to documentation from plugins page
 * Added FAQs to readme
 * Added screenshots
@@ -151,6 +154,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.1.2 =
+Fixed an issue with the readme change log.
+
 = 1.1.1 =
 Added a link to plugin documentation from the plugins page for easy access.
 
