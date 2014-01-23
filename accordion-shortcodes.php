@@ -116,5 +116,3 @@ class Accordion_Shortcodes {
 $Accordion_Shortcodes = new Accordion_Shortcodes;
 
 endif;
-
-?>
