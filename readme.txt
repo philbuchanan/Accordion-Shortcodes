@@ -1,10 +1,11 @@
 === Accordion Shortcodes ===
 Contributors: philbuchanan
-Tags: accordion, shortcodes
-Donate link: http://philbuchanan.com/
+Author URI: http://philbuchanan.com/
+Donate Link: http://philbuchanan.com/
+Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +13,8 @@ Adds a few shortcodes to allow for accordion dropdowns.
 
 == Description ==
 Adds a few shortcodes to allow for accordion dropdowns.
+
+**NOTE:** If you are not comfortable with WordPress shortcodes, this plugin may not be for you.
 
 = Features =
 
@@ -52,6 +55,10 @@ This will output the following HTML:
             Dropdown content goes here.
         </div>
     </div>
+
+= Advanced Settings =
+
+There are a few [advances settings](http://wordpress.org/plugins/accordion-shortcodes/other_notes/) for the plugin.
 
 == Other Notes ==
 
@@ -99,7 +106,28 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. Add the shortcodes to your content.
 4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your themes stylesheet to make the accordion look the way you want.
 
+== Frequently Asked Questions ==
+
+= Why isn't the JavaScript file loading on my site? =
+
+This is most likely caused by a poorly coded theme. The plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
+
+= How can I change the look of the accordion? =
+No CSS is added by default to the accordion.
+
+Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
+
+== Screenshots ==
+
+1. The shortcodes in the editor
+2. The accordion on the live site (note that CSS has been added to the themes stylesheet)
+
 == Changelog ==
+= 1.1.1=
+* Added link to documentation from plugins page
+* Added FAQs to readme
+* Added screenshots
+
 = 1.1 =
 * **WARNING**: This update makes HTML structure changes and will require changes to your CSS
 * New HTML structure, based on class names
@@ -128,6 +156,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.1.1 =
+Added a link to plugin documentation from the plugins page for easy access.
+
 = 1.1 =
 **WARNING**: This update makes HTML structure changes and will require changes to your CSS.
 
