@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
-Version: 1.1.1
+ * Version: 1.1.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */

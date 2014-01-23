@@ -77,11 +77,6 @@ No CSS is added by default to the accordion.
 
 Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
 
-== Screenshots ==
-
-1. The shortcodes in the editor
-2. The accordion on the live site (note that CSS has been added to the themes stylesheet)
-
 == Other Notes ==
 
 = Sample CSS =
