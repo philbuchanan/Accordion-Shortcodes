@@ -125,6 +125,7 @@ Changing the look and feel of the plugin requires you to be comfortable with edi
 = 1.1.1=
 * Added link to documentation from plugins page
 * Added FAQs to readme
+* Added screenshots
 
 = 1.1 =
 * **WARNING**: This update makes HTML structure changes and will require changes to your CSS
