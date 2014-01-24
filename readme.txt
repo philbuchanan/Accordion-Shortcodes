@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.1.2
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,7 +119,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Changelog ==
 = 1.2 =
-* Fixed an issue with the plugin repo (reset)
+* Fixed a potential error with headers already being sent
+* Fixed an issue with the SVN repo
+* Code cleanup
 
 = 1.1.1 =
 * Added link to documentation from plugins page
@@ -154,7 +156,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Upgrade Notice ==
 = 1.2 =
-Fixed an issue with the plugin repo.
+General code cleanup and bug fixes.
 
 = 1.1.1 =
 Added a link to plugin documentation from the plugins page for easy access.
