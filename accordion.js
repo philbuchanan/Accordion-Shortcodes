@@ -9,6 +9,7 @@
 			// Set defaults
 			autoClose: true,
 			openFirst: false,
+			openAll: false,
 			clickToClose: false
 		};
 	
@@ -17,8 +18,12 @@
 		settings = accordionSettings;
 	}
 	
-	// Open the first accordion item
-	if (settings.openFirst) {
+	// Open the first or all accordion items
+	if (settings.openAll) {
+		allPanels.show();
+		allTitles.addClass('open');
+	}
+	else if (settings.openFirst) {
 		firstPanel.prev().addClass('open');
 		firstPanel.slideDown(duration);
 	}
@@ -40,7 +45,7 @@
 			$(this).addClass('open');
 		
 		}
-		// If item is open, close it
+		// If item is open, and click to close is set, close it
 		else if (settings.clickToClose) {
 		
 			$(this).next().slideUp(duration);

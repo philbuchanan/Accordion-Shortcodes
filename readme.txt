@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ Adds a few shortcodes to allow for accordion dropdowns.
 * Only adds JavaScript on pages that use the shortcodes
 * Set the HTML tag for the title element of each item (optional)
 * Open the first accordion item by default (optional)
+* Open all accordion items by default (optional)
 * Disable auto closing of accordion items (optinoal)
 * Manually close items by clicking the title again (optional)
 
@@ -34,7 +35,7 @@ The two shortcodes that are added are:
 
 and
 
-`[accordion-item title="" tag=""]`
+`[accordion-item title=""]`
 
 = Basic Usage Example =
 
@@ -73,6 +74,7 @@ There are a few [advances settings](http://wordpress.org/plugins/accordion-short
 This is most likely caused by a poorly coded theme. The plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
 
 = How can I change the look of the accordion? =
+
 No CSS is added by default to the accordion.
 
 Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
@@ -103,11 +105,13 @@ Here is some sample CSS to get you started if you want to customize the look and
 
 There are a few advanced settings you can add to the opening accordion shortcode. The full shortcode, with all the default settings looks like this:
 
-    [accordion autoclose="true" openfirst="false" clicktoclose="false"]
+    [accordion autoclose="true" openfirst="false" openall="false" clicktoclose="false"]
 
 **autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
 
-**openfirst**: Sets whether the first accordion item is open by default. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+**openfirst**: Sets whether the first accordion item is open by default. This setting will be overridden if **openall** is set to true. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+
+**openall**: Sets whether all accordion items are open by default. It is recommened that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
@@ -118,6 +122,9 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.2.1 =
+* Added option to open all items by default
+
 = 1.2 =
 * Fixed a potential error with headers already being sent
 * Fixed an issue with the SVN repo
@@ -155,6 +162,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.1 =
+Added option to open all items by default.
+
 = 1.2 =
 General code cleanup and bug fixes.
 
