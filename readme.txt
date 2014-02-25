@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,7 @@ Adds a few shortcodes to allow for accordion dropdowns.
 * Open all accordion items by default (optional)
 * Disable auto closing of accordion items (optinoal)
 * Manually close items by clicking the title again (optional)
+* Scroll page to title when it's clicked open (optional)
 
 = The Shortcodes =
 
@@ -115,6 +116,8 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
+**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`.
+
 You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
 
 = Issues/Suggestions =
@@ -122,6 +125,9 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.2.2 =
+* Add option to scroll page to title when it's clicked open
+
 = 1.2.1 =
 * Added option to open all items by default
 
@@ -162,6 +168,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.2 =
+Add option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
+
 = 1.2.1 =
 Added option to open all items by default.
 

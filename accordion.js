@@ -10,7 +10,8 @@
 			autoClose: true,
 			openFirst: false,
 			openAll: false,
-			clickToClose: false
+			clickToClose: false,
+			scroll: false
 		};
 	
 	// Check for accordion settings variable passed from WordPress
@@ -41,7 +42,14 @@
 			}
 			
 			// Open clicked item
-			$(this).next().slideDown(duration);
+			$(this).next().slideDown(duration, function() {
+				// Scroll page to the title
+				if (settings.scroll) {
+					$('html, body').animate({
+						scrollTop: $(this).prev().offset().top
+					}, duration);
+				}
+			});
 			$(this).addClass('open');
 		
 		}
