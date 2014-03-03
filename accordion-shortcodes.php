@@ -46,7 +46,8 @@ class Accordion_Shortcodes {
 	# Registers the minified accordion JavaScript file
 	static function register_script() {
 	
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion.min.js', __FILE__), array('jquery'), '1.2.2', true);
+		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.2.2', true);
 	
 	}
 	
