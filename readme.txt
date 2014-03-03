@@ -5,14 +5,14 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a few shortcodes to allow for accordion dropdowns.
+Adds a few shortcodes to allow for accordion drop-downs.
 
 == Description ==
-Adds a few shortcodes to allow for accordion dropdowns.
+Adds a few shortcodes to allow for accordion drop-downs.
 
 **NOTE:** If you are not comfortable with WordPress shortcodes, this plugin may not be for you.
 
@@ -24,8 +24,9 @@ Adds a few shortcodes to allow for accordion dropdowns.
 * Set the HTML tag for the title element of each item (optional)
 * Open the first accordion item by default (optional)
 * Open all accordion items by default (optional)
-* Disable auto closing of accordion items (optinoal)
+* Disable auto closing of accordion items (optional)
 * Manually close items by clicking the title again (optional)
+* Scroll page to title when it's clicked open (optional)
 
 = The Shortcodes =
 
@@ -40,8 +41,8 @@ and
 = Basic Usage Example =
 
     [accordion]
-    [accordion-item title="Title of accordion item"]Dropdown content goes here.[/accordion-item]
-    [accordion-item title="Second accordion item"]Dropdown content goes here.[/accordion-item]
+    [accordion-item title="Title of accordion item"]Drop-down content goes here.[/accordion-item]
+    [accordion-item title="Second accordion item"]Drop-down content goes here.[/accordion-item]
     [/accordion]
 
 This will output the following HTML:
@@ -49,11 +50,11 @@ This will output the following HTML:
     <div class="accordion">
         <h3 class="accordion-title">Title of accordion item</h3>
         <div class="accordion-content">
-            Dropdown content goes here.
+            Drop-down content goes here.
         </div>
         <h3 class="accordion-title">Second accordion item</h3>
         <div class="accordion-content">
-            Dropdown content goes here.
+            Drop-down content goes here.
         </div>
     </div>
 
@@ -77,7 +78,7 @@ This is most likely caused by a poorly coded theme. The plugin makes use of the 
 
 No CSS is added by default to the accordion.
 
-Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familier with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
+Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
 
 == Other Notes ==
 
@@ -115,6 +116,8 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
+**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`.
+
 You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
 
 = Issues/Suggestions =
@@ -122,6 +125,10 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.2.2 =
+* Added option to scroll page to title when it's clicked open
+* Added detection for SCRIPT_DEBUG to load minified JavaScript conditionally
+
 = 1.2.1 =
 * Added option to open all items by default
 
@@ -162,6 +169,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.2 =
+Added option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
+
 = 1.2.1 =
 Added option to open all items by default.
 
