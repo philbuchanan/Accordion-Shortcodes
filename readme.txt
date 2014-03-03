@@ -126,7 +126,8 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Changelog ==
 = 1.2.2 =
-* Add option to scroll page to title when it's clicked open
+* Added option to scroll page to title when it's clicked open
+* Added detection for SCRIPT_DEBUG to load minified JavaScript conditionally
 
 = 1.2.1 =
 * Added option to open all items by default
@@ -169,7 +170,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Upgrade Notice ==
 = 1.2.2 =
-Add option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
+Added option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
 
 = 1.2.1 =
 Added option to open all items by default.
