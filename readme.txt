@@ -126,7 +126,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Changelog ==
 = 1.2.3 =
-* Added shortcode parameters when calling shortcode_atts()
+* Added the shortcode parameter when calling shortcode_atts()
 
 = 1.2.2 =
 * Added option to scroll page to title when it's clicked open
