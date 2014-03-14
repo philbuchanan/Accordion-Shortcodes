@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,9 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.2.3 =
+* Added shortcode parameters when calling shortcode_atts()
+
 = 1.2.2 =
 * Added option to scroll page to title when it's clicked open
 * Added detection for SCRIPT_DEBUG to load minified JavaScript conditionally
@@ -169,6 +172,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.3 =
+Added the shortcode parameter when calling shortcode_atts().
+
 = 1.2.2 =
 Added option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
 
