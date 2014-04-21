@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
-Tested up to: 3.8
-Stable tag: 1.2.3
+Tested up to: 3.9
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Adds a few shortcodes to allow for accordion drop-downs.
 == Description ==
 Adds a few shortcodes to allow for accordion drop-downs.
 
-**NOTE:** If you are not comfortable with WordPress shortcodes, this plugin may not be for you.
+**IMPORTANT:** If you are not comfortable with WordPress shortcodes, this plugin may not be for you. Additionally, you may want to be able to edit your themes main stylesheet in order to [add some custom CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
 
 = Features =
 
@@ -125,6 +125,9 @@ You can also set the HTML tag for the titles of each item by added `tag="tagname
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.2.4 =
+* Compatibility with WordPress 3.9
+
 = 1.2.3 =
 * Added the shortcode parameter when calling shortcode_atts()
 
@@ -172,6 +175,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.2.4 =
+Compatibility with WordPress 3.9.
+
 = 1.2.3 =
 Added the shortcode parameter when calling shortcode_atts().
 
