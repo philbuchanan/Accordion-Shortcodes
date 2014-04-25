@@ -1,17 +1,19 @@
 (function($) {
 	'use strict';
 	
-	var allTitles  = $('.accordion-title'),
-		allPanels  = $('.accordion-content').hide(),
-		firstPanel = $('.accordion-content:first-of-type'),
-		duration   = 250,
-		settings   = {
+	var allTitles    = $('.accordion-title'),
+		allPanels    = $('.accordion-content').hide(),
+		firstPanel   = $('.accordion-content:first-of-type'),
+		closeButtons = $('.accordion-content .close a'),
+		duration     = 250,
+		settings     = {
 			// Set defaults
 			autoClose: true,
 			openFirst: false,
 			openAll: false,
 			clickToClose: false,
-			scroll: false
+			scroll: false,
+			closeButtons: false
 		};
 	
 	// Check for accordion settings variable passed from WordPress
@@ -63,5 +65,18 @@
 		return false;
 	
 	});
+	
+	// Close button event listener
+	if (settings.closeButtons) {
+	
+		closeButtons.click(function() {
+		
+			$(this).parent().parent().slideUp(duration);
+			$(this).parent().parent().prev().removeClass('open');
+			
+			return false;
+		
+		});
+	}
 
 }(jQuery));

@@ -1,11 +1,11 @@
 === Accordion Shortcodes ===
-Contributors: philbuchanan
+Contributors: philbuchanan, kambanwait
 Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.2.4
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,7 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion-title:first-child {border: none;}
     .accordion-title.open {cursor: default;}
     .accordion-content {padding-bottom: 20px;}
+    .accordion-content .close a {}
 
 = Advanced Settings =
 
@@ -117,6 +118,8 @@ There are a few advanced settings you can add to the opening accordion shortcode
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
 **scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`.
+
+**closebuttons**: Sets whether to show close buttons on accordion titles. Set `closebuttons="true/false"` on the opening accordion tag like this: `[accordion closebuttons="true"]`. You can also add custom close text by simply replacing `true` with the custom text you would like for the close button like this: `[accordion closebuttons="Close accordion"]`. Default is `false`.
 
 You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.2.4
+ * Version: 1.3
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -13,6 +13,7 @@ if (!class_exists('Accordion_Shortcodes')) :
 class Accordion_Shortcodes {
 
 	static $add_script;
+	static $close_buttons;
 	
 	function __construct() {
 	
@@ -47,7 +48,7 @@ class Accordion_Shortcodes {
 	static function register_script() {
 	
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.2.4', true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.3', true);
 	
 	}
 	
@@ -72,8 +73,12 @@ class Accordion_Shortcodes {
 			'openfirst'    => false,
 			'openall'      => false,
 			'clicktoclose' => false,
-			'scroll'       => false
+			'scroll'       => false,
+			'closebuttons' => false
 		), $atts, 'accordion'));
+		
+		# Should close button be displayed
+		$show_buttons = $closebuttons == 'false' ? false : true;
 		
 		# Set settings object (for use in JavaScript)
 		$script_data = array(
@@ -81,9 +86,16 @@ class Accordion_Shortcodes {
 			'openFirst'    => self::parse_boolean($openfirst),
 			'openAll'      => self::parse_boolean($openall),
 			'clickToClose' => self::parse_boolean($clicktoclose),
-			'scroll'       => self::parse_boolean($scroll)
+			'scroll'       => self::parse_boolean($scroll),
+			'closeButtons' => $show_buttons
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
+		
+		# Set custom close button text
+		if ($show_buttons) {
+			if (self::parse_boolean($closebuttons) != true) self::$close_buttons = $closebuttons;
+			else self::$close_buttons = __('Close', 'accordion_shortcodes');
+		}
 		
 		return '<div class="accordion">' . do_shortcode($content) . '</div>';
 	
@@ -94,13 +106,14 @@ class Accordion_Shortcodes {
 	
 		extract(shortcode_atts(array(
 			'title' => '',
-			'tag' => 'h3'
+			'tag'   => 'h3'
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s</div>',
+		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s%4$s</div>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
-			$tag
+			$tag,
+			self::$close_buttons ? '<p class="close"><a href="javascript:;">' . self::$close_buttons . '</a></p>' : ''
 		);
 	
 	}
