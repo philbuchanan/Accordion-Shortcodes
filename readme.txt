@@ -1,5 +1,5 @@
 === Accordion Shortcodes ===
-Contributors: philbuchanan, kambanwait
+Contributors: philbuchanan
 Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
@@ -72,13 +72,19 @@ There are a few [advances settings](http://wordpress.org/plugins/accordion-short
 
 = Why isn't the JavaScript file loading on my site? =
 
-This is most likely caused by a poorly coded theme. The plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
+This is most likely caused by a poorly coded theme. This plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
 
 = How can I change the look of the accordion? =
 
-No CSS is added by default to the accordion.
+No CSS is added by default to the accordion. The accodion should look fine with every theme.
 
-Changing the look and feel of the plugin requires you to be comfortable with editing your themes stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
+That said, you can change the looking of the accordion as long as you are comfortable with editing your theme's stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
+
+= Can I use other shortcodes inside each accordion item? =
+
+Absolutely! You can use any of the WordPress format settings and headings as well.
+
+You cannot, however nest an accordion within another accordion. This is a limitation of how WordPress processes shortcodes.
 
 == Other Notes ==
 
@@ -101,7 +107,6 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion-title:first-child {border: none;}
     .accordion-title.open {cursor: default;}
     .accordion-content {padding-bottom: 20px;}
-    .accordion-content .close a {}
 
 = Advanced Settings =
 
@@ -119,15 +124,18 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`.
 
-**closebuttons**: Sets whether to show close buttons on accordion titles. Set `closebuttons="true/false"` on the opening accordion tag like this: `[accordion closebuttons="true"]`. You can also add custom close text by simply replacing `true` with the custom text you would like for the close button like this: `[accordion closebuttons="Close accordion"]`. Default is `false`.
+**tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
 
-You can also set the HTML tag for the titles of each item by added `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`
+You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting.
 
 = Issues/Suggestions =
 
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.3 =
+* Added global HTML tag setting for accordion item titles
+
 = 1.2.4 =
 * Compatibility with WordPress 3.9
 
@@ -178,6 +186,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.3 =
+Added global HTML tag setting for accordion item titles.
+
 = 1.2.4 =
 Compatibility with WordPress 3.9.
 

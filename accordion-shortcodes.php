@@ -13,7 +13,7 @@ if (!class_exists('Accordion_Shortcodes')) :
 class Accordion_Shortcodes {
 
 	static $add_script;
-	static $close_buttons;
+	static $tag;
 	
 	function __construct() {
 	
@@ -69,16 +69,13 @@ class Accordion_Shortcodes {
 		self::$add_script = true;
 		
 		extract(shortcode_atts(array(
+			'tag'          => 'h3',
 			'autoclose'    => true,
 			'openfirst'    => false,
 			'openall'      => false,
 			'clicktoclose' => false,
-			'scroll'       => false,
-			'closebuttons' => false
+			'scroll'       => false
 		), $atts, 'accordion'));
-		
-		# Should close button be displayed
-		$show_buttons = $closebuttons == 'false' ? false : true;
 		
 		# Set settings object (for use in JavaScript)
 		$script_data = array(
@@ -86,16 +83,11 @@ class Accordion_Shortcodes {
 			'openFirst'    => self::parse_boolean($openfirst),
 			'openAll'      => self::parse_boolean($openall),
 			'clickToClose' => self::parse_boolean($clicktoclose),
-			'scroll'       => self::parse_boolean($scroll),
-			'closeButtons' => $show_buttons
+			'scroll'       => self::parse_boolean($scroll)
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		# Set custom close button text
-		if ($show_buttons) {
-			if (self::parse_boolean($closebuttons) != true) self::$close_buttons = $closebuttons;
-			else self::$close_buttons = __('Close', 'accordion_shortcodes');
-		}
+		self::$tag = $tag;
 		
 		return '<div class="accordion">' . do_shortcode($content) . '</div>';
 	
@@ -106,14 +98,13 @@ class Accordion_Shortcodes {
 	
 		extract(shortcode_atts(array(
 			'title' => '',
-			'tag'   => 'h3'
+			'tag'   => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s%4$s</div>',
+		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s</div>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
-			$tag,
-			self::$close_buttons ? '<p class="close"><a href="javascript:;">' . self::$close_buttons . '</a></p>' : ''
+			$tag ? $tag : self::$tag
 		);
 	
 	}
