@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,9 @@ You can also set the HTML tag for the titles of each accordion item individually
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
 == Changelog ==
+= 1.3.1 =
+* Fixes an issue where an empty tag attribute would break the accordion
+
 = 1.3 =
 * Added global HTML tag setting for accordion item titles
 
@@ -186,6 +189,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Initial release
 
 == Upgrade Notice ==
+= 1.3.1 =
+Fixes an issue where an empty tag attribute would break the accordion.
+
 = 1.3 =
 Added global HTML tag setting for accordion item titles.
 

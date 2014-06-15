@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.3
+ * Version: 1.3.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -48,7 +48,7 @@ class Accordion_Shortcodes {
 	static function register_script() {
 	
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.3', true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.3.1', true);
 	
 	}
 	
@@ -69,7 +69,7 @@ class Accordion_Shortcodes {
 		self::$add_script = true;
 		
 		extract(shortcode_atts(array(
-			'tag'          => 'h3',
+			'tag'          => '',
 			'autoclose'    => true,
 			'openfirst'    => false,
 			'openall'      => false,
@@ -87,7 +87,10 @@ class Accordion_Shortcodes {
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		self::$tag = $tag;
+		$tag = preg_replace('/\s/', '', $tag);
+		
+		if ($tag) self::$tag = $tag;
+		else self::$tag = 'h3';
 		
 		return '<div class="accordion">' . do_shortcode($content) . '</div>';
 	
@@ -104,7 +107,7 @@ class Accordion_Shortcodes {
 		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s</div>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
-			$tag ? $tag : self::$tag
+			$tag ? preg_replace('/\s/', '', $tag) : self::$tag
 		);
 	
 	}
