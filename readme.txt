@@ -126,7 +126,7 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
 
-You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting.
+You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, span and div.
 
 = Issues/Suggestions =
 
@@ -135,6 +135,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 == Changelog ==
 = 1.3.1 =
 * Fixes an issue where an empty tag attribute would break the accordion
+* Tags are now checked against a list of valid HTML tags
 
 = 1.3 =
 * Added global HTML tag setting for accordion item titles
@@ -190,7 +191,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Upgrade Notice ==
 = 1.3.1 =
-Fixes an issue where an empty tag attribute would break the accordion.
+Fixes an issue where an empty tag attribute would break the accordion. Tags are also now checked against a list of valid HTML tags.
 
 = 1.3 =
 Added global HTML tag setting for accordion item titles.

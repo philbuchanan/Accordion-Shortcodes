@@ -62,6 +62,16 @@ class Accordion_Shortcodes {
 	
 	}
 	
+	# Check for valid HTML tag
+	static function check_html_tag($tag) {
+	
+		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div');
+		
+		if (in_array($tag, $tags)) return $tag;
+		else return 'h3';
+	
+	}
+	
 	# Accordion wrapper shortcode
 	static function accordion_shortcode($atts, $content = null) {
 	
@@ -87,10 +97,7 @@ class Accordion_Shortcodes {
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		$tag = preg_replace('/\s/', '', $tag);
-		
-		if ($tag) self::$tag = $tag;
-		else self::$tag = 'h3';
+		self::$tag = self::check_html_tag(preg_replace('/\s/', '', $tag));
 		
 		return '<div class="accordion">' . do_shortcode($content) . '</div>';
 	
@@ -104,10 +111,18 @@ class Accordion_Shortcodes {
 			'tag'   => ''
 		), $atts, 'accordion-item'));
 		
+		$tag = preg_replace('/\s/', '', $tag);
+		if ($tag) {
+			$tag = self::check_html_tag($tag);
+		}
+		else {
+			$tag = self::$tag;
+		}
+		
 		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s</div>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
-			$tag ? preg_replace('/\s/', '', $tag) : self::$tag
+			$tag
 		);
 	
 	}
