@@ -191,7 +191,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Upgrade Notice ==
 = 1.3.1 =
-Fixes an issue where an empty tag attribute would break the accordion. Tags are also now checked against a list of valid HTML tags.
+IMPORTANT: Tags are now checked against a list of valid HTML tags. If you use a tag other than h1, h2, h3, h4, h5, h6, p, span or div for your titles, please let me know. You will want to avoid this update until I add your tag to the list. This update also fixes an issue where an empty tag attribute would break the accordion.
 
 = 1.3 =
 Added global HTML tag setting for accordion item titles.
