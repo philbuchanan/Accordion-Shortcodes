@@ -2,10 +2,12 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 1.3.1
+ * Version: 2.0
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
+
+require_once('tinymce/tinymce.php');
 
 # Make sure to not redeclare the class
 if (!class_exists('Accordion_Shortcodes')) :
@@ -34,6 +36,11 @@ class Accordion_Shortcodes {
 		
 		# Add link to documentation
 		add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
+		
+		# Add buttons to editor
+		if (is_admin()) {
+			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
+		}
 	
 	}
 	
@@ -48,7 +55,7 @@ class Accordion_Shortcodes {
 	public function register_script() {
 	
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '1.3.1', true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '2.0', true);
 	
 	}
 	
