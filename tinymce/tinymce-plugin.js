@@ -1,13 +1,15 @@
 (function() {
+	'use strict';
+	
 	tinymce.create('tinymce.plugins.accordionShortcodesExtensions', {
 		init: function(editor, url) {
-			editor.addButton('Accordion', {
+			editor.addButton('AccordionShortcode', {
 				title: 'Add an accordion group',
-				cmd: 'accordion',
-				image: url + '/images/accordion.svg'
+				cmd: 'accordionShortcode',
+				image: url + '/images/accordion.gif'
 			});
 			
-			editor.addCommand('accordion', function() {
+			editor.addCommand('accordionShortcode', function() {
 				editor.windowManager.open({
 					title: 'Insert Accordion Shortcode',
 					body: [
@@ -86,13 +88,13 @@
 			});
 			
 			// Accordion Item
-			editor.addButton('AccordionItem', {
+			editor.addButton('AccordionItemShortcode', {
 				title: 'Add an accordion item',
-				cmd: 'accordionItem',
-				image: url + '/images/accordion-item.svg'
+				cmd: 'accordionItemShortcode',
+				image: url + '/images/accordion-item.gif'
 			});
 			
-			editor.addCommand('accordionItem', function() {
+			editor.addCommand('accordionItemShortcode', function() {
 				editor.windowManager.open({
 					title: 'Insert Accordion Item Shortcode',
 					body: [
@@ -121,7 +123,7 @@
 		getInfo: function() {
 			return {
 				longname:  'Accordion Buttons',
-				author:	   'Phil Buchanan',
+				author:    'Phil Buchanan',
 				authorurl: 'http://philbuchanan.com/',
 				version:   '2.0'
 			};
@@ -129,4 +131,4 @@
 	});
 	
 	tinymce.PluginManager.add('accordionShortcodesExtensions', tinymce.plugins.accordionShortcodesExtensions);
-})();
+}());

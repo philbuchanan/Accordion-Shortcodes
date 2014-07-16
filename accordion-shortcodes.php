@@ -18,7 +18,6 @@ class Accordion_Shortcodes {
 	private $tag = 'h3';
 	
 	function __construct() {
-	
 		$basename = plugin_basename(__FILE__);
 		
 		# Load text domain
@@ -41,48 +40,38 @@ class Accordion_Shortcodes {
 		if (is_admin()) {
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
 		}
-	
-	}
-	
-	# Checks for boolean value
-	private function parse_boolean($value) {
-	
-		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-	
 	}
 	
 	# Registers the minified accordion JavaScript file
 	public function register_script() {
-	
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), '2.0', true);
-	
 	}
 	
 	# Prints the minified accordion JavaScript file in the footer
 	public function print_script() {
-	
 		# Check to see if shortcodes are used on page
 		if (!$this -> add_script) return;
 		
 		wp_enqueue_script('accordion-shortcodes-script');
+	}
 	
+	# Checks for boolean value
+	private function parse_boolean($value) {
+		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 	
 	# Check for valid HTML tag
 	private function check_html_tag($tag) {
-	
 		$tag = preg_replace('/\s/', '', $tag);
 		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div');
 		
 		if (in_array($tag, $tags)) return $tag;
 		else return 'h3';
-	
 	}
 	
 	# Accordion wrapper shortcode
 	public function accordion_shortcode($atts, $content = null) {
-	
 		# The shortcode is used on the page, so we'll need to load the JavaScript
 		$this -> add_script = true;
 		
@@ -109,12 +98,10 @@ class Accordion_Shortcodes {
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
 		return '<div class="accordion">' . do_shortcode($content) . '</div>';
-	
 	}
 	
 	# Accordion item shortcode
 	public function accordion_item_shortcode($atts, $content = null) {
-	
 		extract(shortcode_atts(array(
 			'title' => '',
 			'tag'   => ''
@@ -125,19 +112,16 @@ class Accordion_Shortcodes {
 			do_shortcode($content),
 			$tag ? $this -> check_html_tag($tag) : $this -> tag
 		);
-	
 	}
 	
 	# Add documentation link on plugin page
 	public function add_documentation_link($links) {
-	
 		array_push($links, sprintf('<a href="%s">%s</a>',
 			'http://wordpress.org/plugins/accordion-shortcodes/',
 			__('Documentation', 'accordion_shortcodes')
 		));
 		
 		return $links;
-	
 	}
 
 }

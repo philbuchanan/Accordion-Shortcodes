@@ -94,8 +94,8 @@ Here is some sample CSS to get you started if you want to customize the look and
 
     /* Accordion Styles */
     .accordion {
-    	border-bottom: 1px solid #dbdbdb;
-    	margin-bottom: 20px;
+        border-bottom: 1px solid #dbdbdb;
+        margin-bottom: 20px;
     }
     .accordion-title {
         border-top: 1px solid #dbdbdb;
@@ -127,6 +127,19 @@ There are a few advanced settings you can add to the opening accordion shortcode
 **tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
 
 You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, span and div.
+
+= Filtering Shortcodes =
+
+You can filter the settings and content of the shortcodes by adding some simply code to the functions.php file of your theme.
+
+For example, you could set the `openfirst` option for all accordions across the entire site using:
+
+    add_filter('shortcode_atts_accordion', 'set_accordion_shortcode_defaults', 10, 3);
+    function set_accordion_shortcode_defaults($atts) {
+        // Override the openfirst setting here
+        $atts['openfirst'] = true;
+        return $atts;
+    }
 
 = Issues/Suggestions =
 
