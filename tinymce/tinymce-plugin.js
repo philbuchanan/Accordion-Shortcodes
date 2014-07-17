@@ -53,7 +53,6 @@
 								{text: 'h5', value: 'h5'},
 								{text: 'h6', value: 'h6'},
 								{text: 'p', value: 'p'},
-								{text: 'span', value: 'span'},
 								{text: 'div', value: 'div'}
 							]
 						}
