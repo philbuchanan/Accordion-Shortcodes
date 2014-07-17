@@ -103,6 +103,16 @@
 							name: 'title',
 							label: 'Accordion Item Title',
 							minWidth: 300
+						},
+						{
+							type: 'textbox',
+							name: 'id',
+							label: 'ID (optional)',
+							minWidth: 300
+						},
+						{
+							type: 'container',
+							html: 'Each ID on a single page must be unique and cannot contain spaces.'
 						}
 					],
 					onsubmit: function(e) {
@@ -111,8 +121,13 @@
 						if (e.data.title) {
 							shortcode += e.data.title;
 						}
+						shortcode += '"';
 						
-						shortcode += '"]' + editor.selection.getContent() + '[/accordion-item]';
+						if (e.data.id) {
+							shortcode += ' id=' + e.data.id;
+						}
+						
+						shortcode += ']' + editor.selection.getContent() + '[/accordion-item]';
 						
 						editor.execCommand('mceInsertContent', 0, shortcode);
 					}
