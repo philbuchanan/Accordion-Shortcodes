@@ -97,7 +97,7 @@ class Accordion_Shortcodes {
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		return '<div class="accordion">' . do_shortcode($content) . '</div>';
+		return '<div class="accordion no-js">' . do_shortcode($content) . '</div>';
 	}
 	
 	# Accordion item shortcode

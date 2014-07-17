@@ -19,6 +19,9 @@
 		settings = accordionSettings;
 	}
 	
+	// Remove no-js class if JavaScript is enabled
+	$('.accordion').removeClass('no-js');
+	
 	// Open the first or all accordion items
 	if (settings.openAll) {
 		allPanels.show();
