@@ -1,13 +1,12 @@
 (function($) {
 	'use strict';
 	
-	var allTitles   = $('.accordion-title'),
-		allPanels   = $('.accordion-content').hide(),
-		firstPanel  = $('.accordion-content:first-of-type'),
-		panelIndex  = parseInt(window.location.hash.replace('#', ''), 0),
-		selectPanel = [],
-		duration    = 250,
-		settings    = {
+	var allTitles  = $('.accordion-title'),
+		allPanels  = $('.accordion-content').hide(),
+		firstPanel = $('.accordion-content:first-of-type'),
+		selectId   = $(window.location.hash),
+		duration   = 250,
+		settings   = {
 			// Set defaults
 			autoClose: true,
 			openFirst: false,
@@ -24,15 +23,10 @@
 	// Remove no-js class if JavaScript is enabled
 	$('.accordion').removeClass('no-js');
 	
-	// If there is a hash, select that panel for opening
-	if (panelIndex) {
-		selectPanel = $('.accordion-content:nth-of-type(' + panelIndex + ')');
-	}
-	
 	// Should any accordions be opened on load?
-	if (selectPanel.length) {
-		selectPanel.slideDown(duration);
-		selectPanel.prev().addClass('open');
+	if (selectId.length) {
+		selectId.addClass('open');
+		selectId.next().slideDown(duration);
 	}
 	else if (settings.openAll) {
 		allPanels.show();

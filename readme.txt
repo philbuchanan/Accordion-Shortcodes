@@ -19,8 +19,10 @@ Adds a few shortcodes to allow for accordion drop-downs.
 = Features =
 
 * Adds two shortcodes for adding an accordion to your site
+* Two buttons added to the TinyMCE editor to make it easy to add accordions
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
+* Support for item IDs and direct links
 * Set the HTML tag for the title element (optional)
 * Open the first accordion item by default (optional)
 * Open all accordion items by default (optional)
@@ -108,6 +110,22 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion-title.open {cursor: default;}
     .accordion-content {padding-bottom: 20px;}
 
+= Opening an Accordion Via ID =
+
+You can optionally add a unique ID to each of your accordion items and then use that ID in the URL to open that item by default. For example, say you have the following accordions:
+
+    [accordion]
+    [accordion-item id="item-1" title="Title of accordion item"]Drop-down content goes here.[/accordion-item]
+    [accordion-item id="item-2" title="Second accordion item"]Drop-down content goes here.[/accordion-item]
+    [accordion-item id="item-3" title="A Third accordion"]Drop-down content goes here.[/accordion-item]
+    [/accordion]
+
+You could use this URL to open the third item by default:
+
+    http://yourdomain.com/your/path/#item-3
+
+All you need to do is ensure that the part after the `#` in the URL matches the ID set on the accordion item.
+
 = Advanced Settings =
 
 There are a few advanced settings you can add to the opening accordion shortcode. The full shortcode, with all the default settings looks like this:
@@ -145,10 +163,16 @@ For example, you could set the `openfirst` option for all accordions across the 
 
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
+= Additional Thanks =
+
+Thank you to [dgrevink](https://github.com/dgrevink) for his support in developing the item IDs and direct linking feature.
+
 == Changelog ==
 = 2.0 =
 * NEW: Buttons in the editor to easily add shortcodes with various settings
+* NEW: Support for item IDs on accordion items and direct linking to a specific item
+* NEW: Class added if JavaScript is disabled (so you can style your accordions differently if necessary)
 
 == Upgrade Notice ==
 = 2.0 =
-Big changes for version 2.0!
+Big changes for version 2.0! See the [changelog](http://wordpress.org/plugins/accordion-shortcodes/changelog/) for details.

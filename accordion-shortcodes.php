@@ -104,12 +104,14 @@ class Accordion_Shortcodes {
 	public function accordion_item_shortcode($atts, $content = null) {
 		extract(shortcode_atts(array(
 			'title' => '',
+			'id'    => '',
 			'tag'   => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%3$s class="accordion-title">%1$s</%3$s><div class="accordion-content">%2$s</div>',
+		return sprintf('<%4$s class="accordion-title"%3$s>%1$s</%4$s><div class="accordion-content">%2$s</div>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
+			$id ? ' id="' . $id . '"' : '',
 			$tag ? $this -> check_html_tag($tag) : $this -> tag
 		);
 	}
