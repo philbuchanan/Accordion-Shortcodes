@@ -170,12 +170,19 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 Thank you to [dgrevink](https://github.com/dgrevink) for his support in developing the item IDs and direct linking feature.
 
+== Screenshots ==
+
+1. The Accordion Group and Accordion Item shortcode buttons in the editor
+2. The Accordion Group shortcode insertion dialog box
+3. The Accordion Item shortcode insertion dialog box
+
 == Changelog ==
 = 2.0 =
 * NEW: Buttons in the editor to easily add shortcodes with various settings
 * NEW: Support for item IDs on accordion items and direct linking to a specific item
 * NEW: Change the entire semantic structure of your accordions by using definition lists
-* NEW: Class added if JavaScript is disabled (so you can style your accordions differently if necessary)
+* ENHANCED: Class added if JavaScript is disabled (so you can style your accordions differently if necessary)
+* ENHANCED: Each accordion now has its own unique ID (accordion-1, accordion-2...) so you can target each one on a page
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
