@@ -15,7 +15,10 @@ if (!class_exists('Accordion_Shortcodes')) :
 class Accordion_Shortcodes {
 
 	private $add_script = false;
-	private $tag = 'h3';
+	
+	private $wrapper_tag = 'div';
+	private $title_tag   = 'h3';
+	private $content_tag = 'div';
 	
 	function __construct() {
 		$basename = plugin_basename(__FILE__);
@@ -64,10 +67,10 @@ class Accordion_Shortcodes {
 	# Check for valid HTML tag
 	private function check_html_tag($tag) {
 		$tag = preg_replace('/\s/', '', $tag);
-		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'div');
+		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div');
 		
 		if (in_array($tag, $tags)) return $tag;
-		else return 'h3';
+		else return $this -> title_tag;
 	}
 	
 	# Accordion wrapper shortcode
@@ -81,11 +84,18 @@ class Accordion_Shortcodes {
 			'openfirst'    => false,
 			'openall'      => false,
 			'clicktoclose' => false,
-			'scroll'       => false
+			'scroll'       => false,
+			'semantics'    => ''
 		), $atts, 'accordion'));
 		
-		# Set global tag
-		if ($tag) $this -> tag = $this -> check_html_tag($tag);
+		# Set global HTML tag names
+		if ($semantics == 'dl') {
+			$this -> wrapper_tag = 'dl';
+			$this -> title_tag   = 'dt';
+			$this -> content_tag = 'dd';
+		}
+		
+		if ($tag) $this -> title_tag = $this -> check_html_tag($tag);
 		
 		# Set settings object (for use in JavaScript)
 		$script_data = array(
@@ -97,7 +107,10 @@ class Accordion_Shortcodes {
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		return '<div class="accordion no-js">' . do_shortcode($content) . '</div>';
+		return sprintf('<%2$s class="accordion no-js">%1$s</%2$s>',
+			do_shortcode($content),
+			$this -> wrapper_tag
+		);
 	}
 	
 	# Accordion item shortcode
@@ -108,11 +121,12 @@ class Accordion_Shortcodes {
 			'tag'   => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%4$s class="accordion-title"%3$s>%1$s</%4$s><div class="accordion-content">%2$s</div>',
-			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute: [accordion-item title="Item title"]', 'accordion_shortcodes') . '</span>',
+		return sprintf('<%4$s class="accordion-title"%3$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
+			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$id ? ' id="' . $id . '"' : '',
-			$tag ? $this -> check_html_tag($tag) : $this -> tag
+			$tag ? $this -> check_html_tag($tag) : $this -> title_tag,
+			$this -> content_tag
 		);
 	}
 	

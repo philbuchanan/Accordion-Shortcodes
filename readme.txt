@@ -19,7 +19,7 @@ Adds a few shortcodes to allow for accordion drop-downs.
 = Features =
 
 * Adds two shortcodes for adding an accordion to your site
-* Two buttons added to the TinyMCE editor to make it easy to add accordions
+* Two buttons in the TinyMCE editor make it easy to add and configure the accordion shortcodes
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
 * Support for item IDs and direct links
@@ -29,6 +29,7 @@ Adds a few shortcodes to allow for accordion drop-downs.
 * Disable auto closing of accordion items (optional)
 * Manually close items by clicking the title again (optional)
 * Scroll page to title when it's clicked open (optional)
+* Change the semantic structure of your accordions (optional, advanced)
 
 = The Shortcodes =
 
@@ -78,7 +79,7 @@ This is most likely caused by a poorly coded theme. This plugin makes use of the
 
 = How can I change the look of the accordion? =
 
-No CSS is added by default to the accordion. The accodion should look fine with every theme.
+No CSS is added by default to the accordion. The accordion should look fine with every theme.
 
 That said, you can change the looking of the accordion as long as you are comfortable with editing your theme's stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
 
@@ -136,7 +137,7 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **openfirst**: Sets whether the first accordion item is open by default. This setting will be overridden if **openall** is set to true. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
 
-**openall**: Sets whether all accordion items are open by default. It is recommened that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
+**openall**: Sets whether all accordion items are open by default. It is recommended that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
@@ -144,7 +145,9 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
 
-You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, span and div.
+You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribute on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, div.
+
+**semantics**: You can change the entire semantic structure of the accordions to use a definition list (dl, dt, dd) by setting `semantics="dl"` on the opening accordion tag like this: `[accordion semantics="dl"]`. By default the accordion will use `div` tags for the wrapper and content containers. If you set this option to `dl`, it is recommended that you do not also use the `tag` option. This feature is not selectable from the accordion button dialog box and must be added manually.
 
 = Filtering Shortcodes =
 
@@ -171,7 +174,9 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 = 2.0 =
 * NEW: Buttons in the editor to easily add shortcodes with various settings
 * NEW: Support for item IDs on accordion items and direct linking to a specific item
+* NEW: Change the entire semantic structure of your accordions by using definition lists
 * NEW: Class added if JavaScript is disabled (so you can style your accordions differently if necessary)
+* FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
 = 2.0 =

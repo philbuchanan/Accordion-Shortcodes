@@ -21,7 +21,7 @@ class Accordion_Shortcode_Tinymce_Extensions {
 			'AccordionShortcode',
 			'AccordionItemShortcode'
 		);
-		array_splice($buttons, count($buttons) - 1, 0, $newButtons);
+		array_splice($buttons, 12, 0, $newButtons);
 		
 		return $buttons;
 	}
