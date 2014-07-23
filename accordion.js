@@ -24,7 +24,7 @@
 	$('.accordion').removeClass('no-js');
 	
 	// Should any accordions be opened on load?
-	if (selectId.length) {
+	if (selectId.length && selectId.hasClass('accordion-title')) {
 		selectId.addClass('open');
 		selectId.next().slideDown(duration);
 	}
@@ -70,6 +70,21 @@
 		}
 		return false;
 	
+	});
+	
+	// Listen for hash changes (in page jump links for accordions)
+	$(window).on('hashchange', function() {
+		selectId = $(window.location.hash);
+		if (selectId.length && selectId.hasClass('accordion-title')) {
+			allPanels.slideUp(duration);
+			allTitles.removeClass('open');
+			selectId.addClass('open');
+			selectId.next().slideDown(duration, function() {
+				$('html, body').animate({
+					scrollTop: $(this).prev().offset().top
+				}, duration);
+			});
+		}
 	});
 
 }(jQuery));
