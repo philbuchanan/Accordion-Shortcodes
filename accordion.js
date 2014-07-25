@@ -39,10 +39,8 @@
 	
 	// Add event listener
 	allTitles.click(function() {
-	
 		// Only open the item if item isn't already open
 		if (!$(this).hasClass('open')) {
-		
 			// Close all accordion items
 			if (settings.autoClose) {
 				allPanels.slideUp(duration);
@@ -59,17 +57,14 @@
 				}
 			});
 			$(this).addClass('open');
-		
 		}
 		// If item is open, and click to close is set, close it
 		else if (settings.clickToClose) {
-		
 			$(this).next().slideUp(duration);
 			$(this).removeClass('open');
-		
 		}
+		
 		return false;
-	
 	});
 	
 	// Listen for hash changes (in page jump links for accordions)
