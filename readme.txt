@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.3.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,14 +19,17 @@ Adds a few shortcodes to allow for accordion drop-downs.
 = Features =
 
 * Adds two shortcodes for adding an accordion to your site
+* Two buttons in the TinyMCE editor make it easy to add and configure the accordion shortcodes
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
-* Set the HTML tag for the title element of each item (optional)
+* Support for item IDs and direct links
+* Set the HTML tag for the title element (optional)
 * Open the first accordion item by default (optional)
 * Open all accordion items by default (optional)
 * Disable auto closing of accordion items (optional)
 * Manually close items by clicking the title again (optional)
 * Scroll page to title when it's clicked open (optional)
+* Change the semantic structure of your accordions (optional, advanced)
 
 = The Shortcodes =
 
@@ -76,7 +79,7 @@ This is most likely caused by a poorly coded theme. This plugin makes use of the
 
 = How can I change the look of the accordion? =
 
-No CSS is added by default to the accordion. The accodion should look fine with every theme.
+No CSS is added by default to the accordion. The accordion should look fine with every theme.
 
 That said, you can change the looking of the accordion as long as you are comfortable with editing your theme's stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
 
@@ -94,8 +97,8 @@ Here is some sample CSS to get you started if you want to customize the look and
 
     /* Accordion Styles */
     .accordion {
-    	border-bottom: 1px solid #dbdbdb;
-    	margin-bottom: 20px;
+        border-bottom: 1px solid #dbdbdb;
+        margin-bottom: 20px;
     }
     .accordion-title {
         border-top: 1px solid #dbdbdb;
@@ -108,6 +111,22 @@ Here is some sample CSS to get you started if you want to customize the look and
     .accordion-title.open {cursor: default;}
     .accordion-content {padding-bottom: 20px;}
 
+= Opening an Accordion Via ID =
+
+You can optionally add a unique ID to each of your accordion items and then use that ID in the URL to open that item by default. For example, say you have the following accordions:
+
+    [accordion]
+    [accordion-item id="item-1" title="Title of accordion item"]Drop-down content goes here.[/accordion-item]
+    [accordion-item id="item-2" title="Second accordion item"]Drop-down content goes here.[/accordion-item]
+    [accordion-item id="item-3" title="A Third accordion"]Drop-down content goes here.[/accordion-item]
+    [/accordion]
+
+You could use this URL to open the third item by default:
+
+    http://yourdomain.com/your/path/#item-3
+
+All you need to do is ensure that the part after the `#` in the URL matches the ID set on the accordion item.
+
 = Advanced Settings =
 
 There are a few advanced settings you can add to the opening accordion shortcode. The full shortcode, with all the default settings looks like this:
@@ -118,7 +137,7 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **openfirst**: Sets whether the first accordion item is open by default. This setting will be overridden if **openall** is set to true. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
 
-**openall**: Sets whether all accordion items are open by default. It is recommened that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
+**openall**: Sets whether all accordion items are open by default. It is recommended that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
@@ -126,108 +145,46 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
 
-You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribue on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, span and div.
+You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribute on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, div.
+
+**semantics**: You can change the entire semantic structure of the accordions to use a definition list (dl, dt, dd) by setting `semantics="dl"` on the opening accordion tag like this: `[accordion semantics="dl"]`. By default the accordion will use `div` tags for the wrapper and content containers. If you set this option to `dl`, it is recommended that you do not also use the `tag` option. This feature is not selectable from the accordion button dialog box and must be added manually.
+
+= Filtering Shortcodes =
+
+You can filter the settings and content of the shortcodes by adding some simply code to the functions.php file of your theme.
+
+For example, you could set the `openfirst` option for all accordions across the entire site using:
+
+    add_filter('shortcode_atts_accordion', 'set_accordion_shortcode_defaults', 10, 3);
+    function set_accordion_shortcode_defaults($atts) {
+        // Override the openfirst setting here
+        $atts['openfirst'] = true;
+        return $atts;
+    }
 
 = Issues/Suggestions =
 
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
 
+= Additional Thanks =
+
+Thank you to [dgrevink](https://github.com/dgrevink) for his support in developing the item IDs and direct linking feature.
+
+== Screenshots ==
+
+1. The Accordion Group and Accordion Item shortcode buttons in the editor
+2. The Accordion Group shortcode insertion dialog box
+3. The Accordion Item shortcode insertion dialog box
+
 == Changelog ==
-= 1.3.1 =
-* Fixes an issue where an empty tag attribute would break the accordion
-* Tags are now checked against a list of valid HTML tags
-
-= 1.3 =
-* Added global HTML tag setting for accordion item titles
-
-= 1.2.4 =
-* Compatibility with WordPress 3.9
-
-= 1.2.3 =
-* Added the shortcode parameter when calling shortcode_atts()
-
-= 1.2.2 =
-* Added option to scroll page to title when it's clicked open
-* Added detection for SCRIPT_DEBUG to load minified JavaScript conditionally
-
-= 1.2.1 =
-* Added option to open all items by default
-
-= 1.2 =
-* Fixed a potential error with headers already being sent
-* Fixed an issue with the SVN repo
-* Code cleanup
-
-= 1.1.1 =
-* Added link to documentation from plugins page
-* Added FAQs to readme
-
-= 1.1 =
-* **WARNING**: This update makes HTML structure changes and will require changes to your CSS
-* New HTML structure, based on class names
-* HTML now validates properly
-* Added localization support for error messages
-
-= 1.0.4 =
-* Added option to close an open item by clicking the title
-
-= 1.0.3 =
-* Added option to open the first item by default
-* Fixed an issue where clicking an already open item will close and reopen it
-* Added better inline documentation
-* Added minified JavaScript file
-
-= 1.0.2 =
-* Added setting to disable auto closing of accordion items
-* Better handling of accordion items with no title attribute set
-* Updated minimum WordPress version requirement (should still work down to 2.8, but not supported)
-
-= 1.0.1 =
-* Checks if the class exists before trying to create it
-* Updated readme
-
-= 1.0 =
-* Initial release
+= 2.0 =
+* NEW: Buttons in the editor to easily add shortcodes with various settings
+* NEW: Support for item IDs on accordion items and direct linking to a specific item
+* NEW: Change the entire semantic structure of your accordions by using definition lists
+* ENHANCED: Class added if JavaScript is disabled (so you can style your accordions differently if necessary)
+* ENHANCED: Each accordion now has its own unique ID (accordion-1, accordion-2...) so you can target each one on a page
+* FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
-= 1.3.1 =
-IMPORTANT: Tags are now checked against a list of valid HTML tags. If you use a tag other than h1, h2, h3, h4, h5, h6, p, span or div for your titles, please let me know. You will want to avoid this update until I add your tag to the list. This update also fixes an issue where an empty tag attribute would break the accordion.
-
-= 1.3 =
-Added global HTML tag setting for accordion item titles.
-
-= 1.2.4 =
-Compatibility with WordPress 3.9.
-
-= 1.2.3 =
-Added the shortcode parameter when calling shortcode_atts().
-
-= 1.2.2 =
-Added option to scroll page to title when it's clicked open (useful if your accordion items contain a lot of content).
-
-= 1.2.1 =
-Added option to open all items by default.
-
-= 1.2 =
-General code cleanup and bug fixes.
-
-= 1.1.1 =
-Added a link to plugin documentation from the plugins page for easy access.
-
-= 1.1 =
-**WARNING**: This update makes HTML structure changes and will require changes to your CSS.
-
-= 1.0.4 =
-Added an option to close an item by clicking the title.
-
-= 1.0.3 =
-Added an option to open the first item by default. Fixed a bug that caused open items to close and reopen when clicking them.
-
-= 1.0.2 =
-Added an option to disable auto closing of accordion items.
-
-= 1.0.1 =
-Minor code updates.
-
-= 1.0 =
-Initial release.
+= 2.0 =
+Big changes for version 2.0! See the [changelog](http://wordpress.org/plugins/accordion-shortcodes/changelog/) for details.
