@@ -179,6 +179,10 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.0.1 =
+* NEW: Add a custom CSS classname to your accordion item group or accordion item shortcode
+* Now compatible up to WordPress 4.0
+
 = 2.0 =
 * NEW: Buttons in the editor to easily add shortcodes with various settings
 * NEW: Support for item IDs on accordion items and direct linking to a specific item
@@ -188,5 +192,8 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.0.1 =
+WordPress 4.0 compatibility.
+
 = 2.0 =
 Big changes for version 2.0! See the [changelog](http://wordpress.org/plugins/accordion-shortcodes/changelog/) for details.
