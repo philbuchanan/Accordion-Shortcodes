@@ -105,7 +105,7 @@ class Accordion_Shortcodes {
 			'openFirst'    => $this -> parse_boolean($openfirst),
 			'openAll'      => $this -> parse_boolean($openall),
 			'clickToClose' => $this -> parse_boolean($clicktoclose),
-			'scroll'       => $this -> parse_boolean($scroll)
+			'scroll'       => $scroll
 		);
 		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		

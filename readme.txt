@@ -141,7 +141,7 @@ There are a few advanced settings you can add to the opening accordion shortcode
 
 **clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
-**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`.
+**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`. You may also specify an integer for a pixel offset if you'd like the page to scroll further (useful when the site uses a fixed position header navigation). NOTE: Only use pixel offset integers of > 0. If you do not want a scroll offset, but still want scrolling, simply use `scroll="true"`.
 
 **class**: Sets a custom CSS class for the accordion group or individual accordion items. Set `class="your-class-name"` on the opening accordion or accordion-item shortcode like this: `[accordion class="your-class-name"]` or `[accordion-item class="your-class-name"]`. Added a class to the accordion-item will add the class to the title HTML tag.
 
@@ -181,6 +181,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 == Changelog ==
 = 2.0.1 =
 * NEW: Add a custom CSS classname to your accordion item group or accordion item shortcode
+* NEW: Set an integer for scroll property to offset the scrolling by that many pixels 
 * Now compatible up to WordPress 4.0
 
 = 2.0 =

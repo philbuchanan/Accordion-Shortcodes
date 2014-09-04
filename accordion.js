@@ -20,6 +20,9 @@
 		settings = accordionSettings;
 	}
 	
+	// Set the scroll offset
+	settings.scrollOffset = Math.floor(parseInt(settings.scroll)) | 0;
+	
 	// Remove no-js class if JavaScript is enabled
 	$('.accordion').removeClass('no-js');
 	
@@ -52,7 +55,7 @@
 				// Scroll page to the title
 				if (settings.scroll) {
 					$('html, body').animate({
-						scrollTop: $(this).prev().offset().top
+						scrollTop: $(this).prev().offset().top - settings.scrollOffset
 					}, duration);
 				}
 			});
@@ -76,7 +79,7 @@
 			selectId.addClass('open');
 			selectId.next().slideDown(duration, function() {
 				$('html, body').animate({
-					scrollTop: $(this).prev().offset().top
+					scrollTop: $(this).prev().offset().top - settings.scrollOffset
 				}, duration);
 			});
 		}
