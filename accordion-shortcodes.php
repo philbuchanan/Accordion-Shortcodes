@@ -17,6 +17,7 @@ class Accordion_Shortcodes {
 	private $plugin_version = '2.1';
 	private $add_script = false;
 	
+	private $id = 0;
 	private $wrapper_tag = 'div';
 	private $title_tag   = 'h3';
 	private $content_tag = 'div';
@@ -49,13 +50,13 @@ class Accordion_Shortcodes {
 	# Registers the minified accordion JavaScript file
 	public function register_script() {
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this -> plugin_version, true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this->plugin_version, true);
 	}
 	
 	# Prints the minified accordion JavaScript file in the footer
 	public function print_script() {
 		# Check to see if shortcodes are used on page
-		if (!$this -> add_script) return;
+		if (!$this->add_script) return;
 		
 		wp_enqueue_script('accordion-shortcodes-script');
 	}
@@ -71,13 +72,16 @@ class Accordion_Shortcodes {
 		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div');
 		
 		if (in_array($tag, $tags)) return $tag;
-		else return $this -> title_tag;
+		else return $this->title_tag;
 	}
 	
 	# Accordion wrapper shortcode
 	public function accordion_shortcode($atts, $content = null) {
-		# The shortcode is used on the page, so we'll need to load the JavaScript
-		$this -> add_script = true;
+		# The shortcode is used on the page, so load the JavaScript
+		$this->add_script = true;
+		
+		# Increment accordion counter
+		$this->id++;
 		
 		extract(shortcode_atts(array(
 			'tag'          => '',
@@ -92,26 +96,26 @@ class Accordion_Shortcodes {
 		
 		# Set global HTML tag names
 		if ($semantics == 'dl') {
-			$this -> wrapper_tag = 'dl';
-			$this -> title_tag   = 'dt';
-			$this -> content_tag = 'dd';
+			$this->wrapper_tag = 'dl';
+			$this->title_tag   = 'dt';
+			$this->content_tag = 'dd';
 		}
 		
-		if ($tag) $this -> title_tag = $this -> check_html_tag($tag);
+		if ($tag) $this->title_tag = $this->check_html_tag($tag);
 		
 		# Set settings object (for use in JavaScript)
 		$script_data = array(
-			'autoClose'    => $this -> parse_boolean($autoclose),
-			'openFirst'    => $this -> parse_boolean($openfirst),
-			'openAll'      => $this -> parse_boolean($openall),
-			'clickToClose' => $this -> parse_boolean($clicktoclose),
+			'autoClose'    => $this->parse_boolean($autoclose),
+			'openFirst'    => $this->parse_boolean($openfirst),
+			'openAll'      => $this->parse_boolean($openall),
+			'clickToClose' => $this->parse_boolean($clicktoclose),
 			'scroll'       => $scroll
 		);
-		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
+		wp_localize_script('accordion-shortcodes-script', "accordionSettings", $script_data);
 		
 		return sprintf('<%2$s class="accordion no-js%3$s">%1$s</%2$s>',
 			do_shortcode($content),
-			$this -> wrapper_tag,
+			$this->wrapper_tag,
 			$class ? " $class" : ''
 		);
 	}
@@ -129,8 +133,8 @@ class Accordion_Shortcodes {
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$id ? ' id="' . $id . '"' : '',
-			$tag ? $this -> check_html_tag($tag) : $this -> title_tag,
-			$this -> content_tag,
+			$tag ? $this->check_html_tag($tag) : $this->title_tag,
+			$this->content_tag,
 			$class ? " $class" : ''
 		);
 	}
