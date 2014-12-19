@@ -1,7 +1,7 @@
 (function($) {
 	'use strict';
 	
-	var i, index;
+	var i, settings;
 	
 	
 	
@@ -14,8 +14,9 @@
 	
 		var allTitles  = this.children('.accordion-title'),
 			allPanels  = this.children('.accordion-content').hide(),
+			firstTitle = this.children('.accordion-title:first-of-type'),
 			firstPanel = this.children('.accordion-content:first-of-type'),
-			selectId   = $(window.location.hash),
+			selected   = $(window.location.hash),
 			duration   = 250,
 			settings   = $.extend({
 				// Set default settings
@@ -26,26 +27,24 @@
 				scroll:       false
 			}, options);
 		
+		// Remove 'no-js' class since JavaScript is enabled
+		$('.accordion').removeClass('no-js');
+		
 		// Set the scroll offset
 		settings.scrollOffset = Math.floor(parseInt(settings.scroll)) | 0;
 		
-		console.log(settings);
-		
-		// Remove no-js class if JavaScript is enabled
-		$('.accordion').removeClass('no-js');
-		
 		// Should any accordions be opened on load?
-		if (selectId.length && selectId.hasClass('accordion-title')) {
-			selectId.addClass('open');
-			selectId.next().slideDown(duration);
+		if (selected.length && selected.hasClass('accordion-title')) {
+			selected.next().slideDown(duration);
+			selected.addClass('open');
 		}
 		else if (settings.openAll) {
 			allPanels.show();
 			allTitles.addClass('open');
 		}
 		else if (settings.openFirst) {
-			firstPanel.prev().addClass('open');
 			firstPanel.slideDown(duration);
+			firstTitle.addClass('open');
 		}
 		
 		// Add event listener
@@ -80,12 +79,14 @@
 		
 		// Listen for hash changes (in page jump links for accordions)
 		$(window).on('hashchange', function() {
-			selectId = $(window.location.hash);
-			if (selectId.length && selectId.hasClass('accordion-title')) {
+			selected = $(window.location.hash);
+			
+			if (selected.length && selected.hasClass('accordion-title')) {
 				allPanels.slideUp(duration);
 				allTitles.removeClass('open');
-				selectId.addClass('open');
-				selectId.next().slideDown(duration, function() {
+				selected.addClass('open');
+				
+				selected.next().slideDown(duration, function() {
 					$('html, body').animate({
 						scrollTop: $(this).prev().offset().top - settings.scrollOffset
 					}, duration);
@@ -99,9 +100,10 @@
 	
 	
 	
-	for (i = 0; i < accordionShortcodesSettings.length; i += 1) {
-		index = i + 1;
+	// Loop through accordion settings objects
+	for (var i = 0; i < accordionShortcodesSettings.length; i += 1) {
+		settings = accordionShortcodesSettings[i];
 		
-		$('#accordion-1').accordionShortcodes(accordionShortcodesSettings[i]);
+		$('#' + settings.id).accordionShortcodes(settings);
 	}
 }(jQuery));

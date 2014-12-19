@@ -61,7 +61,7 @@ class Accordion_Shortcodes {
 		
 		wp_enqueue_script('accordion-shortcodes-script');
 		
-		wp_localize_script('accordion-shortcodes-script', "accordionShortcodesSettings", $this->script_data);
+		wp_localize_script('accordion-shortcodes-script', 'accordionShortcodesSettings', $this->script_data);
 	}
 	
 	// Checks for boolean value
@@ -108,6 +108,7 @@ class Accordion_Shortcodes {
 		
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
+			'id'           => "accordion-$this->id",
 			'autoClose'    => $this->parse_boolean($autoclose),
 			'openFirst'    => $this->parse_boolean($openfirst),
 			'openAll'      => $this->parse_boolean($openall),
@@ -116,7 +117,7 @@ class Accordion_Shortcodes {
 		);
 		
 		// Add this instances settings to script data array
-		array_push($this->script_data, $script_data);
+		$this->script_data[] = $script_data;
 		
 		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',
 			do_shortcode($content),
