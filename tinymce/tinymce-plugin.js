@@ -46,13 +46,13 @@
 							minWidth: 75,
 							values: [
 								{text: '---', value: null},
-								{text: 'h1', value: 'h1'},
-								{text: 'h2', value: 'h2'},
-								{text: 'h3', value: 'h3'},
-								{text: 'h4', value: 'h4'},
-								{text: 'h5', value: 'h5'},
-								{text: 'h6', value: 'h6'},
-								{text: 'p', value: 'p'},
+								{text: 'h1',  value: 'h1'},
+								{text: 'h2',  value: 'h2'},
+								{text: 'h3',  value: 'h3'},
+								{text: 'h4',  value: 'h4'},
+								{text: 'h5',  value: 'h5'},
+								{text: 'h6',  value: 'h6'},
+								{text: 'p',   value: 'p'},
 								{text: 'div', value: 'div'}
 							]
 						}
@@ -139,7 +139,7 @@
 				longname:  'Accordion Buttons',
 				author:    'Phil Buchanan',
 				authorurl: 'http://philbuchanan.com/',
-				version:   '2.0'
+				version:   '2.1'
 			};
 		}
 	});
