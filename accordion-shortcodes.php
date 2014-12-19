@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Accordion Shortcodes
- * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 2.1
+ * Description: Shortcodes for creating responsive accordion drop-downs.
+ * Version: 2.1.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -14,7 +14,7 @@ if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
-	private $plugin_version = '2.1';
+	private $plugin_version = '2.1.1';
 	private $add_script     = false;
 	private $script_data    = array();
 	private $id             = 0;

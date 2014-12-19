@@ -139,7 +139,7 @@
 				longname:  'Accordion Buttons',
 				author:    'Phil Buchanan',
 				authorurl: 'http://philbuchanan.com/',
-				version:   '2.1'
+				version:   '2.1.1'
 			};
 		}
 	});
