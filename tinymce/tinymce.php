@@ -1,6 +1,6 @@
 <?php
 
-# Make sure to not redeclare the class
+// Make sure to not redeclare the class
 if (!class_exists('Accordion_Shortcode_Tinymce_Extensions')) :
 
 class Accordion_Shortcode_Tinymce_Extensions {

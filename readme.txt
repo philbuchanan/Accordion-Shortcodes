@@ -2,44 +2,50 @@
 Contributors: philbuchanan
 Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
-Tags: accordion, accordions, shortcodes
+Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.0
-Stable tag: 2.0.1
+Tested up to: 4.1
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a few shortcodes to allow for accordion drop-downs.
+Shortcodes for creating responsive accordion drop-downs.
 
 == Description ==
-Adds a few shortcodes to allow for accordion drop-downs.
 
-**IMPORTANT:** If you are not comfortable with WordPress shortcodes, this plugin may not be for you. Additionally, you may want to be able to edit your themes main stylesheet in order to [add some custom CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
+Accordion Shortcodes is a simple plugin that adds a few shortcodes for adding accordion drop-downs to your pages.
+
+The accordions should blend seemlessly with your theme. However, you may want to be able to edit your themes main stylesheet in order to [add some custom styling (CSS)](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
 
 = Features =
 
-* Adds two shortcodes for adding an accordion to your site
+* Adds two shortcodes for adding accordions to your site
+* Supports multiple accordions with individual settings on a single page
 * Two buttons in the TinyMCE editor make it easy to add and configure the accordion shortcodes
+* Responsive
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
 * Support for item IDs and direct links
-* Set the HTML tag for the title element (optional)
-* Open the first accordion item by default (optional)
-* Open all accordion items by default (optional)
-* Disable auto closing of accordion items (optional)
-* Manually close items by clicking the title again (optional)
-* Scroll page to title when it's clicked open (optional)
-* Change the semantic structure of your accordions (optional, advanced)
+
+= Optional Features =
+
+* Open the first accordion item by default
+* Open all accordion items by default
+* Disable auto closing of accordion items
+* Manually close items by clicking the title again
+* Scroll page to title when it's clicked open
+* Set the HTML tag for the title element
+* Change the semantic structure of your accordions (advanced)
 
 = The Shortcodes =
 
 The two shortcodes that are added are:
 
-`[accordion]`
+`[accordion]...[/accordion]`
 
 and
 
-`[accordion-item title=""]`
+`[accordion-item title=""]...[/accordion-item]`
 
 = Basic Usage Example =
 
@@ -179,6 +185,10 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.1 =
+* NEW: Use multiple accordions on a single page! Each shortcode will now respect its own individual settings.
+* Now compatible up to WordPress 4.1
+
 = 2.0.1 =
 * NEW: Add a custom CSS classname to your accordion item group or accordion item shortcode
 * NEW: Set an integer for scroll property to offset the scrolling by that many pixels 
@@ -193,6 +203,9 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.1 =
+This update brings the much request support for multiple accordions on a single page! Each shortcode will now respect its own individual settings.
+
 = 2.0.1 =
 WordPress 4.0 compatibility.
 

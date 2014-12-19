@@ -2,20 +2,22 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Adds a few shortcodes to allow for accordion dropdowns.
- * Version: 2.0.1
+ * Version: 2.1
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
 
 require_once('tinymce/tinymce.php');
 
-# Make sure to not redeclare the class
+// Make sure to not redeclare the class
 if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
-	private $plugin_version = '2.0.1';
-	private $add_script = false;
+	private $plugin_version = '2.1';
+	private $add_script     = false;
+	private $script_data    = array();
+	private $id             = 0;
 	
 	private $wrapper_tag = 'div';
 	private $title_tag   = 'h3';
@@ -24,60 +26,65 @@ class Accordion_Shortcodes {
 	function __construct() {
 		$basename = plugin_basename(__FILE__);
 		
-		# Load text domain
+		// Load text domain
 		load_plugin_textdomain('accordion_shortcodes', false, dirname($basename) . '/languages/');
 		
-		# Register JavaScript
+		// Register JavaScript
 		add_action('wp_enqueue_scripts', array($this, 'register_script'));
 		
-		# Add shortcodes
+		// Add shortcodes
 		add_shortcode('accordion', array($this, 'accordion_shortcode'));
 		add_shortcode('accordion-item', array($this, 'accordion_item_shortcode'));
 		
-		# Print script in wp_footer
+		// Print script in wp_footer
 		add_action('wp_footer', array($this, 'print_script'));
 		
-		# Add link to documentation
+		// Add link to documentation
 		add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
 		
-		# Add buttons to editor
+		// Add buttons to editor
 		if (is_admin()) {
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
 		}
 	}
 	
-	# Registers the minified accordion JavaScript file
+	// Registers the minified accordion JavaScript file
 	public function register_script() {
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this -> plugin_version, true);
+		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this->plugin_version, true);
 	}
 	
-	# Prints the minified accordion JavaScript file in the footer
+	// Prints the minified accordion JavaScript file in the footer
 	public function print_script() {
-		# Check to see if shortcodes are used on page
-		if (!$this -> add_script) return;
+		// Check to see if shortcodes are used on page
+		if (!$this->add_script) return;
 		
 		wp_enqueue_script('accordion-shortcodes-script');
+		
+		wp_localize_script('accordion-shortcodes-script', 'accordionShortcodesSettings', $this->script_data);
 	}
 	
-	# Checks for boolean value
+	// Checks for boolean value
 	private function parse_boolean($value) {
 		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 	
-	# Check for valid HTML tag
+	// Check for valid HTML tag
 	private function check_html_tag($tag) {
 		$tag = preg_replace('/\s/', '', $tag);
 		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div');
 		
 		if (in_array($tag, $tags)) return $tag;
-		else return $this -> title_tag;
+		else return $this->title_tag;
 	}
 	
-	# Accordion wrapper shortcode
+	// Accordion wrapper shortcode
 	public function accordion_shortcode($atts, $content = null) {
-		# The shortcode is used on the page, so we'll need to load the JavaScript
-		$this -> add_script = true;
+		// The shortcode is used on the page, so load the JavaScript
+		$this->add_script = true;
+		
+		// Increment accordion counter
+		$this->id++;
 		
 		extract(shortcode_atts(array(
 			'tag'          => '',
@@ -90,33 +97,37 @@ class Accordion_Shortcodes {
 			'class'        => ''
 		), $atts, 'accordion'));
 		
-		# Set global HTML tag names
+		// Set global HTML tag names
 		if ($semantics == 'dl') {
-			$this -> wrapper_tag = 'dl';
-			$this -> title_tag   = 'dt';
-			$this -> content_tag = 'dd';
+			$this->wrapper_tag = 'dl';
+			$this->title_tag   = 'dt';
+			$this->content_tag = 'dd';
 		}
 		
-		if ($tag) $this -> title_tag = $this -> check_html_tag($tag);
+		if ($tag) $this->title_tag = $this->check_html_tag($tag);
 		
-		# Set settings object (for use in JavaScript)
+		// Set settings object (for use in JavaScript)
 		$script_data = array(
-			'autoClose'    => $this -> parse_boolean($autoclose),
-			'openFirst'    => $this -> parse_boolean($openfirst),
-			'openAll'      => $this -> parse_boolean($openall),
-			'clickToClose' => $this -> parse_boolean($clicktoclose),
+			'id'           => "accordion-$this->id",
+			'autoClose'    => $this->parse_boolean($autoclose),
+			'openFirst'    => $this->parse_boolean($openfirst),
+			'openAll'      => $this->parse_boolean($openall),
+			'clickToClose' => $this->parse_boolean($clicktoclose),
 			'scroll'       => $scroll
 		);
-		wp_localize_script('accordion-shortcodes-script', 'accordionSettings', $script_data);
 		
-		return sprintf('<%2$s class="accordion no-js%3$s">%1$s</%2$s>',
+		// Add this instances settings to script data array
+		$this->script_data[] = $script_data;
+		
+		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',
 			do_shortcode($content),
-			$this -> wrapper_tag,
+			$this->wrapper_tag,
+			"accordion-$this->id",
 			$class ? " $class" : ''
 		);
 	}
 	
-	# Accordion item shortcode
+	// Accordion item shortcode
 	public function accordion_item_shortcode($atts, $content = null) {
 		extract(shortcode_atts(array(
 			'title' => '',
@@ -129,13 +140,13 @@ class Accordion_Shortcodes {
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$id ? ' id="' . $id . '"' : '',
-			$tag ? $this -> check_html_tag($tag) : $this -> title_tag,
-			$this -> content_tag,
+			$tag ? $this->check_html_tag($tag) : $this->title_tag,
+			$this->content_tag,
 			$class ? " $class" : ''
 		);
 	}
 	
-	# Add documentation link on plugin page
+	// Add documentation link on plugin page
 	public function add_documentation_link($links) {
 		array_push($links, sprintf('<a href="%s">%s</a>',
 			'http://wordpress.org/plugins/accordion-shortcodes/',
