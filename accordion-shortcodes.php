@@ -61,6 +61,7 @@ class Accordion_Shortcodes {
 		
 		wp_enqueue_script('accordion-shortcodes-script');
 		
+		// Output accordions settings JavaScript variable
 		wp_localize_script('accordion-shortcodes-script', 'accordionShortcodesSettings', $this->script_data);
 	}
 	
@@ -98,13 +99,22 @@ class Accordion_Shortcodes {
 		), $atts, 'accordion'));
 		
 		// Set global HTML tag names
+		// Set title HTML tag
+		if ($tag) $this->title_tag = $this->check_html_tag($tag);
+		else $this->title_tag = 'h3';
+		
+		// Set wrapper HTML tags
 		if ($semantics == 'dl') {
 			$this->wrapper_tag = 'dl';
 			$this->title_tag   = 'dt';
 			$this->content_tag = 'dd';
 		}
+		else {
+			$this->wrapper_tag = 'div';
+			$this->content_tag = 'div';
+		}
 		
-		if ($tag) $this->title_tag = $this->check_html_tag($tag);
+		echo $tag . ', ' . $this->title_tag;
 		
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
@@ -116,7 +126,7 @@ class Accordion_Shortcodes {
 			'scroll'       => $scroll
 		);
 		
-		// Add this instances settings to script data array
+		// Add this shortcodes settings instance to the global script data array
 		$this->script_data[] = $script_data;
 		
 		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',

@@ -185,6 +185,10 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.1.1 =
+* FIXED: An issue where openfirst would not work if title tag was set to div
+* FIXED: An issue where title tag setting was not respected when using multiple accordions on one page
+
 = 2.1 =
 * NEW: Use multiple accordions on a single page! Each shortcode will now respect its own individual settings.
 * Now compatible up to WordPress 4.1
@@ -203,6 +207,9 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.1.1 =
+Fixes a few minor issues accidentally introduced in the big version 2.1 update.
+
 = 2.1 =
 This update brings the much request support for multiple accordions on a single page! Each shortcode will now respect its own individual settings.
 
