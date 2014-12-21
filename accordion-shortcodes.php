@@ -114,8 +114,6 @@ class Accordion_Shortcodes {
 			$this->content_tag = 'div';
 		}
 		
-		echo $tag . ', ' . $this->title_tag;
-		
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
 			'id'           => "accordion-$this->id",
