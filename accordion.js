@@ -14,7 +14,8 @@
 	
 		var allTitles  = this.children('.accordion-title'),
 			allPanels  = this.children('.accordion-content').hide(),
-			firstPanel = this.children('.accordion-content:first-of-type'),
+			firstTitle = allTitles.first(),
+			firstPanel = allPanels.first(),
 			selectedId = $(window.location.hash),
 			duration   = 250,
 			settings   = $.extend({
@@ -42,7 +43,7 @@
 			allTitles.addClass('open');
 		}
 		else if (settings.openFirst) {
-			firstPanel.prev().addClass('open');
+			firstTitle.addClass('open');
 			firstPanel.slideDown(duration);
 		}
 		
