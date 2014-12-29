@@ -14,9 +14,9 @@
 	
 		var allTitles  = this.children('.accordion-title'),
 			allPanels  = this.children('.accordion-content').hide(),
-			firstTitle = this.children('.accordion-title:first-of-type'),
-			firstPanel = this.children('.accordion-content:first-of-type'),
-			selected   = $(window.location.hash),
+			firstTitle = allTitles.first(),
+			firstPanel = allPanels.first(),
+			selectedId = $(window.location.hash),
 			duration   = 250,
 			settings   = $.extend({
 				// Set default settings
@@ -34,17 +34,17 @@
 		settings.scrollOffset = Math.floor(parseInt(settings.scroll)) | 0;
 		
 		// Should any accordions be opened on load?
-		if (selected.length && selected.hasClass('accordion-title')) {
-			selected.next().slideDown(duration);
-			selected.addClass('open');
+		if (selectedId.length && selectedId.hasClass('accordion-title')) {
+			selectedId.addClass('open');
+			selectedId.next().slideDown(duration);
 		}
 		else if (settings.openAll) {
 			allPanels.show();
 			allTitles.addClass('open');
 		}
 		else if (settings.openFirst) {
-			firstPanel.slideDown(duration);
 			firstTitle.addClass('open');
+			firstPanel.slideDown(duration);
 		}
 		
 		// Add event listener
@@ -79,14 +79,14 @@
 		
 		// Listen for hash changes (in page jump links for accordions)
 		$(window).on('hashchange', function() {
-			selected = $(window.location.hash);
+			selectedId = $(window.location.hash);
 			
-			if (selected.length && selected.hasClass('accordion-title')) {
+			if (selectedId.length && selectedId.hasClass('accordion-title')) {
 				allPanels.slideUp(duration);
 				allTitles.removeClass('open');
-				selected.addClass('open');
+				selectedId.addClass('open');
 				
-				selected.next().slideDown(duration, function() {
+				selectedId.next().slideDown(duration, function() {
 					$('html, body').animate({
 						scrollTop: $(this).prev().offset().top - settings.scrollOffset
 					}, duration);
