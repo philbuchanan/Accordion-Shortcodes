@@ -208,7 +208,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Upgrade Notice ==
 = 2.1.1 =
-Fixes a few minor issues accidentally introduced in the big version 2.1 update.
+Fixes a few minor issues accidentally introduced in the 2.1 update.
 
 = 2.1 =
 This update brings the much request support for multiple accordions on a single page! Each shortcode will now respect its own individual settings.
