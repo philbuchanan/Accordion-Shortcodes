@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 2.1.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +185,9 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.2 =
+* NEW: Contextual admin help tab with link to full plugin documentation
+
 = 2.1.1 =
 * FIXED: An issue where openfirst would not work if title tag was set to div
 * FIXED: An issue where title tag setting was not respected when using multiple accordions on one page
@@ -207,6 +210,9 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.2 =
+Added contextual admin help tab to posts and pages with link to full plugin documentation.
+
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
 

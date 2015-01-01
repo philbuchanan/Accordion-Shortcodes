@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Shortcodes for creating responsive accordion drop-downs.
- * Version: 2.1.1
+ * Version: 2.2
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -14,7 +14,7 @@ if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
-	private $plugin_version = '2.1.1';
+	private $plugin_version = '2.2';
 	private $add_script     = false;
 	private $script_data    = array();
 	private $id             = 0;
@@ -42,9 +42,12 @@ class Accordion_Shortcodes {
 		// Add link to documentation
 		add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
 		
-		// Add buttons to editor
 		if (is_admin()) {
+			// Add buttons to editor
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
+			
+			// Add admin help tab
+			add_action("load-{$GLOBALS['pagenow']}", array($this, 'add_admin_help_tab'));
 		}
 	}
 	
@@ -158,10 +161,27 @@ class Accordion_Shortcodes {
 	public function add_documentation_link($links) {
 		array_push($links, sprintf('<a href="%s">%s</a>',
 			'http://wordpress.org/plugins/accordion-shortcodes/',
-			__('Documentation', 'accordion_shortcodes')
+			_x('Documentation', 'link to documentation on wordpress.org site', 'accordion_shortcodes')
 		));
 		
 		return $links;
+	}
+	
+	// Add admin help tab to edit pages and edit posts pages
+	public function add_admin_help_tab() {
+		$screen = get_current_screen();
+		
+		if ($screen->id == 'post' || $screen->id == 'page') {
+			$content[] = '<p>' . __('It is recommended that you use the accordion group and accordion item shortcode buttons to insert pre-formatted shortcodes. Your [accordion-items] should be nested inside an [accordion]...[/accordion] block.', 'accordion_shortcodes') . '</p>';
+			$content[] = '<p>' . __('You can set custom accordion settings on the opening [accordion] shortcode to change the behaviour of your accordion. Some of the settings you can add are: autoclose, openfirst, openall, clicktoclose, and scroll (set each equal to "true" or "false"). You can also change the default HTML tag for the accordion titles or add a custom CSS classname.', 'accordion_shortcodes') . '</p>';
+			$content[] = '<p><a href="https://wordpress.org/plugins/accordion-shortcodes/other_notes/" target="_blank">' . __('View the full accordion shortcodes plugin documentation', 'accordion_shortcodes') . '</a></p>';
+			
+			$screen->add_help_tab(array(
+        		'id'      => 'accordion_shortcodes_help',
+				'title'   => _x('Accordion Shortcodes', 'plugin title, displays in admin help tab', 'accordion_shortcodes'),
+				'content' => implode('', $content)
+			));
+		}
 	}
 
 }
