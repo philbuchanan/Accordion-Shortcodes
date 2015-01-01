@@ -3,6 +3,8 @@
 	
 	tinymce.create('tinymce.plugins.accordionShortcodesExtensions', {
 		init: function(editor, url) {
+			
+			// Accordion group
 			editor.addButton('AccordionShortcode', {
 				title: 'Add an accordion group',
 				cmd: 'accordionShortcode',
@@ -86,7 +88,7 @@
 				});
 			});
 			
-			// Accordion Item
+			// Accordion item
 			editor.addButton('AccordionItemShortcode', {
 				title: 'Add an accordion item',
 				cmd: 'accordionItemShortcode',
@@ -132,15 +134,6 @@
 					}
 				});
 			});
-		},
-		
-		getInfo: function() {
-			return {
-				longname:  'Accordion Buttons',
-				author:    'Phil Buchanan',
-				authorurl: 'http://philbuchanan.com/',
-				version:   '2.2'
-			};
 		}
 	});
 	

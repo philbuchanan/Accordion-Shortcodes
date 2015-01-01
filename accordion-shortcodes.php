@@ -14,15 +14,60 @@ if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
+	/**
+	 * Current plugin version number
+	 */
 	private $plugin_version = '2.2';
-	private $add_script     = false;
-	private $script_data    = array();
-	private $id             = 0;
 	
+	
+	
+	/**
+	 * Whether to add the accordion JavaScript file or not. False by default.
+	 */
+	private $add_script = false;
+	
+	
+	
+	/**
+	 * Holds all the accordion shortcodes group settings
+	 */
+	private $script_data = array();
+	
+	
+	
+	/**
+	 * ID count for each accordion group on a page
+	 */
+	private $id = 0;
+	
+	
+	
+	/**
+	 * Holds the accordion group container HTML tag
+	 */
 	private $wrapper_tag = 'div';
-	private $title_tag   = 'h3';
+	
+	
+	
+	/**
+	 * Holds the accordion item title HTML tag
+	 */
+	private $title_tag = 'h3';
+	
+	
+	
+	/**
+	 * Holds the accordion item container HTML tag
+	 */
 	private $content_tag = 'div';
 	
+	
+	
+	/**
+	 * Class constructor
+	 * Sets up the plugin, including: textdomain, adding shortcodes, registering
+	 * scripts and adding buttons, help and documentation links to admin.
+	 */
 	function __construct() {
 		$basename = plugin_basename(__FILE__);
 		
@@ -39,25 +84,37 @@ class Accordion_Shortcodes {
 		// Print script in wp_footer
 		add_action('wp_footer', array($this, 'print_script'));
 		
-		// Add link to documentation
-		add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
-		
 		if (is_admin()) {
-			// Add buttons to editor
-			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
+			// Add link to documentation on plugin page
+			add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
 			
 			// Add admin help tab
 			add_action("load-{$GLOBALS['pagenow']}", array($this, 'add_admin_help_tab'));
+			
+			// Add buttons to MCE editor
+			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
 		}
 	}
 	
-	// Registers the minified accordion JavaScript file
+	
+	
+	/**
+	 * Registers the JavaScript file
+	 * If SCRIPT_DEBUG is set to true in the config file, the un-minified
+	 * version of the JavaScript file will be used.
+	 */
 	public function register_script() {
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this->plugin_version, true);
 	}
 	
-	// Prints the minified accordion JavaScript file in the footer
+	
+	
+	/**
+	 * Prints the accordion JavaScript in the footer
+	 * This inlcludes both the accordion jQuery plugin file registered by
+	 * 'register_script()' and the accordion settings JavaScript variable.
+	 */
 	public function print_script() {
 		// Check to see if shortcodes are used on page
 		if (!$this->add_script) return;
@@ -68,12 +125,21 @@ class Accordion_Shortcodes {
 		wp_localize_script('accordion-shortcodes-script', 'accordionShortcodesSettings', $this->script_data);
 	}
 	
-	// Checks for boolean value
+	
+	
+	/**
+	 * Checks if value is boolean
+	 */
 	private function parse_boolean($value) {
 		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 	
-	// Check for valid HTML tag
+	
+	
+	/**
+	 * Check for valid HTML tag
+	 * Checks the supplied HTML tag against a list of approved tags.
+	 */
 	private function check_html_tag($tag) {
 		$tag = preg_replace('/\s/', '', $tag);
 		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div');
@@ -82,7 +148,11 @@ class Accordion_Shortcodes {
 		else return $this->title_tag;
 	}
 	
-	// Accordion wrapper shortcode
+	
+	
+	/**
+	 * Accordion group shortcode
+	 */
 	public function accordion_shortcode($atts, $content = null) {
 		// The shortcode is used on the page, so load the JavaScript
 		$this->add_script = true;
@@ -138,7 +208,11 @@ class Accordion_Shortcodes {
 		);
 	}
 	
-	// Accordion item shortcode
+	
+	
+	/**
+	 * Accordion item shortcode
+	 */
 	public function accordion_item_shortcode($atts, $content = null) {
 		extract(shortcode_atts(array(
 			'title' => '',
@@ -157,7 +231,11 @@ class Accordion_Shortcodes {
 		);
 	}
 	
-	// Add documentation link on plugin page
+	
+	
+	/**
+	 * Add documentation link on plugin page
+	 */
 	public function add_documentation_link($links) {
 		array_push($links, sprintf('<a href="%s">%s</a>',
 			'http://wordpress.org/plugins/accordion-shortcodes/',
@@ -167,17 +245,22 @@ class Accordion_Shortcodes {
 		return $links;
 	}
 	
-	// Add admin help tab to edit pages and edit posts pages
+	
+	
+	/**
+	 * Add admin help tab to edit pages and edit posts pages
+	 */
 	public function add_admin_help_tab() {
 		$screen = get_current_screen();
 		
+		// If is post editor page or page editor page in admin
 		if ($screen->id == 'post' || $screen->id == 'page') {
 			$content[] = '<p>' . __('It is recommended that you use the accordion group and accordion item shortcode buttons to insert pre-formatted shortcodes. Your [accordion-items] should be nested inside an [accordion]...[/accordion] block.', 'accordion_shortcodes') . '</p>';
 			$content[] = '<p>' . __('You can set custom accordion settings on the opening [accordion] shortcode to change the behaviour of your accordion. Some of the settings you can add are: autoclose, openfirst, openall, clicktoclose, and scroll (set each equal to "true" or "false"). You can also change the default HTML tag for the accordion titles or add a custom CSS classname.', 'accordion_shortcodes') . '</p>';
 			$content[] = '<p><a href="https://wordpress.org/plugins/accordion-shortcodes/other_notes/" target="_blank">' . __('View the full accordion shortcodes plugin documentation', 'accordion_shortcodes') . '</a></p>';
 			
 			$screen->add_help_tab(array(
-        		'id'      => 'accordion_shortcodes_help',
+				'id'      => 'accordion_shortcodes_help',
 				'title'   => _x('Accordion Shortcodes', 'plugin title, displays in admin help tab', 'accordion_shortcodes'),
 				'content' => implode('', $content)
 			));
