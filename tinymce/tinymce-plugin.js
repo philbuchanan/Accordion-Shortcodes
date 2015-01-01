@@ -6,45 +6,45 @@
 			
 			// Accordion group
 			editor.addButton('AccordionShortcode', {
-				title: 'Add an accordion group',
+				title: accordionShortcodesTranslations.group_button_label,
 				cmd: 'accordionShortcode',
 				image: url + '/images/accordion.gif'
 			});
 			
 			editor.addCommand('accordionShortcode', function() {
 				editor.windowManager.open({
-					title: 'Insert Accordion Shortcode',
+					title: accordionShortcodesTranslations.group_window_title,
 					body: [
 						{
 							type: 'checkbox',
 							name: 'autoclose',
-							label: 'Auto Close Accordions',
+							label: accordionShortcodesTranslations.group_auto_close_label,
 							checked: true
 						},
 						{
 							type: 'checkbox',
 							name: 'openfirst',
-							label: 'Open First Accordion'
+							label: accordionShortcodesTranslations.group_open_first_label
 						},
 						{
 							type: 'checkbox',
 							name: 'openall',
-							label: 'Open All Accordions'
+							label: accordionShortcodesTranslations.group_open_all_label
 						},
 						{
 							type: 'checkbox',
 							name: 'clicktoclose',
-							label: 'Click to Close Accordions'
+							label: accordionShortcodesTranslations.group_click_to_close_label
 						},
 						{
 							type: 'checkbox',
 							name: 'scroll',
-							label: 'Scroll to Top of Accordion'
+							label: accordionShortcodesTranslations.group_scroll_label
 						},
 						{
 							type: 'listbox',
 							name: 'tag',
-							label: 'HTML Tag for Title',
+							label: accordionShortcodesTranslations.group_html_tag_label,
 							minWidth: 75,
 							values: [
 								{text: '---', value: null},
@@ -90,30 +90,30 @@
 			
 			// Accordion item
 			editor.addButton('AccordionItemShortcode', {
-				title: 'Add an accordion item',
+				title: accordionShortcodesTranslations.item_button_label,
 				cmd: 'accordionItemShortcode',
 				image: url + '/images/accordion-item.gif'
 			});
 			
 			editor.addCommand('accordionItemShortcode', function() {
 				editor.windowManager.open({
-					title: 'Insert Accordion Item Shortcode',
+					title: accordionShortcodesTranslations.item_window_title,
 					body: [
 						{
 							type: 'textbox',
 							name: 'title',
-							label: 'Accordion Item Title',
+							label: accordionShortcodesTranslations.item_title_label,
 							minWidth: 300
 						},
 						{
 							type: 'textbox',
 							name: 'id',
-							label: 'ID (optional)',
+							label: accordionShortcodesTranslations.item_id_label,
 							minWidth: 300
 						},
 						{
 							type: 'container',
-							html: 'Each ID on a single page must be unique and cannot contain spaces.'
+							html: accordionShortcodesTranslations.item_notes
 						}
 					],
 					onsubmit: function(e) {

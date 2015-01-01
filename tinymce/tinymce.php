@@ -11,6 +11,10 @@ class Accordion_Shortcode_Tinymce_Extensions {
 	 */
 	function __construct() {
 		add_action('admin_init', array($this, 'button_hooks'));
+		
+		foreach(array('post.php','post-new.php') as $hook) {
+			add_action("admin_head-$hook", array($this, 'admin_head'));
+		}
 	}
 	
 	
@@ -52,6 +56,39 @@ class Accordion_Shortcode_Tinymce_Extensions {
 		
 		return $buttons;
 	}
+	
+	
+	
+	/**
+	 * Localize MCE buttons and labels
+	 */
+	public function admin_head() {
+		$translations_arr = array(
+			'group_button_label'         => __('Add an accordion group', 'accordion_shortcodes'),
+			'group_window_title'         => __('Insert Accordion Shortcode', 'accordion_shortcodes'),
+			'group_auto_close_label'     => __('Auto Close Accordions', 'accordion_shortcodes'),
+			'group_open_first_label'     => __('Open First Accordion', 'accordion_shortcodes'),
+			'group_open_all_label'       => __('Open All Accordions', 'accordion_shortcodes'),
+			'group_click_to_close_label' => __('Click to Close Accordions', 'accordion_shortcodes'),
+			'group_scroll_label'         => __('Scroll to Top of Accordion', 'accordion_shortcodes'),
+			'group_html_tag_label'       => __('HTML Tag for Title', 'accordion_shortcodes'),
+			'item_button_label'          => __('Add an accordion item', 'accordion_shortcodes'),
+			'item_window_title'          => __('Insert Accordion Item Shortcode', 'accordion_shortcodes'),
+			'item_title_label'           => __('Accordion Item Title', 'accordion_shortcodes'),
+			'item_id_label'              => __('ID (optional)', 'accordion_shortcodes'),
+			'item_notes'                 => __('Each ID on a single page must be unique and cannot contain spaces.', 'accordion_shortcodes')
+		);
+		
+		foreach($translations_arr as $key => $value) {
+			$translations[] = "'$key': '$value',";
+		} ?>
+		
+		<script type="text/javascript">
+			var accordionShortcodesTranslations = {
+				<?php echo implode(',', $translations); ?>
+			};
+		</script>
+	<?php }
 
 }
 
