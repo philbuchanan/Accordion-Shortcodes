@@ -80,7 +80,7 @@
 							
 							shortcode += ']' + editor.selection.getContent() + '[/accordion]';
 							
-							editor.execCommand('mceInsertContent', 0, shortcode);
+							editor.insertContent(shortcode);
 						}
 					});
 				}
@@ -125,7 +125,7 @@
 							
 							shortcode += ']' + editor.selection.getContent() + '[/accordion-item]';
 							
-							editor.execCommand('mceInsertContent', 0, shortcode);
+							editor.insertContent(shortcode);
 						}
 					})
 				}
