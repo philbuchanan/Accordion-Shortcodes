@@ -22,9 +22,10 @@ class Accordion_Shortcodes {
 	
 	
 	/**
-	 * Whether to add the accordion JavaScript file or not. False by default.
+	 * Should the accordion JavaScript file be loaded the on the current page
+	 * False by default
 	 */
-	private $add_script = false;
+	private $load_script = false;
 	
 	
 	
@@ -57,7 +58,7 @@ class Accordion_Shortcodes {
 	
 	
 	/**
-	 * Holds the accordion item container HTML tag
+	 * Holds the accordion item content container HTML tag
 	 */
 	private $content_tag = 'div';
 	
@@ -117,7 +118,7 @@ class Accordion_Shortcodes {
 	 */
 	public function print_script() {
 		// Check to see if shortcodes are used on page
-		if (!$this->add_script) return;
+		if (!$this->load_script) return;
 		
 		wp_enqueue_script('accordion-shortcodes-script');
 		
@@ -128,9 +129,12 @@ class Accordion_Shortcodes {
 	
 	
 	/**
-	 * Checks if value is boolean
+	 * Checks if a value is boolean
+	 *
+	 * @param string $value The value to test
+	 * return bool
 	 */
-	private function parse_boolean($value) {
+	private function is_boolean($value) {
 		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 	
@@ -139,6 +143,9 @@ class Accordion_Shortcodes {
 	/**
 	 * Check for valid HTML tag
 	 * Checks the supplied HTML tag against a list of approved tags.
+	 *
+	 * @param string $tag The HTML tag to test
+	 * return string A valid HTML tag
 	 */
 	private function check_html_tag($tag) {
 		$tag = preg_replace('/\s/', '', $tag);
@@ -155,7 +162,7 @@ class Accordion_Shortcodes {
 	 */
 	public function accordion_shortcode($atts, $content = null) {
 		// The shortcode is used on the page, so load the JavaScript
-		$this->add_script = true;
+		$this->load_script = true;
 		
 		// Increment accordion counter
 		$this->id++;
@@ -190,10 +197,10 @@ class Accordion_Shortcodes {
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
 			'id'           => "accordion-$this->id",
-			'autoClose'    => $this->parse_boolean($autoclose),
-			'openFirst'    => $this->parse_boolean($openfirst),
-			'openAll'      => $this->parse_boolean($openall),
-			'clickToClose' => $this->parse_boolean($clicktoclose),
+			'autoClose'    => $this->is_boolean($autoclose),
+			'openFirst'    => $this->is_boolean($openfirst),
+			'openAll'      => $this->is_boolean($openall),
+			'clickToClose' => $this->is_boolean($clicktoclose),
 			'scroll'       => $scroll
 		);
 		
