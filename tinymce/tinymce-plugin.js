@@ -120,7 +120,7 @@
 							shortcode += '"';
 							
 							if (e.data.id) {
-								shortcode += ' id=' + e.data.id;
+								shortcode += ' id=' + e.data.id.replace(/\s+/g, '-');
 							}
 							
 							shortcode += ']' + editor.selection.getContent() + '[/accordion-item]';
