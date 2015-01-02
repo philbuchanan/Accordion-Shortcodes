@@ -80,7 +80,7 @@ class Accordion_Shortcode_Tinymce_Extensions {
 		);
 		
 		foreach($translations_arr as $key => $value) {
-			$translations[] = "'$key': '$value',";
+			$translations[] = "'$key': '$value'";
 		} ?>
 		
 		<script type="text/javascript">
