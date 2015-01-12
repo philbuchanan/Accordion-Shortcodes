@@ -25,7 +25,35 @@
 				openAll:      false,
 				clickToClose: false,
 				scroll:       false
-			}, options);
+			}, options),
+			click = function() {
+				// Only open the item if item isn't already open
+				if (!$(this).hasClass('open')) {
+					// Close all accordion items
+					if (settings.autoClose) {
+						allPanels.slideUp(duration);
+						allTitles.removeClass('open');
+					}
+					
+					// Open clicked item
+					$(this).next().slideDown(duration, function() {
+						// Scroll page to the title
+						if (settings.scroll) {
+							$('html, body').animate({
+								scrollTop: $(this).prev().offset().top - settings.scrollOffset
+							}, duration);
+						}
+					});
+					$(this).addClass('open');
+				}
+				// If item is open, and click to close is set, close it
+				else if (settings.clickToClose) {
+					$(this).next().slideUp(duration);
+					$(this).removeClass('open');
+				}
+				
+				return false;
+			};
 		
 		// Remove 'no-js' class since JavaScript is enabled
 		$('.accordion').removeClass('no-js');
@@ -47,34 +75,16 @@
 			firstPanel.slideDown(duration);
 		}
 		
-		// Add event listener
-		allTitles.click(function() {
-			// Only open the item if item isn't already open
-			if (!$(this).hasClass('open')) {
-				// Close all accordion items
-				if (settings.autoClose) {
-					allPanels.slideUp(duration);
-					allTitles.removeClass('open');
-				}
-				
-				// Open clicked item
-				$(this).next().slideDown(duration, function() {
-					// Scroll page to the title
-					if (settings.scroll) {
-						$('html, body').animate({
-							scrollTop: $(this).prev().offset().top - settings.scrollOffset
-						}, duration);
-					}
-				});
-				$(this).addClass('open');
-			}
-			// If item is open, and click to close is set, close it
-			else if (settings.clickToClose) {
-				$(this).next().slideUp(duration);
-				$(this).removeClass('open');
-			}
+		// Add event listeners
+		allTitles.click(click);
+		
+		allTitles.keydown(function(e) {
+			var code = e.which;
 			
-			return false;
+			// 13 = Return, 32 = Space
+			if ((code === 13) || (code === 32)) {
+				$(this).click();
+			}
 		});
 		
 		// Listen for hash changes (in page jump links for accordions)
