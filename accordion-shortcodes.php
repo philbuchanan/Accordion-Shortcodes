@@ -165,6 +165,26 @@ class Accordion_Shortcodes {
 	
 	
 	/**
+	 * Check for valid scroll value
+	 * Scroll value must be either an int or bool
+	 *
+	 * @param int/bool $scroll The scroll offset integer or true/false
+	 * return int/bool The scroll offset integer else true/false
+	 */
+	private function check_scroll_value($scroll) {
+		$int = intval($scroll);
+		
+		if (is_int($int) && $int != 0) {
+			return $int;
+		}
+		else {
+			return $this->is_boolean($scroll);
+		}
+	}
+	
+	
+	
+	/**
 	 * Accordion group shortcode
 	 */
 	public function accordion_shortcode($atts, $content = null) {
@@ -212,7 +232,7 @@ class Accordion_Shortcodes {
 			'openFirst'    => $this->is_boolean($openfirst),
 			'openAll'      => $this->is_boolean($openall),
 			'clickToClose' => $this->is_boolean($clicktoclose),
-			'scroll'       => $scroll
+			'scroll'       => $this->check_scroll_value($scroll)
 		);
 		
 		// Add this shortcodes settings instance to the global script data array
