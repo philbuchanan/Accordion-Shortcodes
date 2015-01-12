@@ -44,6 +44,13 @@ class Accordion_Shortcodes {
 	
 	
 	/**
+	 * Should the accordion item add tabindex
+	 */
+	private $accessible = false;
+	
+	
+	
+	/**
 	 * Holds the accordion group container HTML tag
 	 */
 	private $wrapper_tag = 'div';
@@ -174,9 +181,13 @@ class Accordion_Shortcodes {
 			'openall'      => false,
 			'clicktoclose' => false,
 			'scroll'       => false,
+			'accessible'   => false,
 			'semantics'    => '',
 			'class'        => ''
 		), $atts, 'accordion'));
+		
+		// Set global accessibility flag
+		$this->accessible = $this->is_boolean($accessible);
 		
 		// Set global HTML tag names
 		// Set title HTML tag
@@ -228,13 +239,14 @@ class Accordion_Shortcodes {
 			'class' => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%4$s tabindex="0" class="accordion-title%6$s"%3$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
+		return sprintf('<%4$s%3$s class="accordion-title%6$s"%7$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$id ? ' id="' . $id . '"' : '',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$this->content_tag,
-			$class ? " $class" : ''
+			$class ? " $class" : '',
+			$this->accessible ? ' tabindex="0"' : ''
 		);
 	}
 	
