@@ -228,7 +228,7 @@ class Accordion_Shortcodes {
 			'class' => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%4$s class="accordion-title%6$s"%3$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
+		return sprintf('<%4$s tabindex="0" class="accordion-title%6$s"%3$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			do_shortcode($content),
 			$id ? ' id="' . $id . '"' : '',

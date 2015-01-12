@@ -26,6 +26,7 @@ The accordions should blend seemlessly with your theme. However, you may want to
 * No default CSS added
 * Only adds JavaScript on pages that use the shortcodes
 * Support for item IDs and direct links
+* Accessible (for users requiring tabbed keyboard navigation control)
 
 = Optional Features =
 
@@ -186,6 +187,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Changelog ==
 = 2.2 =
+* NEW: Accessible for users requiring tabbed keyboard navigation control
 * NEW: Contextual admin help tab with link to full plugin documentation
 
 = 2.1.1 =
@@ -211,7 +213,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Upgrade Notice ==
 = 2.2 =
-Added contextual admin help tab to posts and pages with link to full plugin documentation.
+Better accessibility and added contextual admin help tab to posts and pages with link to full plugin documentation.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
