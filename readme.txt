@@ -188,6 +188,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 == Changelog ==
 = 2.2 =
 * NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
+* NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items.
 
 = 2.1.1 =
 * FIXED: An issue where openfirst would not work if title tag was set to div
@@ -212,7 +213,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Upgrade Notice ==
 = 2.2 =
-Drastically improved accessibility.
+Drastically improved accessibility. New 'read' class added to opened accordion items.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
