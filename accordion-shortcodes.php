@@ -37,16 +37,16 @@ class Accordion_Shortcodes {
 	
 	
 	/**
-	 * ID count for each accordion group on a page
+	 * Count of each accordion group on a page
 	 */
-	private $id = 0;
+	private $group_count = 0;
 	
 	
 	
 	/**
-	 * Should the accordion item add tabindex
+	 * Count for each accordion item within an accordion group
 	 */
-	private $accessible = false;
+	private $item_count = 0;
 	
 	
 	
@@ -74,7 +74,7 @@ class Accordion_Shortcodes {
 	/**
 	 * Class constructor
 	 * Sets up the plugin, including: textdomain, adding shortcodes, registering
-	 * scripts and adding buttons, help and documentation links to admin.
+	 * scripts and adding buttons.
 	 */
 	function __construct() {
 		$basename = plugin_basename(__FILE__);
@@ -95,9 +95,6 @@ class Accordion_Shortcodes {
 		if (is_admin()) {
 			// Add link to documentation on plugin page
 			add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
-			
-			// Add admin help tab
-			add_action("load-{$GLOBALS['pagenow']}", array($this, 'add_admin_help_tab'));
 			
 			// Add buttons to MCE editor
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
@@ -185,14 +182,33 @@ class Accordion_Shortcodes {
 	
 	
 	/**
+	 * Get's the ID for an accordion item
+	 *
+	 * @param string $id If the user set an ID
+	 * return array The IDs for the accordion title and item
+	 */
+	private function get_accordion_id($id) {
+		$title_id = $id ? $id : "accordion-$this->group_count-t$this->item_count";
+		$content_id = $id ? "content-$id" : "accordion-$this->group_count-c$this->item_count";
+				
+		return array(
+			'title'   => $title_id,
+			'content' => $content_id
+		);
+	}
+	
+	
+	
+	/**
 	 * Accordion group shortcode
 	 */
 	public function accordion_shortcode($atts, $content = null) {
 		// The shortcode is used on the page, so load the JavaScript
 		$this->load_script = true;
 		
-		// Increment accordion counter
-		$this->id++;
+		// Set accordion counters
+		$this->group_count++;
+		$this->item_count = 0;
 		
 		extract(shortcode_atts(array(
 			'tag'          => '',
@@ -201,13 +217,9 @@ class Accordion_Shortcodes {
 			'openall'      => false,
 			'clicktoclose' => false,
 			'scroll'       => false,
-			'accessible'   => false,
 			'semantics'    => '',
 			'class'        => ''
 		), $atts, 'accordion'));
-		
-		// Set global accessibility flag
-		$this->accessible = $this->is_boolean($accessible);
 		
 		// Set global HTML tag names
 		// Set title HTML tag
@@ -227,7 +239,7 @@ class Accordion_Shortcodes {
 		
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
-			'id'           => "accordion-$this->id",
+			'id'           => "accordion-$this->group_count",
 			'autoClose'    => $this->is_boolean($autoclose),
 			'openFirst'    => $this->is_boolean($openfirst),
 			'openAll'      => $this->is_boolean($openall),
@@ -238,10 +250,10 @@ class Accordion_Shortcodes {
 		// Add this shortcodes settings instance to the global script data array
 		$this->script_data[] = $script_data;
 		
-		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',
+		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s" role="tablist">%1$s</%2$s>',
 			do_shortcode($content),
 			$this->wrapper_tag,
-			"accordion-$this->id",
+			"accordion-$this->group_count",
 			$class ? " $class" : ''
 		);
 	}
@@ -259,15 +271,27 @@ class Accordion_Shortcodes {
 			'class' => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%4$s%3$s class="accordion-title%6$s"%7$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
-			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
-			do_shortcode($content),
-			$id ? ' id="' . $id . '"' : '',
+		// Increment accordion item count
+		$this->item_count++;
+		
+		$ids = $this->get_accordion_id($id);
+		
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" tabindex="0" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false">%2$s</%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
-			$this->content_tag,
-			$class ? " $class" : '',
-			$this->accessible ? ' tabindex="0"' : ''
+			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
+			$ids['title'],
+			$ids['content'],
+			$class ? " $class" : ''
 		);
+		
+		$accordion_content = sprintf('<%1$s id="%3$s" class="accordion-content" role="tabpanel" aria-labelledby="%4$s" aria-hidden="true">%2$s</%1$s>',
+			$this->content_tag,
+			do_shortcode($content),
+			$ids['content'],
+			$ids['title']
+		);
+		
+		return $accordion_title . $accordion_content;
 	}
 	
 	
@@ -282,28 +306,6 @@ class Accordion_Shortcodes {
 		));
 		
 		return $links;
-	}
-	
-	
-	
-	/**
-	 * Add admin help tab to edit pages and edit posts pages
-	 */
-	public function add_admin_help_tab() {
-		$screen = get_current_screen();
-		
-		// If is post editor page or page editor page in admin
-		if ($screen->id == 'post' || $screen->id == 'page') {
-			$content[] = '<p>' . __('It is recommended that you use the accordion group and accordion item shortcode buttons to insert pre-formatted shortcodes. Your [accordion-items] should be nested inside an [accordion]...[/accordion] block.', 'accordion_shortcodes') . '</p>';
-			$content[] = '<p>' . __('You can set custom accordion settings on the opening [accordion] shortcode to change the behaviour of your accordion. Some of the settings you can add are: autoclose, openfirst, openall, clicktoclose, and scroll (set each equal to "true" or "false"). You can also change the default HTML tag for the accordion titles or add a custom CSS classname.', 'accordion_shortcodes') . '</p>';
-			$content[] = '<p><a href="https://wordpress.org/plugins/accordion-shortcodes/other_notes/" target="_blank">' . __('View the full accordion shortcodes plugin documentation', 'accordion_shortcodes') . '</a></p>';
-			
-			$screen->add_help_tab(array(
-				'id'      => 'accordion_shortcodes_help',
-				'title'   => _x('Accordion Shortcodes', 'plugin title, displays in admin help tab', 'accordion_shortcodes'),
-				'content' => implode('', $content)
-			));
-		}
 	}
 
 }

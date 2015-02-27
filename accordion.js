@@ -31,28 +31,53 @@
 				if (!$(this).hasClass('open')) {
 					// Close all accordion items
 					if (settings.autoClose) {
-						allPanels.slideUp(duration);
-						allTitles.removeClass('open');
+						allTitles.each(function() {
+							closeItem($(this));
+						});
 					}
 					
 					// Open clicked item
-					$(this).next().slideDown(duration, function() {
-						// Scroll page to the title
-						if (settings.scroll) {
-							$('html, body').animate({
-								scrollTop: $(this).prev().offset().top - settings.scrollOffset
-							}, duration);
-						}
-					});
-					$(this).addClass('open');
+					openItem($(this));
 				}
 				// If item is open, and click to close is set, close it
 				else if (settings.clickToClose) {
-					$(this).next().slideUp(duration);
-					$(this).removeClass('open');
+					closeItem($(this));
 				}
 				
 				return false;
+			},
+			openItem = function(ele) {
+				ele.next().slideDown(duration, function() {
+					// Scroll page to the title
+					if (settings.scroll) {
+						$('html, body').animate({
+							scrollTop: $(this).prev().offset().top - settings.scrollOffset
+						}, duration);
+					}
+				});
+				
+				ele.addClass('open');
+				ele.attr({
+					'aria-selected': 'true',
+					'aria-expanded': 'true'
+				});
+				
+				ele.next().attr({
+					'aria-hidden': 'false'
+				});
+			},
+			closeItem = function(ele) {
+				ele.next().slideUp(duration);
+				ele.removeClass('open');
+				
+				ele.attr({
+					'aria-selected': 'false',
+					'aria-expanded': 'false'
+				});
+				
+				ele.next().attr({
+					'aria-hidden': 'true'
+				});
 			};
 		
 		// Remove 'no-js' class since JavaScript is enabled
@@ -63,16 +88,15 @@
 		
 		// Should any accordions be opened on load?
 		if (selectedId.length && selectedId.hasClass('accordion-title')) {
-			selectedId.addClass('open');
-			selectedId.next().slideDown(duration);
+			openItem(selectedId);
 		}
 		else if (settings.openAll) {
-			allPanels.show();
-			allTitles.addClass('open');
+			allTitles.each(function() {
+				openItem($(this));
+			});
 		}
 		else if (settings.openFirst) {
-			firstTitle.addClass('open');
-			firstPanel.slideDown(duration);
+			openItem(firstTitle);
 		}
 		
 		// Add event listeners
@@ -92,20 +116,17 @@
 			selectedId = $(window.location.hash);
 			
 			if (selectedId.length && selectedId.hasClass('accordion-title')) {
-				allPanels.slideUp(duration);
-				allTitles.removeClass('open');
-				selectedId.addClass('open');
+				if (settings.autoClose) {
+					allTitles.each(function() {
+						closeItem($(this));
+					});
+				}
 				
-				selectedId.next().slideDown(duration, function() {
-					$('html, body').animate({
-						scrollTop: $(this).prev().offset().top - settings.scrollOffset
-					}, duration);
-				});
+				openItem(selectedId);
 			}
 		});
 		
 		return this;
-	
 	};
 	
 	

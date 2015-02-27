@@ -187,8 +187,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Changelog ==
 = 2.2 =
-* NEW: Accessible for users requiring tabbed keyboard navigation control
-* NEW: Contextual admin help tab with link to full plugin documentation
+* NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
 
 = 2.1.1 =
 * FIXED: An issue where openfirst would not work if title tag was set to div
@@ -213,7 +212,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Upgrade Notice ==
 = 2.2 =
-Better accessibility and added contextual admin help tab to posts and pages with link to full plugin documentation.
+Drastically improved accessibility.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
