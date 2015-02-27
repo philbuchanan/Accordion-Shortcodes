@@ -55,8 +55,12 @@
 						}, duration);
 					}
 				});
-				
 				ele.addClass('open');
+				
+				// Mark accordion item as read
+				ele.addClass('read');
+				
+				// Set accessibility attributes
 				ele.attr({
 					'aria-selected': 'true',
 					'aria-expanded': 'true'
@@ -70,6 +74,7 @@
 				ele.next().slideUp(duration);
 				ele.removeClass('open');
 				
+				// Set accessibility attributes
 				ele.attr({
 					'aria-selected': 'false',
 					'aria-expanded': 'false'
