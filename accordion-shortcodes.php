@@ -86,8 +86,10 @@ class Accordion_Shortcodes {
 		add_action('wp_enqueue_scripts', array($this, 'register_script'));
 		
 		// Add shortcodes
-		add_shortcode('accordion', array($this, 'accordion_shortcode'));
-		add_shortcode('accordion-item', array($this, 'accordion_item_shortcode'));
+		$prefix = $this->get_compatibility_prefix();
+		
+		add_shortcode($prefix . 'accordion', array($this, 'accordion_shortcode'));
+		add_shortcode($prefix . 'accordion-item', array($this, 'accordion_item_shortcode'));
 		
 		// Print script in wp_footer
 		add_action('wp_footer', array($this, 'print_script'));
@@ -99,6 +101,24 @@ class Accordion_Shortcodes {
 			// Add buttons to MCE editor
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
 		}
+	}
+	
+	
+	
+	/**
+	 * Get the compatibility mode prefix
+	 *
+	 * return string The compatibility mode prefix
+	 */
+	private function get_compatibility_prefix() {
+		if (defined('AS_COMPATIBILITY') && AS_COMPATIBILITY) {
+			$prefix = 'as-';
+		}
+		else {
+        	$prefix = '';
+		}
+		
+		return $prefix;
 	}
 	
 	

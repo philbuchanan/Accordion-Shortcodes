@@ -81,12 +81,20 @@ class Accordion_Shortcode_Tinymce_Extensions {
 		
 		foreach($translations_arr as $key => $value) {
 			$translations[] = "'$key': '$value'";
+		}
+		
+		if (defined('AS_COMPATIBILITY') && AS_COMPATIBILITY) {
+			$prefix = 'as-';
+		}
+		else {
+        	$prefix = '';
 		} ?>
 		
 		<script type="text/javascript">
 			var accordionShortcodesTranslations = {
-				<?php echo implode(',', $translations); ?>
-			};
+					<?php echo implode(',', $translations); ?>
+				},
+				accordionShortcodesPrefix = '<?php echo $prefix; ?>';
 		</script>
 	<?php }
 
