@@ -27,54 +27,134 @@
 				scroll:       false
 			}, options);
 		
-		// Remove 'no-js' class since JavaScript is enabled
+		
+		
+		/**
+		 * Initial setup
+		 * Remove the 'no-js' class since JavaScript is enabled and set the
+		 * scroll offset.
+		 */
 		$('.accordion').removeClass('no-js');
 		
-		// Set the scroll offset
 		settings.scrollOffset = Math.floor(parseInt(settings.scroll)) | 0;
 		
-		// Should any accordions be opened on load?
-		if (selectedId.length && selectedId.hasClass('accordion-title')) {
-			selectedId.addClass('open');
-			selectedId.next().slideDown(duration);
-		}
-		else if (settings.openAll) {
-			allPanels.show();
-			allTitles.addClass('open');
-		}
-		else if (settings.openFirst) {
-			firstTitle.addClass('open');
-			firstPanel.slideDown(duration);
-		}
 		
-		// Add event listener
-		allTitles.click(function() {
+		
+		/**
+		 * Defualt click function
+		 * Called when an accordion title is clicked.
+		 */
+		function clickHandler() {
 			// Only open the item if item isn't already open
 			if (!$(this).hasClass('open')) {
 				// Close all accordion items
 				if (settings.autoClose) {
-					allPanels.slideUp(duration);
-					allTitles.removeClass('open');
+					allTitles.each(function() {
+						closeItem($(this));
+					});
 				}
 				
 				// Open clicked item
-				$(this).next().slideDown(duration, function() {
-					// Scroll page to the title
-					if (settings.scroll) {
-						$('html, body').animate({
-							scrollTop: $(this).prev().offset().top - settings.scrollOffset
-						}, duration);
-					}
-				});
-				$(this).addClass('open');
+				openItem($(this));
 			}
 			// If item is open, and click to close is set, close it
 			else if (settings.clickToClose) {
-				$(this).next().slideUp(duration);
-				$(this).removeClass('open');
+				closeItem($(this));
 			}
 			
 			return false;
+		}
+		
+		
+		
+		/**
+		 * Opens an accordion item
+		 * Also handles accessibility attribute settings.
+		 *
+		 * @param object ele The accordion item title to open
+		 */
+		function openItem(ele) {
+			// Clear/stop any previous animations before revealing content
+			ele.next().clearQueue().stop().slideDown(duration, function() {
+				// Scroll page to the title
+				if (settings.scroll) {
+					$('html, body').animate({
+						scrollTop: $(this).prev().offset().top - settings.scrollOffset
+					}, duration);
+				}
+			});
+			ele.addClass('open');
+			
+			// Mark accordion item as read
+			ele.addClass('read');
+			
+			// Set accessibility attributes
+			ele.attr({
+				'aria-selected': 'true',
+				'aria-expanded': 'true'
+			});
+			
+			ele.next().attr({
+				'aria-hidden': 'false'
+			});
+		}
+		
+		
+		
+		/**
+		 * Closes an accordion item
+		 * Also handles accessibility attribute settings.
+		 *
+		 * @param object ele The accordion item title to open
+		 */
+		function closeItem(ele) {
+			ele.next().slideUp(duration);
+			ele.removeClass('open');
+			
+			// Set accessibility attributes
+			ele.attr({
+				'aria-selected': 'false',
+				'aria-expanded': 'false'
+			});
+			
+			ele.next().attr({
+				'aria-hidden': 'true'
+			});
+		}
+		
+		
+		
+		/**
+		 * Should any accordions be opened on load?
+		 * Open first, open all or open based on URL hash.
+		 */
+		if (selectedId.length && selectedId.hasClass('accordion-title')) {
+			openItem(selectedId);
+		}
+		else if (settings.openAll) {
+			allTitles.each(function() {
+				openItem($(this));
+			});
+		}
+		else if (settings.openFirst) {
+			openItem(firstTitle);
+		}
+		
+		
+		
+		/**
+		 * Add event listeners
+		 */
+		allTitles.click(clickHandler);
+		
+		allTitles.keydown(function(e) {
+			var code = e.which;
+			
+			// 13 = Return, 32 = Space
+			if ((code === 13) || (code === 32)) {
+				// Simulate click on title
+				$(this).click();
+			}
 		});
 		
 		// Listen for hash changes (in page jump links for accordions)
@@ -82,20 +162,17 @@
 			selectedId = $(window.location.hash);
 			
 			if (selectedId.length && selectedId.hasClass('accordion-title')) {
-				allPanels.slideUp(duration);
-				allTitles.removeClass('open');
-				selectedId.addClass('open');
+				if (settings.autoClose) {
+					allTitles.each(function() {
+						closeItem($(this));
+					});
+				}
 				
-				selectedId.next().slideDown(duration, function() {
-					$('html, body').animate({
-						scrollTop: $(this).prev().offset().top - settings.scrollOffset
-					}, duration);
-				});
+				openItem(selectedId);
 			}
 		});
 		
 		return this;
-	
 	};
 	
 	

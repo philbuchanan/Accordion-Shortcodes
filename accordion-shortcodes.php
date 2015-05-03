@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Shortcodes for creating responsive accordion drop-downs.
- * Version: 2.1.1
+ * Version: 2.2
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -14,15 +14,68 @@ if (!class_exists('Accordion_Shortcodes')) :
 
 class Accordion_Shortcodes {
 
-	private $plugin_version = '2.1.1';
-	private $add_script     = false;
-	private $script_data    = array();
-	private $id             = 0;
+	/**
+	 * Current plugin version number
+	 */
+	private $plugin_version = '2.2';
 	
+	
+	
+	/**
+	 * Should the accordion JavaScript file be loaded the on the current page
+	 * False by default
+	 */
+	private $load_script = false;
+	
+	
+	
+	/**
+	 * Holds all the accordion shortcodes group settings
+	 */
+	private $script_data = array();
+	
+	
+	
+	/**
+	 * Count of each accordion group on a page
+	 */
+	private $group_count = 0;
+	
+	
+	
+	/**
+	 * Count for each accordion item within an accordion group
+	 */
+	private $item_count = 0;
+	
+	
+	
+	/**
+	 * Holds the accordion group container HTML tag
+	 */
 	private $wrapper_tag = 'div';
-	private $title_tag   = 'h3';
+	
+	
+	
+	/**
+	 * Holds the accordion item title HTML tag
+	 */
+	private $title_tag = 'h3';
+	
+	
+	
+	/**
+	 * Holds the accordion item content container HTML tag
+	 */
 	private $content_tag = 'div';
 	
+	
+	
+	/**
+	 * Class constructor
+	 * Sets up the plugin, including: textdomain, adding shortcodes, registering
+	 * scripts and adding buttons.
+	 */
 	function __construct() {
 		$basename = plugin_basename(__FILE__);
 		
@@ -33,31 +86,56 @@ class Accordion_Shortcodes {
 		add_action('wp_enqueue_scripts', array($this, 'register_script'));
 		
 		// Add shortcodes
-		add_shortcode('accordion', array($this, 'accordion_shortcode'));
-		add_shortcode('accordion-item', array($this, 'accordion_item_shortcode'));
+		$prefix = $this->get_compatibility_prefix();
+		
+		add_shortcode($prefix . 'accordion', array($this, 'accordion_shortcode'));
+		add_shortcode($prefix . 'accordion-item', array($this, 'accordion_item_shortcode'));
 		
 		// Print script in wp_footer
 		add_action('wp_footer', array($this, 'print_script'));
 		
-		// Add link to documentation
-		add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
-		
-		// Add buttons to editor
 		if (is_admin()) {
+			// Add link to documentation on plugin page
+			add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
+			
+			// Add buttons to MCE editor
 			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
 		}
 	}
 	
-	// Registers the minified accordion JavaScript file
+	
+	
+	/**
+	 * Get the compatibility mode prefix
+	 *
+	 * return string The compatibility mode prefix
+	 */
+	private function get_compatibility_prefix() {
+		return defined('AS_COMPATIBILITY') && AS_COMPATIBILITY ? 'as-' : '';
+	}
+	
+	
+	
+	/**
+	 * Registers the JavaScript file
+	 * If SCRIPT_DEBUG is set to true in the config file, the un-minified
+	 * version of the JavaScript file will be used.
+	 */
 	public function register_script() {
 		$min = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 		wp_register_script('accordion-shortcodes-script', plugins_url('accordion' . $min . '.js', __FILE__), array('jquery'), $this->plugin_version, true);
 	}
 	
-	// Prints the minified accordion JavaScript file in the footer
+	
+	
+	/**
+	 * Prints the accordion JavaScript in the footer
+	 * This inlcludes both the accordion jQuery plugin file registered by
+	 * 'register_script()' and the accordion settings JavaScript variable.
+	 */
 	public function print_script() {
 		// Check to see if shortcodes are used on page
-		if (!$this->add_script) return;
+		if (!$this->load_script) return;
 		
 		wp_enqueue_script('accordion-shortcodes-script');
 		
@@ -65,12 +143,27 @@ class Accordion_Shortcodes {
 		wp_localize_script('accordion-shortcodes-script', 'accordionShortcodesSettings', $this->script_data);
 	}
 	
-	// Checks for boolean value
-	private function parse_boolean($value) {
+	
+	
+	/**
+	 * Checks if a value is boolean
+	 *
+	 * @param string $value The value to test
+	 * return bool
+	 */
+	private function is_boolean($value) {
 		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 	}
 	
-	// Check for valid HTML tag
+	
+	
+	/**
+	 * Check for valid HTML tag
+	 * Checks the supplied HTML tag against a list of approved tags.
+	 *
+	 * @param string $tag The HTML tag to test
+	 * return string A valid HTML tag
+	 */
 	private function check_html_tag($tag) {
 		$tag = preg_replace('/\s/', '', $tag);
 		$tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div');
@@ -79,13 +172,56 @@ class Accordion_Shortcodes {
 		else return $this->title_tag;
 	}
 	
-	// Accordion wrapper shortcode
+	
+	
+	/**
+	 * Check for valid scroll value
+	 * Scroll value must be either an int or bool
+	 *
+	 * @param int/bool $scroll The scroll offset integer or true/false
+	 * return int/bool The scroll offset integer else true/false
+	 */
+	private function check_scroll_value($scroll) {
+		$int = intval($scroll);
+		
+		if (is_int($int) && $int != 0) {
+			return $int;
+		}
+		else {
+			return $this->is_boolean($scroll);
+		}
+	}
+	
+	
+	
+	/**
+	 * Get's the ID for an accordion item
+	 *
+	 * @param string $id If the user set an ID
+	 * return array The IDs for the accordion title and item
+	 */
+	private function get_accordion_id($id) {
+		$title_id = $id ? $id : "accordion-$this->group_count-t$this->item_count";
+		$content_id = $id ? "content-$id" : "accordion-$this->group_count-c$this->item_count";
+				
+		return array(
+			'title'   => $title_id,
+			'content' => $content_id
+		);
+	}
+	
+	
+	
+	/**
+	 * Accordion group shortcode
+	 */
 	public function accordion_shortcode($atts, $content = null) {
 		// The shortcode is used on the page, so load the JavaScript
-		$this->add_script = true;
+		$this->load_script = true;
 		
-		// Increment accordion counter
-		$this->id++;
+		// Set accordion counters
+		$this->group_count++;
+		$this->item_count = 0;
 		
 		extract(shortcode_atts(array(
 			'tag'          => '',
@@ -116,26 +252,30 @@ class Accordion_Shortcodes {
 		
 		// Set settings object (for use in JavaScript)
 		$script_data = array(
-			'id'           => "accordion-$this->id",
-			'autoClose'    => $this->parse_boolean($autoclose),
-			'openFirst'    => $this->parse_boolean($openfirst),
-			'openAll'      => $this->parse_boolean($openall),
-			'clickToClose' => $this->parse_boolean($clicktoclose),
-			'scroll'       => $scroll
+			'id'           => "accordion-$this->group_count",
+			'autoClose'    => $this->is_boolean($autoclose),
+			'openFirst'    => $this->is_boolean($openfirst),
+			'openAll'      => $this->is_boolean($openall),
+			'clickToClose' => $this->is_boolean($clicktoclose),
+			'scroll'       => $this->check_scroll_value($scroll)
 		);
 		
 		// Add this shortcodes settings instance to the global script data array
 		$this->script_data[] = $script_data;
 		
-		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',
+		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s" role="tablist">%1$s</%2$s>',
 			do_shortcode($content),
 			$this->wrapper_tag,
-			"accordion-$this->id",
+			"accordion-$this->group_count",
 			$class ? " $class" : ''
 		);
 	}
 	
-	// Accordion item shortcode
+	
+	
+	/**
+	 * Accordion item shortcode
+	 */
 	public function accordion_item_shortcode($atts, $content = null) {
 		extract(shortcode_atts(array(
 			'title' => '',
@@ -144,21 +284,38 @@ class Accordion_Shortcodes {
 			'class' => ''
 		), $atts, 'accordion-item'));
 		
-		return sprintf('<%4$s class="accordion-title%6$s"%3$s>%1$s</%4$s><%5$s class="accordion-content">%2$s</%5$s>',
-			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
-			do_shortcode($content),
-			$id ? ' id="' . $id . '"' : '',
+		// Increment accordion item count
+		$this->item_count++;
+		
+		$ids = $this->get_accordion_id($id);
+		
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false">%2$s</%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
-			$this->content_tag,
+			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
+			$ids['title'],
+			$ids['content'],
 			$class ? " $class" : ''
 		);
+		
+		$accordion_content = sprintf('<%1$s id="%3$s" class="accordion-content" role="tabpanel" aria-labelledby="%4$s" aria-hidden="true">%2$s</%1$s>',
+			$this->content_tag,
+			do_shortcode($content),
+			$ids['content'],
+			$ids['title']
+		);
+		
+		return $accordion_title . $accordion_content;
 	}
 	
-	// Add documentation link on plugin page
+	
+	
+	/**
+	 * Add documentation link on plugin page
+	 */
 	public function add_documentation_link($links) {
 		array_push($links, sprintf('<a href="%s">%s</a>',
 			'http://wordpress.org/plugins/accordion-shortcodes/',
-			__('Documentation', 'accordion_shortcodes')
+			_x('Documentation', 'link to documentation on wordpress.org site', 'accordion_shortcodes')
 		));
 		
 		return $links;
