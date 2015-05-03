@@ -171,13 +171,17 @@ For example, you could set the `openfirst` option for all accordions across the 
         return $atts;
     }
 
+= Compatibility Mode =
+
+If you have a theme that already includes the shortcodes `[accordion]` or `[accordion-item]` you can enable compatibility mode.
+
+To enable compatibility mode add `define('AS_COMPATIBILITY', true);` to your config.php file. This will add a prefix of 'as-' to the two accordion shortcodes.
+
+With compatibility mode enabled, make sure your shortcodes start with `as-` like this: `[as-accordion]...[/as-accordion]` and `[as-accordion-item]...[/as-accordion-item]`.
+
 = Issues/Suggestions =
 
 For bug reports or feature requests or if you'd like to contribute to the plugin you can check everything out on [Github](https://github.com/philbuchanan/Accordion-Shortcodes/).
-
-= Additional Thanks =
-
-Thank you to [dgrevink](https://github.com/dgrevink) for his support in developing the item IDs and direct linking feature.
 
 == Screenshots ==
 
@@ -189,6 +193,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 = 2.2 =
 * NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
 * NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items.
+* NEW: Compatibility mode adds a prefix to the shortcodes for themes that already include accordion shortcodes with matching names.
 
 = 2.1.1 =
 * FIXED: An issue where openfirst would not work if title tag was set to div
@@ -213,7 +218,7 @@ Thank you to [dgrevink](https://github.com/dgrevink) for his support in developi
 
 == Upgrade Notice ==
 = 2.2 =
-Drastically improved accessibility. New 'read' class added to opened accordion items.
+Drastically improved accessibility. New 'read' class added to opened accordion items. Comaptibility mode.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.

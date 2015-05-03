@@ -57,7 +57,7 @@
 							}
 						],
 						onsubmit: function(e) {
-							var shortcode = '[accordion';
+							var shortcode = '[' + accordionShortcodesPrefix + 'accordion';
 							
 							if (e.data.autoclose === false) {
 								shortcode += ' autoclose=' + e.data.autoclose;
@@ -78,7 +78,7 @@
 								shortcode += ' tag=' + e.data.tag;
 							}
 							
-							shortcode += ']' + editor.selection.getContent() + '[/accordion]';
+							shortcode += ']' + editor.selection.getContent() + '[/' + accordionShortcodesPrefix + 'accordion]';
 							
 							editor.insertContent(shortcode);
 						}
@@ -112,7 +112,7 @@
 							}
 						],
 						onsubmit: function(e) {
-							var shortcode = '[accordion-item title="';
+							var shortcode = '[' + accordionShortcodesPrefix + 'accordion-item title="';
 							
 							if (e.data.title) {
 								shortcode += e.data.title;
@@ -123,7 +123,7 @@
 								shortcode += ' id=' + e.data.id.replace(/\s+/g, '-');
 							}
 							
-							shortcode += ']' + editor.selection.getContent() + '[/accordion-item]';
+							shortcode += ']' + editor.selection.getContent() + '[/' + accordionShortcodesPrefix + 'accordion-item]';
 							
 							editor.insertContent(shortcode);
 						}
