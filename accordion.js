@@ -74,6 +74,7 @@
 		 * @param object ele The accordion item title to open
 		 */
 		function openItem(ele) {
+			// Clear/stop any previous animations before revealing content
 			ele.next().clearQueue().stop().slideDown(duration, function() {
 				// Scroll page to the title
 				if (settings.scroll) {
