@@ -194,6 +194,8 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
 * NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items.
 * NEW: Compatibility mode adds a prefix to the shortcodes for themes that already include accordion shortcodes with matching names.
+* FIXED: Animation queue not clearing.
+* Now compatible up to WordPress 4.2
 
 = 2.1.1 =
 * FIXED: An issue where openfirst would not work if title tag was set to div
@@ -218,7 +220,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 
 == Upgrade Notice ==
 = 2.2 =
-Drastically improved accessibility. New 'read' class added to opened accordion items. Comaptibility mode.
+Drastically improved accessibility. New 'read' class added to opened accordion items. Compatibility mode added for themes with the same accordion shortcode names. WordPress 4.2 compatibility.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
