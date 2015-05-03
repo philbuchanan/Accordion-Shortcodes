@@ -111,14 +111,7 @@ class Accordion_Shortcodes {
 	 * return string The compatibility mode prefix
 	 */
 	private function get_compatibility_prefix() {
-		if (defined('AS_COMPATIBILITY') && AS_COMPATIBILITY) {
-			$prefix = 'as-';
-		}
-		else {
-        	$prefix = '';
-		}
-		
-		return $prefix;
+		return defined('AS_COMPATIBILITY') && AS_COMPATIBILITY ? 'as-' : '';
 	}
 	
 	
@@ -296,7 +289,7 @@ class Accordion_Shortcodes {
 		
 		$ids = $this->get_accordion_id($id);
 		
-		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" tabindex="0" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false">%2$s</%1$s>',
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false">%2$s</%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			$ids['title'],
