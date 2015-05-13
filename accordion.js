@@ -55,7 +55,7 @@
 				}
 				
 				// Open clicked item
-				openItem($(this));
+				openItem($(this), true);
 			}
 			// If item is open, and click to close is set, close it
 			else if (settings.clickToClose) {
@@ -72,29 +72,26 @@
 		 * Also handles accessibility attribute settings.
 		 *
 		 * @param object ele The accordion item title to open
+		 * @param bool scroll Whether to scroll the page
 		 */
-		function openItem(ele) {
+		function openItem(ele, scroll) { 
 			// Clear/stop any previous animations before revealing content
 			ele.next().clearQueue().stop().slideDown(duration, function() {
 				// Scroll page to the title
-				if (settings.scroll) {
+				if (scroll && settings.scroll) {
 					$('html, body').animate({
 						scrollTop: $(this).prev().offset().top - settings.scrollOffset
 					}, duration);
 				}
 			});
-			ele.addClass('open');
 			
-			// Mark accordion item as read
-			ele.addClass('read');
-			
-			// Set accessibility attributes
-			ele.attr({
+			// Mark accordion item as open and read and set aria attributes
+			ele.addClass('open read')
+			.attr({
 				'aria-selected': 'true',
 				'aria-expanded': 'true'
-			});
-			
-			ele.next().attr({
+			})
+			.next().attr({
 				'aria-hidden': 'false'
 			});
 		}
@@ -115,9 +112,8 @@
 			ele.attr({
 				'aria-selected': 'false',
 				'aria-expanded': 'false'
-			});
-			
-			ele.next().attr({
+			})
+			.next().attr({
 				'aria-hidden': 'true'
 			});
 		}
@@ -129,15 +125,15 @@
 		 * Open first, open all or open based on URL hash.
 		 */
 		if (selectedId.length && selectedId.hasClass('accordion-title')) {
-			openItem(selectedId);
+			openItem(selectedId, true);
 		}
 		else if (settings.openAll) {
 			allTitles.each(function() {
-				openItem($(this));
+				openItem($(this), false);
 			});
 		}
 		else if (settings.openFirst) {
-			openItem(firstTitle);
+			openItem(firstTitle, false);
 		}
 		
 		
@@ -168,7 +164,7 @@
 					});
 				}
 				
-				openItem(selectedId);
+				openItem(selectedId, true);
 			}
 		});
 		
