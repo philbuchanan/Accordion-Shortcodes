@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
 Tested up to: 4.2
-Stable tag: 2.2
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.2.1 =
+FIXED: A bug where setting both scroll and openfirst would scroll the window without user interaction.
+
 = 2.2 =
 * NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
 * NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items.
@@ -219,6 +222,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.2.1 =
+Fixes a bug introduced in v2.2 when using the scroll and openfirst setting together.
+
 = 2.2 =
 Drastically improved accessibility. New 'read' class added to opened accordion items. Compatibility mode added for themes with the same accordion shortcode names. WordPress 4.2 compatibility.
 
