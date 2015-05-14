@@ -11,10 +11,7 @@ class Accordion_Shortcode_Tinymce_Extensions {
 	 */
 	function __construct() {
 		add_action('admin_init', array($this, 'button_hooks'));
-		
-		foreach(array('post.php','post-new.php') as $hook) {
-			add_action("admin_head-$hook", array($this, 'admin_head'));
-		}
+		add_action('admin_head', array($this, 'admin_head'));
 	}
 	
 	

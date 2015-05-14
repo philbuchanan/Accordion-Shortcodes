@@ -3,6 +3,9 @@
 	
 	tinymce.create('tinymce.plugins.accordionShortcodesExtensions', {
 		init: function(editor, url) {
+			if (accordionShortcodesPrefix == undefined) {
+				var accordionShortcodesPrefix = '';
+			}
 			
 			// Accordion group
 			editor.addButton('AccordionShortcode', {
