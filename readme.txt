@@ -190,6 +190,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.2.2 =
+FIXED: A bug where the content editor would break in custom post types.
+
 = 2.2.1 =
 FIXED: A bug where setting both scroll and openfirst would scroll the window without user interaction.
 
@@ -222,6 +225,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.2.2 =
+Fixes a bug where the content editor would break in custom post types.
+
 = 2.2.1 =
 Fixes a bug introduced in v2.2 when using the scroll and openfirst setting together.
 
