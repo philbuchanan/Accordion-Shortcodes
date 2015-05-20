@@ -3,45 +3,48 @@
 	
 	tinymce.create('tinymce.plugins.accordionShortcodesExtensions', {
 		init: function(editor, url) {
+			if (accordionShortcodesPrefix == undefined) {
+				var accordionShortcodesPrefix = '';
+			}
 			
 			// Accordion group
 			editor.addButton('AccordionShortcode', {
-				title: accordionShortcodesTranslations.group_button_label,
+				title: 'Add an accordion group',
 				image: url + '/images/accordion.gif',
 				onclick: function() {
 					editor.windowManager.open({
-						title: accordionShortcodesTranslations.group_window_title,
+						title: 'Insert Accordion Shortcode',
 						body: [
 							{
 								type: 'checkbox',
 								name: 'autoclose',
-								label: accordionShortcodesTranslations.group_auto_close_label,
+								label: 'Auto Close Accordions',
 								checked: true
 							},
 							{
 								type: 'checkbox',
 								name: 'openfirst',
-								label: accordionShortcodesTranslations.group_open_first_label
+								label: 'Open First Accordion'
 							},
 							{
 								type: 'checkbox',
 								name: 'openall',
-								label: accordionShortcodesTranslations.group_open_all_label
+								label: 'Open All Accordions'
 							},
 							{
 								type: 'checkbox',
 								name: 'clicktoclose',
-								label: accordionShortcodesTranslations.group_click_to_close_label
+								label: 'Click to Close Accordions'
 							},
 							{
 								type: 'checkbox',
 								name: 'scroll',
-								label: accordionShortcodesTranslations.group_scroll_label
+								label: 'Scroll to Top of Accordion'
 							},
 							{
 								type: 'listbox',
 								name: 'tag',
-								label: accordionShortcodesTranslations.group_html_tag_label,
+								label: 'HTML Tag for Title',
 								minWidth: 75,
 								values: [
 									{text: '---', value: null},
@@ -88,27 +91,27 @@
 			
 			// Accordion item
 			editor.addButton('AccordionItemShortcode', {
-				title: accordionShortcodesTranslations.item_button_label,
+				title: 'Add an accordion item',
 				image: url + '/images/accordion-item.gif',
 				onclick: function() {
 					editor.windowManager.open({
-						title: accordionShortcodesTranslations.item_window_title,
+						title: 'Insert Accordion Item Shortcode',
 						body: [
 							{
 								type: 'textbox',
 								name: 'title',
-								label: accordionShortcodesTranslations.item_title_label,
+								label: 'Accordion Item Title',
 								minWidth: 300
 							},
 							{
 								type: 'textbox',
 								name: 'id',
-								label: accordionShortcodesTranslations.item_id_label,
+								label: 'ID (optional)',
 								minWidth: 300
 							},
 							{
 								type: 'container',
-								html: accordionShortcodesTranslations.item_notes
+								html: 'Each ID on a single page must be unique and cannot contain spaces.'
 							}
 						],
 						onsubmit: function(e) {

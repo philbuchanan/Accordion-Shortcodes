@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
 Tested up to: 4.2
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Shortcodes for creating responsive accordion drop-downs.
 
 Accordion Shortcodes is a simple plugin that adds a few shortcodes for adding accordion drop-downs to your pages.
 
-The accordions should blend seemlessly with your theme. However, you may want to be able to edit your themes main stylesheet in order to [add some custom styling (CSS)](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
+The accordions should blend seamlessly with your theme. However, you may want to be able to edit your themes main stylesheet in order to [add some custom styling (CSS)](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
 
 = Features =
 
