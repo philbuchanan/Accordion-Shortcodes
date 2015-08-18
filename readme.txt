@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.2
-Stable tag: 2.2.3
+Tested up to: 4.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.2.4 =
+* Now compatible up to WordPress 4.3
+
 = 2.2.3 =
 FIXED: A bug where the content editor would break in custom post types.
 
@@ -225,6 +228,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.2.4 =
+* Now compatible up to WordPress 4.3
+
 = 2.2.3 =
 Fixes a bug where the content editor would break in custom post types.
 
