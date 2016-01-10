@@ -174,9 +174,12 @@
 
 
 	// Loop through accordion settings objects
-	for (var i = 0; i < accordionShortcodesSettings.length; i += 1) {
-		settings = accordionShortcodesSettings[i];
+	// Wait for the entire page to load before loading the accordion
+	$(window).load(function() {
+		for (var i = 0; i < accordionShortcodesSettings.length; i += 1) {
+			settings = accordionShortcodesSettings[i];
 
-		$('#' + settings.id).accordionShortcodes(settings);
-	}
+			$('#' + settings.id).accordionShortcodes(settings);
+		}
+	});
 }(jQuery));
