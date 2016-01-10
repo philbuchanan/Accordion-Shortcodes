@@ -219,7 +219,7 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 
 = 2.0.1 =
 * NEW: Add a custom CSS classname to your accordion item group or accordion item shortcode
-* NEW: Set an integer for scroll property to offset the scrolling by that many pixels 
+* NEW: Set an integer for scroll property to offset the scrolling by that many pixels
 * Now compatible up to WordPress 4.0
 
 = 2.0 =

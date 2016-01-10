@@ -13,9 +13,9 @@ class Accordion_Shortcode_Tinymce_Extensions {
 		add_action('admin_init', array($this, 'button_hooks'));
 		add_action('admin_head', array($this, 'admin_head'));
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Load the plugin and register the buttons
 	 */
@@ -25,20 +25,20 @@ class Accordion_Shortcode_Tinymce_Extensions {
 			add_filter('mce_buttons', array($this, 'register_buttons'));
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Register the accordion shortcodes buttons plugin
 	 */
 	public function add_tinymce_plugin($plugin_array) {
 		$plugin_array['accordionShortcodesExtensions'] = plugins_url('accordion-shortcodes/tinymce/tinymce-plugin.js');
-		
+
 		return $plugin_array;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Register the accordion shortcode buttons
 	 */
@@ -47,15 +47,15 @@ class Accordion_Shortcode_Tinymce_Extensions {
 			'AccordionShortcode',
 			'AccordionItemShortcode'
 		);
-		
+
 		// Place the buttons before the "insert more" button
 		array_splice($buttons, 12, 0, $newButtons);
-		
+
 		return $buttons;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Localize MCE buttons and labels
 	 */
@@ -64,9 +64,9 @@ class Accordion_Shortcode_Tinymce_Extensions {
 			$prefix = 'as-';
 		}
 		else {
-        	$prefix = '';
+			$prefix = '';
 		} ?>
-		
+
 		<script type="text/javascript">
 			var accordionShortcodesPrefix = '<?php echo $prefix; ?>';
 		</script>
