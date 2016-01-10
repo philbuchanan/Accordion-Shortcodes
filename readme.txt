@@ -5,7 +5,7 @@ Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
 Tested up to: 4.4
-Stable tag: 2.2.5
+Stable tag: 2.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.2.6 =
+* FIXED: Scroll offset was ignored when an accordion was linked to from another page
+
 = 2.2.5 =
 * Now compatible up to WordPress 4.4
 
@@ -231,6 +234,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.2.6 =
+Fixes an issues where the scroll offset was ignored when an accordion was linked to from another page.
+
 = 2.2.5 =
 * Now compatible up to WordPress 4.4
 
