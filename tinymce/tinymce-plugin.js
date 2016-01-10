@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
-	
+
 	tinymce.create('tinymce.plugins.accordionShortcodesExtensions', {
 		init: function(editor, url) {
 			if (accordionShortcodesPrefix == undefined) {
 				var accordionShortcodesPrefix = '';
 			}
-			
+
 			// Accordion group
 			editor.addButton('AccordionShortcode', {
 				title: 'Add an accordion group',
@@ -61,7 +61,7 @@
 						],
 						onsubmit: function(e) {
 							var shortcode = '[' + accordionShortcodesPrefix + 'accordion';
-							
+
 							if (e.data.autoclose === false) {
 								shortcode += ' autoclose=' + e.data.autoclose;
 							}
@@ -80,15 +80,15 @@
 							if (e.data.tag) {
 								shortcode += ' tag=' + e.data.tag;
 							}
-							
+
 							shortcode += ']' + editor.selection.getContent() + '[/' + accordionShortcodesPrefix + 'accordion]';
-							
+
 							editor.insertContent(shortcode);
 						}
 					});
 				}
 			});
-			
+
 			// Accordion item
 			editor.addButton('AccordionItemShortcode', {
 				title: 'Add an accordion item',
@@ -116,18 +116,18 @@
 						],
 						onsubmit: function(e) {
 							var shortcode = '[' + accordionShortcodesPrefix + 'accordion-item title="';
-							
+
 							if (e.data.title) {
 								shortcode += e.data.title;
 							}
 							shortcode += '"';
-							
+
 							if (e.data.id) {
 								shortcode += ' id=' + e.data.id.replace(/\s+/g, '-');
 							}
-							
+
 							shortcode += ']' + editor.selection.getContent() + '[/' + accordionShortcodesPrefix + 'accordion-item]';
-							
+
 							editor.insertContent(shortcode);
 						}
 					})
@@ -135,6 +135,6 @@
 			});
 		}
 	});
-	
+
 	tinymce.PluginManager.add('accordionShortcodesExtensions', tinymce.plugins.accordionShortcodesExtensions);
 }());
