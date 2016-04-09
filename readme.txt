@@ -179,9 +179,13 @@ For example, you could set the `openfirst` option for all accordions across the 
 
 If you have a theme that already includes the shortcodes `[accordion]` or `[accordion-item]` you can enable compatibility mode.
 
-To enable compatibility mode add `define('AS_COMPATIBILITY', true);` to your config.php file. This will add a prefix of 'as-' to the two accordion shortcodes.
+To enable compatibility mode add `define('AS_COMPATIBILITY', true);` to your wp-config.php file. This will add a prefix of 'as-' to the two accordion shortcodes.
 
 With compatibility mode enabled, make sure your shortcodes start with `as-` like this: `[as-accordion]...[/as-accordion]` and `[as-accordion-item]...[/as-accordion-item]`.
+
+= Disable TinyMCE Buttons =
+
+You can optionally disable the TinyMCE extension which will remove the buttons from the editor button bar. To disable the TinyMCE extension add `define('AS_TINYMCE', false);` to your wp-config.php file.
 
 = Issues/Suggestions =
 
@@ -196,6 +200,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 == Changelog ==
 = 2.3.0 =
 * NEW: Added setting to set initial state (open or closed) of individual accordion items on page load
+* NEW: Added wp-config option to disable the TinyMCE extension
 * Now compatible up to WordPress 4.5
 
 = 2.2.6 =
