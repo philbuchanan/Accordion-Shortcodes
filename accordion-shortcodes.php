@@ -99,7 +99,9 @@ class Accordion_Shortcodes {
 			add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
 
 			// Add buttons to MCE editor
-			$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
+			if (!defined('AS_TINYMCE') || AS_TINYMCE != false) {
+				$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
+			}
 		}
 	}
 
