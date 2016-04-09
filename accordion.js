@@ -121,8 +121,9 @@
 
 
 		/**
-		 * Should any accordions be opened on load?
-		 * Open first, open all or open based on URL hash.
+		 * Should any accordions be opened or closed on load?
+		 * Open first, open all, open based on URL hash or open/closed based on
+		 * initial state setting.
 		 */
 		if (selectedId.length && selectedId.hasClass('accordion-title')) {
 			openItem(selectedId, true);
@@ -135,6 +136,21 @@
 		else if (settings.openFirst) {
 			openItem(firstTitle, false);
 		}
+
+		// Open or close items if initial state set to open or close
+		$('[data-initialstate!=""]').each(function() {
+			switch ($(this).data('initialstate')) {
+				case 'open':
+					openItem($(this), false);
+					break;
+				case 'closed':
+					// Only close it if the hash isn't for this item
+					if ($(this).attr('id') !== selectedId.attr('id')) {
+						closeItem($(this));
+					}
+					break;
+			}
+		});
 
 
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Shortcodes for creating responsive accordion drop-downs.
- * Version: 2.2.6
+ * Version: 2.3.0
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -17,7 +17,7 @@ class Accordion_Shortcodes {
 	/**
 	 * Current plugin version number
 	 */
-	private $plugin_version = '2.2.6';
+	private $plugin_version = '2.3.0';
 
 
 
@@ -281,7 +281,8 @@ class Accordion_Shortcodes {
 			'title' => '',
 			'id'    => '',
 			'tag'   => '',
-			'class' => ''
+			'class' => '',
+			'state' => ''
 		), $atts, 'accordion-item'));
 
 		// Increment accordion item count
@@ -289,12 +290,13 @@ class Accordion_Shortcodes {
 
 		$ids = $this->get_accordion_id($id);
 
-		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false">%2$s</%1$s>',
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false"%6$s>%2$s</%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			$ids['title'],
 			$ids['content'],
-			$class ? " $class" : ''
+			$class ? " $class" : '',
+			$state ? ' data-initialstate="' . $state . '"' : ''
 		);
 
 		$accordion_content = sprintf('<%1$s id="%3$s" class="accordion-content" role="tabpanel" aria-labelledby="%4$s" aria-hidden="true">%2$s</%1$s>',

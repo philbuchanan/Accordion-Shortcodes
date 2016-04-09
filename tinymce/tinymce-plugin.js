@@ -104,6 +104,17 @@
 								minWidth: 300
 							},
 							{
+								type: 'listbox',
+								name: 'initialstate',
+								label: 'Initial State (optional)',
+								minWidth: 75,
+								values: [
+									{text: '---',    value: null},
+									{text: 'open',   value: 'open'},
+									{text: 'closed', value: 'closed'},
+								]
+							},
+							{
 								type: 'textbox',
 								name: 'id',
 								label: 'ID (optional)',
@@ -124,6 +135,9 @@
 
 							if (e.data.id) {
 								shortcode += ' id=' + e.data.id.replace(/\s+/g, '-');
+							}
+							if (e.data.initialstate) {
+								shortcode += ' state=' + e.data.initialstate;
 							}
 
 							shortcode += ']' + editor.selection.getContent() + '[/' + accordionShortcodesPrefix + 'accordion-item]';
