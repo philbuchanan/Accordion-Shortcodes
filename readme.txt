@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.4
-Stable tag: 2.2.6
+Tested up to: 4.5
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,29 +134,33 @@ You could use this URL to open the third item by default:
 
 All you need to do is ensure that the part after the `#` in the URL matches the ID set on the accordion item.
 
-= Advanced Settings =
+= Advanced Accordion Settings =
 
 There are a few advanced settings you can add to the opening accordion shortcode. The full shortcode, with all the default settings looks like this:
 
     [accordion autoclose="true" openfirst="false" openall="false" clicktoclose="false"]
 
-**autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion tag like this: `[accordion autoclose="false"]`. Default is `true`.
+**autoclose**: Sets whether accordion items close automatically when you open the next item. Set `autoclose="true/false"` on the opening accordion shortcode like this: `[accordion autoclose="false"]`. Default is `true`.
 
-**openfirst**: Sets whether the first accordion item is open by default. This setting will be overridden if **openall** is set to true. Set `openfirst="true/false"` on the opening accordion tag like this: `[accordion openfirst="true"]`. Default is `false`.
+**openfirst**: Sets whether the first accordion item is open by default. This setting will be overridden if **openall** is set to true. Set `openfirst="true/false"` on the opening accordion shortcode like this: `[accordion openfirst="true"]`. Default is `false`.
 
-**openall**: Sets whether all accordion items are open by default. It is recommended that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion tag like this: `[accordion openall="true"]`. Default is `false`.
+**openall**: Sets whether all accordion items are open by default. It is recommended that this setting be used with **clicktoclose**. Set `openall="true/false"` on the opening accordion shortcode like this: `[accordion openall="true"]`. Default is `false`.
 
-**clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion tag like this: `[accordion clicktoclose="true"]`. Default is `false`.
+**clicktoclose**: Sets whether clicking an open title closes it. Set `clicktoclose="true/false"` on the opening accordion shortcode like this: `[accordion clicktoclose="true"]`. Default is `false`.
 
-**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion tag like this: `[accordion scroll="true"]`. Default is `false`. You may also specify an integer for a pixel offset if you'd like the page to scroll further (useful when the site uses a fixed position header navigation). NOTE: Only use pixel offset integers of > 0. If you do not want a scroll offset, but still want scrolling, simply use `scroll="true"`.
+**scroll**: Sets whether to scroll to the title when it's clicked open. This is useful if you have a lot of content within your accordion items. Set `scroll="true/false"` on the opening accordion shortcode like this: `[accordion scroll="true"]`. Default is `false`. You may also specify an integer for a pixel offset if you'd like the page to scroll further (useful when the site uses a fixed position header navigation). NOTE: Only use pixel offset integers of > 0. If you do not want a scroll offset, but still want scrolling, simply use `scroll="true"`.
 
 **class**: Sets a custom CSS class for the accordion group or individual accordion items. Set `class="your-class-name"` on the opening accordion or accordion-item shortcode like this: `[accordion class="your-class-name"]` or `[accordion-item class="your-class-name"]`. Added a class to the accordion-item will add the class to the title HTML tag.
 
-**tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion tag like this: `[accordion tag="h2"]`. Default is `h3`.
+**tag**: Set the global HTML tag to use for all accordion titles. Set `tag="h2"` on the opening accordion shortcode like this: `[accordion tag="h2"]`. Default is `h3`.
 
-You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribute on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, div.
+**semantics**: You can change the entire semantic structure of the accordions to use a definition list (dl, dt, dd) by setting `semantics="dl"` on the opening accordion shortcode like this: `[accordion semantics="dl"]`. By default the accordion will use `div` tags for the wrapper and content containers. If you set this option to `dl`, it is recommended that you do not also use the `tag` option. This feature is not selectable from the accordion button dialog box and must be added manually.
 
-**semantics**: You can change the entire semantic structure of the accordions to use a definition list (dl, dt, dd) by setting `semantics="dl"` on the opening accordion tag like this: `[accordion semantics="dl"]`. By default the accordion will use `div` tags for the wrapper and content containers. If you set this option to `dl`, it is recommended that you do not also use the `tag` option. This feature is not selectable from the accordion button dialog box and must be added manually.
+= Advanced Accordion Item Settings =
+
+**state**: Sets the initial state of the accordion item to `open` or `closed`. Set `state=open` or `state=closed` on the opening accordion item shortcode like this: `[accordion-item state=open]`. This setting will override all other accordion settings except when linking to an accordion item via ID.
+
+**tag**: You can also set the HTML tag for the titles of each accordion item individually by adding `tag="tagname"` to each `[accordion-item]` shortcode. Make sure to **not** include the angle brackets around the tag name. Example: to use `<h2>` instead of the default `<h3>` tag: `[accordion-item title="Item title" tag="h2"]Item content[/accordion-item]`. Using a tag attribute on an individual accordion item will override the global setting. The list of valid tags is: h1, h2, h3, h4, h5, h6, p, div.
 
 = Filtering Shortcodes =
 
@@ -190,6 +194,10 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.3.0 =
+* NEW: Added setting to set initial state (open or closed) of individual accordion items on page load
+* Now compatible up to WordPress 4.5
+
 = 2.2.6 =
 * FIXED: Scroll offset was ignored when an accordion was linked to from another page
 
@@ -200,16 +208,16 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 * Now compatible up to WordPress 4.3
 
 = 2.2.3 =
-FIXED: A bug where the content editor would break in custom post types.
+FIXED: A bug where the content editor would break in custom post types
 
 = 2.2.1 =
-FIXED: A bug where setting both scroll and openfirst would scroll the window without user interaction.
+FIXED: A bug where setting both scroll and openfirst would scroll the window without user interaction
 
 = 2.2 =
 * NEW: Accessible for users requiring tabbed keyboard navigation control (this took way too long)
-* NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items.
-* NEW: Compatibility mode adds a prefix to the shortcodes for themes that already include accordion shortcodes with matching names.
-* FIXED: Animation queue not clearing.
+* NEW: A classname of 'read' is now added to accordion item titles as they are opened. This allows you to style all read accordion items
+* NEW: Compatibility mode adds a prefix to the shortcodes for themes that already include accordion shortcodes with matching names
+* FIXED: Animation queue not clearing
 * Now compatible up to WordPress 4.2
 
 = 2.1.1 =
@@ -234,14 +242,17 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.3.0 =
+Added setting to set initial state (open or closed) of individual accordion items on page load. Also now compatible up to WordPress 4.5.
+
 = 2.2.6 =
 Fixes an issues where the scroll offset was ignored when an accordion was linked to from another page.
 
 = 2.2.5 =
-* Now compatible up to WordPress 4.4
+Now compatible up to WordPress 4.4.
 
 = 2.2.4 =
-* Now compatible up to WordPress 4.3
+Now compatible up to WordPress 4.3.
 
 = 2.2.3 =
 Fixes a bug where the content editor would break in custom post types.
