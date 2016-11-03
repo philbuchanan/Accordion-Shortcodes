@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.5
-Stable tag: 2.3.0
+Tested up to: 4.6
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,10 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.3.1 =
+* Now compatible up to WordPress 4.6
+* FIXED: A bug with a deprecated function in jQuery
+
 = 2.3.0 =
 * NEW: Added setting to set initial state (open or closed) of individual accordion items on page load
 * NEW: Added wp-config option to disable the TinyMCE extension
@@ -247,6 +251,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.3.1 =
+Fixed a minor bug that could cause warnings in the developer console. Also now compatible up to WordPress 4.6.
+
 = 2.3.0 =
 Added setting to set initial state (open or closed) of individual accordion items on page load. Also now compatible up to WordPress 4.5.
 
