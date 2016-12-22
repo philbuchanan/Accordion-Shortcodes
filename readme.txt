@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.6
-Stable tag: 2.3.1
+Tested up to: 4.7
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Shortcodes for creating responsive accordion drop-downs.
 
 Accordion Shortcodes is a simple plugin that adds a few shortcodes for adding accordion drop-downs to your pages.
 
-The accordions should blend seamlessly with your theme. However, you may want to be able to edit your themes main stylesheet in order to [add some custom styling (CSS)](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
+The accordions should blend seamlessly with your theme. However, you may want to be able to edit your theme's main stylesheet in order to [add some custom styling (CSS)](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes).
 
 = Features =
 
@@ -76,13 +76,13 @@ There are a few [advances settings](http://wordpress.org/plugins/accordion-short
 1. Upload the 'accordion-shortcodes' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 3. Add the shortcodes to your content.
-4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your themes stylesheet to make the accordion look the way you want.
+4. Add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to your theme's stylesheet to make the accordion look the way you want.
 
 == Frequently Asked Questions ==
 
 = Why isn't the JavaScript file loading on my site? =
 
-This is most likely caused by a poorly coded theme. This plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your themes footer.php file.
+This is most likely caused by a poorly coded theme. This plugin makes use of the `wp_footer()` function to load the JavaScript file and it's dependancy (jQuery). Check your theme to ensure that the `wp_footer()` function is being called right before the closing `</body>` tag in your theme's footer.php file.
 
 = How can I change the look of the accordion? =
 
@@ -95,6 +95,47 @@ That said, you can change the looking of the accordion as long as you are comfor
 Absolutely! You can use any of the WordPress format settings and headings as well.
 
 You cannot, however nest an accordion within another accordion. This is a limitation of how WordPress processes shortcodes.
+
+= How do I accommodate fixed position headers if I'm using `scroll`? =
+
+The scroll setting accepts numeric values as well. So, instead of setting `[accordion scroll="true"]`, you can define a pixel offset for the final scroll position like this: `[accordion scroll="50"]`. Set the numeric value to the pixel height of your fixed header.
+
+= Is it possible to open/close all accordions with a single button click? =
+
+Yes! Although you will need to know some simple code to get it working.
+
+In your theme, you'll need to have a Javascript file with the following code:
+
+`$('.js-open-everything').click(function() {
+	$.each($('.accordion-title'), function(index, value) {
+		if (!$(this).hasClass('open')) {
+			$(this).trigger('click');
+		}
+	});
+});`
+
+Then, you can add a button to your page:
+
+`<button class="js-open-everything">Open Everything</button>`
+
+= I have a lot of extra space showing around my accordions (and other shortcodes). How can I remove it? =
+
+WordPress automatically adds paragraphs and line breaks to content formatted in the editor, so if your shortcodes aren't formatted just right, you'll see a lot of extra spacing. Putting this function in your theme's functions.php file should fix it:
+
+`/**
+ * Fixes empty <p> and <br> tags showing before and after shortcodes in the
+ * output content.
+ */
+function pb_the_content_shortcode_fix($content) {
+	$array = array(
+		'<p>['    => '[',
+		']</p>'   => ']',
+		']<br />' => ']',
+		']<br>'   => ']'
+	);
+	return strtr($content, $array);
+}
+add_filter('the_content', 'pb_the_content_shortcode_fix');`
 
 == Other Notes ==
 
@@ -198,6 +239,10 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.3.2 =
+* Now compatible up to WordPress 4.7
+* FIXED: Accordion titles now truly accessible via keyboard control
+
 = 2.3.1 =
 * Now compatible up to WordPress 4.6
 * FIXED: A bug with a deprecated function in jQuery
@@ -251,6 +296,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 2.3.2 =
+You may notice a focus state around your accordion items when clicking them. This is necessary to support accessibility within the plugin. If you really must remove the focus state (though not recommended) you can do so by adding this CSS to your theme's stylesheet: `.accordion-title {outline: none;}`.
+
 = 2.3.1 =
 Fixed a minor bug that could cause warnings in the developer console. Also now compatible up to WordPress 4.6.
 
@@ -273,7 +321,7 @@ Fixes a bug where the content editor would break in custom post types.
 Fixes a bug introduced in v2.2 when using the scroll and openfirst setting together.
 
 = 2.2 =
-Drastically improved accessibility. New 'read' class added to opened accordion items. Compatibility mode added for themes with the same accordion shortcode names. WordPress 4.2 compatibility.
+Drastically improved accessibility. New 'read' class added to opened accordion items. Compatibility mode added for theme's with the same accordion shortcode names. WordPress 4.2 compatibility.
 
 = 2.1.1 =
 Fixes a few minor issues accidentally introduced in the 2.1 update.
