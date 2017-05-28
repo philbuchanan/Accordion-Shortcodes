@@ -4,8 +4,8 @@ Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 3.3
-Tested up to: 4.7
-Stable tag: 2.3.2
+Tested up to: 4.8
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -244,6 +244,10 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 2.3.3 =
+* Now compatible up to WordPress 4.8
+* FIXED: aria-mutliselectable is now on the accordion group instead of each accordion item title
+
 = 2.3.2 =
 * Now compatible up to WordPress 4.7
 * FIXED: Accordion titles now truly accessible via keyboard control
