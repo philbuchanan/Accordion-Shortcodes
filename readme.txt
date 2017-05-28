@@ -90,6 +90,16 @@ No CSS is added by default to the accordion. The accordion should look fine with
 
 That said, you can change the looking of the accordion as long as you are comfortable with editing your theme's stylesheet. If you are familiar with that process, you can add some [CSS](http://wordpress.org/plugins/accordion-shortcodes/other_notes/#Other-Notes) to make the accordion look the way you want.
 
+= How can I make all accordion content disply when printing the page? =
+
+Add this CSS to your theme's CSS stylesheet:
+
+`@media print {
+	.accordion-content {
+		display: block !important;
+	}
+}`
+
 = Can I use other shortcodes inside each accordion item? =
 
 Absolutely! You can use any of the WordPress format settings and headings as well.
