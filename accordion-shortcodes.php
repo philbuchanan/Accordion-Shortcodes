@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Accordion Shortcodes
  * Description: Shortcodes for creating responsive accordion drop-downs.
- * Version: 2.3.2
+ * Version: 2.3.3
  * Author: Phil Buchanan
  * Author URI: http://philbuchanan.com
  */
@@ -17,7 +17,7 @@ class Accordion_Shortcodes {
 	/**
 	 * Current plugin version number
 	 */
-	private $plugin_version = '2.3.2';
+	private $plugin_version = '2.3.3';
 
 
 
@@ -265,7 +265,7 @@ class Accordion_Shortcodes {
 		// Add this shortcodes settings instance to the global script data array
 		$this->script_data[] = $script_data;
 
-		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s" role="tablist">%1$s</%2$s>',
+		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s" role="tablist" aria-multiselectable="true">%1$s</%2$s>',
 			do_shortcode($content),
 			$this->wrapper_tag,
 			"accordion-$this->group_count",
@@ -292,7 +292,7 @@ class Accordion_Shortcodes {
 
 		$ids = $this->get_accordion_id($id);
 
-		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false" aria-multiselectable="true" tabindex="0" %6$s>%2$s</%1$s>',
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false" tabindex="0" %6$s>%2$s</%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			$ids['title'],
