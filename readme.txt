@@ -3,9 +3,9 @@ Contributors: philbuchanan
 Author URI: http://philbuchanan.com/
 Donate Link: http://philbuchanan.com/
 Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
-Requires at least: 3.3
-Tested up to: 4.8
-Stable tag: 2.3.3
+Requires at least: 5.0
+Tested up to: 5.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -244,6 +244,10 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 3. The Accordion Item shortcode insertion dialog box
 
 == Changelog ==
+= 3.0.0 =
+* All new plugin to support the new WordPress Gutenberg editor.
+* Now requires WordPress 5.0 or higher.
+
 = 2.3.3 =
 * Now compatible up to WordPress 4.8
 * FIXED: aria-mutliselectable is now on the accordion group instead of each accordion item title
@@ -305,6 +309,9 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 * FIXED: A few incredibly small bugs/annoyances
 
 == Upgrade Notice ==
+= 3.0.0 =
+All new plugin to support the new WordPress Gutenberg editor.
+
 = 2.3.2 =
 You may notice a focus state around your accordion items when clicking them. This is necessary to support accessibility within the plugin. If you really must remove the focus state (though not recommended) you can do so by adding this CSS to your theme's stylesheet: `.accordion-title {outline: none;}`.
 
