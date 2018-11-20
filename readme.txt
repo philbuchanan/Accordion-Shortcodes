@@ -310,7 +310,7 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 
 == Upgrade Notice ==
 = 3.0.0 =
-All new plugin to support the new WordPress Gutenberg editor.
+WARNING: Upgrade contains breaking changes! All new plugin to support the new WordPress Gutenberg editor.
 
 = 2.3.2 =
 You may notice a focus state around your accordion items when clicking them. This is necessary to support accessibility within the plugin. If you really must remove the focus state (though not recommended) you can do so by adding this CSS to your theme's stylesheet: `.accordion-title {outline: none;}`.

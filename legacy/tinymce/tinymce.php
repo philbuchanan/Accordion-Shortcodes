@@ -32,7 +32,7 @@ class Accordion_Shortcode_Tinymce_Extensions {
 	 * Register the accordion shortcodes buttons plugin
 	 */
 	public function add_tinymce_plugin($plugin_array) {
-		$plugin_array['accordionShortcodesExtensions'] = plugins_url('accordion-shortcodes/tinymce/tinymce-plugin.js');
+		$plugin_array['accordionShortcodesExtensions'] = plugins_url('accordion-shortcodes/legacy/tinymce/tinymce-plugin.js');
 
 		return $plugin_array;
 	}

@@ -1,11 +1,4 @@
 <?php
-/**
- * Plugin Name: Accordion Shortcodes
- * Description: Shortcodes for creating responsive accordion drop-downs.
- * Version: 3.0.0
- * Author: Phil Buchanan
- * Author URI: http://philbuchanan.com
- */
 
 require_once('tinymce/tinymce.php');
 
@@ -17,7 +10,7 @@ class Accordion_Shortcodes {
 	/**
 	 * Current plugin version number
 	 */
-	private $plugin_version = '3.0.0';
+	private $plugin_version;
 
 
 
@@ -77,10 +70,9 @@ class Accordion_Shortcodes {
 	 * scripts and adding buttons.
 	 */
 	function __construct() {
-		$basename = plugin_basename(__FILE__);
+		global $PB_Accordion_Blocks;
 
-		// Load text domain
-		load_plugin_textdomain('accordion_shortcodes', false, dirname($basename) . '/languages/');
+		$this->plugin_version = $PB_Accordion_Blocks->plugin_version;
 
 		// Register JavaScript
 		add_action('wp_enqueue_scripts', array($this, 'register_script'));
@@ -95,9 +87,6 @@ class Accordion_Shortcodes {
 		add_action('wp_footer', array($this, 'print_script'));
 
 		if (is_admin()) {
-			// Add link to documentation on plugin page
-			add_filter("plugin_action_links_$basename", array($this, 'add_documentation_link'));
-
 			// Add buttons to MCE editor
 			if (!defined('AS_TINYMCE') || AS_TINYMCE != false) {
 				$Accordion_Shortcode_Tinymce_Extensions = new Accordion_Shortcode_Tinymce_Extensions;
