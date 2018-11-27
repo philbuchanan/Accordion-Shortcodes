@@ -1,0 +1,15 @@
+.c-accordion__item {
+	position: relative;
+	border-bottom: 1px solid #e2e4e7;
+	padding-left: 36px;
+
+	&:after {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 8px;
+		width: 10px;
+		height: 14px;
+		background-image: url("icon.svg");
+	}
+}

@@ -1,0 +1,34 @@
+.no-js .c-accordion__content {
+  display: block !important;
+}
+
+.c-accordion--styled .c-accordion {
+  margin-bottom: 1rem;
+}
+
+.c-accordion--styled .c-accordion__item:not(:first-child) {
+  border-top: 1px solid #ddd;
+}
+
+.c-accordion--styled .c-accordion__title {
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+.c-accordion--styled .c-accordion__title:after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  content: "+";
+  color: #777;
+  font-weight: 300;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.c-accordion--styled .is-open .c-accordion__title:after {
+  content: "\2212";
+}

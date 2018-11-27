@@ -9,8 +9,14 @@
 				height: 24
 			},
 			el('path', {
-				d: 'M2,4v6H4V20H20V10h2V4ZM18,18H6V10H18ZM20,8H4V6H20Z'
-			})
+				d: 'M16.93,8.93a1,1,0,0,1-.7-.29L12,4.41,7.9,8.51A1,1,0,0,1,6.49,7.1L12,1.59l5.64,5.64a1,1,0,0,1,0,1.41A1,1,0,0,1,16.93,8.93Z'
+			}),
+			el('path', {
+				d: 'M12.07,22.35,6.42,16.71a1,1,0,0,1,1.42-1.42l4.23,4.23,4.09-4.1a1,1,0,0,1,1.42,1.42Z'
+			}),
+			el('path', {
+				d: 'M17.93,13H5.82a1,1,0,0,1,0-2H17.93a1,1,0,0,1,0,2Z'
+			}),
 		),
 		category: 'formatting',
 		parent: [
@@ -114,6 +120,11 @@
 		save: function(props) {
 			var attributes = props.attributes;
 
+			var itemClasses = [
+				'c-accordion__item',
+				'js-accordion-item'
+			];
+
 			var contentClasses = [
 				'c-accordion__content'
 			];
@@ -122,10 +133,16 @@
 				contentClasses.push('is-open');
 			}
 
+			var contentStyles = {};
+
+			if (!attributes.initiallyOpen) {
+				contentStyles.display = 'none';
+			}
+
 			return (
 				el('div',
 					{
-						className: 'c-accordion__item',
+						className: itemClasses.join(' '),
 						'data-initially-open': attributes.initiallyOpen
 					},
 					el(editor.RichText.Content, {
@@ -141,6 +158,7 @@
 						{
 							id: 'ac-' + attributes.uuid,
 							className: contentClasses.join(' '),
+							style: contentStyles,
 							role: 'tabpanel',
 							'aria-labelledby': 'at-' + attributes.uuid,
 						},

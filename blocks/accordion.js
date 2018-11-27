@@ -9,7 +9,16 @@
 				height: 24
 			},
 			el('path', {
-				d: 'M2,4v8H4v3H2v5H22V15H20V12h2V4ZM20,18H4V17H20Zm-2-3H6V12H18Zm2-5H4V9H20Zm0-3H4V6H20Z'
+				d: 'M14.53,10.48a.54.54,0,0,1-.36-.14L12.06,8.22l-2.05,2a.48.48,0,0,1-.7,0,.5.5,0,0,1,0-.71l2.75-2.75,2.82,2.82a.5.5,0,0,1,0,.71A.52.52,0,0,1,14.53,10.48Z'
+			}),
+			el('path', {
+				d: 'M12.09,17.19,9.27,14.37a.5.5,0,0,1,.71-.71l2.11,2.12,2.05-2a.5.5,0,0,1,.71,0,.51.51,0,0,1,0,.71Z'
+			}),
+			el('path', {
+				d: 'M15,12.52H9a.51.51,0,0,1-.5-.5.5.5,0,0,1,.5-.5H15a.5.5,0,0,1,.5.5A.51.51,0,0,1,15,12.52Z'
+			}),
+			el('path', {
+				d: 'M20,4V20H4V4H20m0-2H4A2,2,0,0,0,2,4V20a2,2,0,0,0,2,2H20a2,2,0,0,0,2-2V4a2,2,0,0,0-2-2Z'
 			})
 		),
 		category: 'formatting',
@@ -45,7 +54,11 @@
 			scrollOffset: {
 				type: 'number',
 				default: ''
-			}
+			},
+			applyStyles: {
+				type: 'boolean',
+				default: true
+			},
 		},
 		edit: function(props) {
 			var attributes = props.attributes;
@@ -58,6 +71,18 @@
 							title: i18n.__('Accordion Block Settings'),
 							className: 'accordion-item-settings'
 						},
+						el(components.ToggleControl, {
+							label: i18n.__('Apply Default Styles'),
+							checked: attributes.applyStyles,
+							onChange: function(value) {
+								props.setAttributes({
+									applyStyles: value,
+								});
+							},
+							help: function(checked) {
+								return checked ? i18n.__('Accordions will use the plugins default styles.') : i18n.__('Accordions will not have any styles applied.');
+							}
+						}),
 						el(components.ToggleControl, {
 							label: i18n.__('Auto Close'),
 							checked: attributes.autoClose,
@@ -140,10 +165,20 @@
 		save: function(props) {
 			var attributes = props.attributes;
 
+			var classes = [
+				'c-accordion',
+				'no-js',
+				'js-accordion-block',
+			];
+
+			if (attributes.applyStyles) {
+				classes.push('c-accordion--styled');
+			}
+
 			return (
 				el('div',
 					{
-						className:             'c-accordion no-js js-accordion-block',
+						className:             classes.join(' '),
 						'data-auto-close':     attributes.autoClose,
 						'data-open-all':       attributes.openAll,
 						'data-click-to-close': attributes.clickToClose,

@@ -1,7 +1,8 @@
 (function($) {
 	'use strict';
 
-	var i, settings;
+	// Remove the 'no-js' class since JavaScript is enabled
+	$('.c-accordion').removeClass('no-js');
 
 
 
@@ -29,12 +30,10 @@
 
 		/**
 		 * Initial setup
-		 * Remove the 'no-js' class since JavaScript is enabled, set the scroll
-		 * offset, and figure out which items should be open by default.
+		 * Set the scroll offset, and figure out which items should be open by
+		 * default.
 		 */
 		(function initialSetup() {
-			$('.c-accordion').removeClass('no-js');
-
 			settings.scrollOffset = Math.floor(parseInt(settings.scrollOffset)) | 0;
 
 			// Set initial state of all accordion items

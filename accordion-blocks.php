@@ -39,7 +39,7 @@ class PB_Accordion_Blocks {
 		// Register frontend JavaScript
 		add_action('wp_enqueue_scripts', array($this, 'register_script'));
 
-		//add_action('enqueue_block_assets', array($this, 'enqueue_block_assets'));
+		add_action('enqueue_block_assets', array($this, 'enqueue_block_assets'));
 
 
 		if (is_admin()) {
@@ -79,11 +79,12 @@ class PB_Accordion_Blocks {
 			$this->plugin_version
 		);
 
+		// Styles
 		wp_enqueue_style(
 			'pb-accordion-blocks-editor-styles',
-			plugins_url('assets/css/editor.css', __FILE__),
+			plugins_url('blocks/css/editor.css', __FILE__),
 			array('wp-edit-blocks'),
-			$this->plugin_version
+			$this->get_plugin_version()
 		);
 	}
 
@@ -94,9 +95,9 @@ class PB_Accordion_Blocks {
 	 */
 	public function enqueue_block_assets() {
 		wp_enqueue_style(
-			'pb-accordion-blocks-frontend-styles',
-			plugins_url('assets/css/style.css', __FILE__),
-			array('wp-blocks'),
+			'pb-accordion-blocks-frontend-style',
+			plugins_url('css/accordion-blocks.css', __FILE__),
+			array(),
 			$this->plugin_version
 		);
 	}
