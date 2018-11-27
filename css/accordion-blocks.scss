@@ -9,7 +9,6 @@ $color-open-icon: #777;
 // # Accordion Default Styles
 // -----------------------------------------------------------------------------
 
-
 // Force all content open if there is no JS.
 .no-js .c-accordion__content {
 	display: block !important;
@@ -52,5 +51,12 @@ $color-open-icon: #777;
 				content: "\2212";
 			}
 		}
+	}
+}
+
+// Make all the content visible when printing the page.
+@media print {
+	.c-accordion__content {
+		display: block !important;
 	}
 }

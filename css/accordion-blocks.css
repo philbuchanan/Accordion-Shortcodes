@@ -32,3 +32,9 @@
 .c-accordion--styled .is-open .c-accordion__title:after {
   content: "\2212";
 }
+
+@media print {
+  .c-accordion__content {
+    display: block !important;
+  }
+}

@@ -2,7 +2,7 @@
 	var el = element.createElement;
 
 	blocks.registerBlockType('pb/accordion', {
-		title: i18n.__('Accordion'),
+		title: i18n.__('Accordion Group'),
 		icon: el('svg',
 			{
 				width: 24,
@@ -68,8 +68,8 @@
 					{},
 					el(components.PanelBody,
 						{
-							title: i18n.__('Accordion Block Settings'),
-							className: 'accordion-item-settings'
+							title: i18n.__('Accordion Group Settings'),
+							className: 'accordion-group-settings'
 						},
 						el(components.ToggleControl, {
 							label: i18n.__('Apply Default Styles'),

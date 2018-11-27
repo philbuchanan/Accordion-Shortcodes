@@ -136,7 +136,6 @@
 
 
 
-
 		/**
 		 * Closes an accordion item
 		 * Also handles accessibility attribute settings.
@@ -168,7 +167,6 @@
 				'aria-hidden': 'true'
 			});
 		}
-
 
 
 

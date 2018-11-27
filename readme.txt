@@ -1,23 +1,69 @@
-=== Accordion Shortcodes ===
+=== Accordion Blocks ===
 Contributors: philbuchanan
-Author URI: http://philbuchanan.com/
-Donate Link: http://philbuchanan.com/
-Tags: accordion, accordions, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
+Author URI: https://philbuchanan.com/
+Donate Link: https://philbuchanan.com/
+Tags: accordion, accordions, gutenberg, blocks, shortcodes, responsive accordions, accordions plugin, jquery accordions, accordions short-code, accordions plugin wordpress, accordions plugin jquery
 Requires at least: 5.0
 Tested up to: 5.0
 Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Shortcodes for creating responsive accordion drop-downs.
+Gutenberg blocks for creating responsive accordion drop-downs.
 
 == Description ==
 
-Accordion Shortcodes is a simple plugin that adds a few shortcodes for adding accordion drop-downs to your pages.
+Accordion Blocks is a simple plugin that adds Gutenberg blocks for adding accordion drop-downs to your pages.
 
 The accordions should blend seamlessly with your theme. However, you may want to edit your theme's main stylesheet in order to add some custom styling (see below for sample CSS).
 
 = Features =
+
+* Adds two Gutenberg blocks for adding accordions to your site (Accordion Group and Accordion Item).
+* Supports multiple accordions with individual settings on a single page
+* Responsive
+* Optional default CSS added, which can be turned off for each accordion group.
+* Support for item IDs and direct links
+* Accessible (for users requiring tabbed keyboard navigation control)
+
+= Optional Features =
+
+* Open individual accordion items by default
+* Open all accordion items by default
+* Disable auto closing of accordion items
+* Manually close items by clicking the title again
+* Scroll page to title when it's clicked open
+* Set the HTML heading tag for the title element (h1–h6)
+
+= Output =
+
+The plugin will ultimately output following HTML (simplified for this example):
+
+    <div class="wp-block-pb-accordion c-accordion">
+        <div class="wp-block-pb-accordion-item c-accordion__item">
+            <h2 class="c-accordion__title">Title of Accordion Item</h2>
+            <div class="c-accordion__content">
+                <p>Drop-down content goes here.</p>
+            </div>
+        </div>
+    </div>
+
+= Custom CSS =
+
+You can use the following CSS classes to customize the look of the accordion.
+
+    .c-accordion {} /* The accordion group container */
+    .c-accordion__item {} /* The accordion item container */
+    .c-accordion__item.is-open {} /* is-open is added to open accordion items */
+    .c-accordion__item.is-read {} /* is-read is added to accordion items that have been opened at least once */
+    .c-accordion__title {} /* An accordion item title */
+    .c-accordion__title:hover {} /* To modify the style when hovering over an accordion item title */
+    .c-accordion__title:focus {} /* To modify the style when an accordion item title currently has broswer focus */
+    .c-accordion__content {} /* An accordion item content container */
+
+= Legacy Features =
+
+The old shortcodes are still available (and remain unchanged) from the old plugin.
 
 * Adds two shortcodes for adding accordions to your site
 * Supports multiple accordions with individual settings on a single page
@@ -85,7 +131,7 @@ No CSS is added by default to the accordion. The accordion should look fine with
 
 That said, you can change the looking of the accordion as long as you are comfortable with editing your theme's stylesheet. If you are familiar with that process, you can add some CSS to make the accordion look the way you want.
 
-= How can I make all accordion content disply when printing the page? =
+= How can I make all accordion content display when printing the page? =
 
 Add this CSS to your theme's CSS stylesheet:
 
@@ -247,6 +293,7 @@ For bug reports or feature requests or if you'd like to contribute to the plugin
 = 3.0.0 =
 * All new plugin to support the new WordPress Gutenberg editor.
 * Now requires WordPress 5.0 or higher.
+* The old shortcodes remain intact and unchanged.
 
 = 2.3.3 =
 * Now compatible up to WordPress 4.8
@@ -310,7 +357,7 @@ FIXED: A bug where setting both scroll and openfirst would scroll the window wit
 
 == Upgrade Notice ==
 = 3.0.0 =
-WARNING: Upgrade contains breaking changes! All new plugin to support the new WordPress Gutenberg editor.
+ALL NEW plugin to support the new WordPress Gutenberg editor. NOTE: The old shortcodes remain unchanged in the new version. They should continue to work as they did before. The plugin WILL NOT migrate existing shortcodes to Gutenberg blocks.
 
 = 2.3.2 =
 You may notice a focus state around your accordion items when clicking them. This is necessary to support accessibility within the plugin. If you really must remove the focus state (though not recommended) you can do so by adding this CSS to your theme's stylesheet: `.accordion-title {outline: none;}`.
