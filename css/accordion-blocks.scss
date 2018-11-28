@@ -10,46 +10,43 @@ $color-open-icon: #777;
 // -----------------------------------------------------------------------------
 
 // Force all content open if there is no JS.
-.no-js .c-accordion__content {
-	display: block !important;
-}
-
-// Only apply styles if the user has opted-in to them
-.c-accordion--styled {
-	.c-accordion {
-	    margin-bottom: 1rem;
-	}
-
-	.c-accordion__item {
-		&:not(:first-child) {
-			border-top: 1px solid $color-border;
-		}
+.no-js {
+	.c-accordion__content {
+		display: block !important;
 	}
 
 	.c-accordion__title {
-		position: relative;
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		padding-right: 2rem;
-		cursor: pointer;
+		padding-right: none;
+		cursor: default;
 
 		&:after {
-			position: absolute;
-			top: 50%;
-			right: 0;
-			content: "+";
-			color: $color-open-icon;
-			font-weight: 300;
-			-webkit-transform: translateY(-50%);
-			        transform: translateY(-50%);
+			display: none;
 		}
 	}
+}
 
-	.is-open {
-		.c-accordion__title {
-			&:after {
-				content: "\2212";
-			}
+// Only apply styles if the user has opted-in to them
+.c-accordion__title {
+	position: relative;
+	padding-right: 2rem;
+	cursor: pointer;
+
+	&:after {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		content: "+";
+		color: $color-open-icon;
+		font-weight: 300;
+		-webkit-transform: translateY(-50%);
+		        transform: translateY(-50%);
+	}
+}
+
+.is-open {
+	.c-accordion__title {
+		&:after {
+			content: "\2212";
 		}
 	}
 }

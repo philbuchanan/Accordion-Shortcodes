@@ -2,28 +2,31 @@
 	'use strict';
 
 	// Remove the 'no-js' class since JavaScript is enabled
-	$('.c-accordion').removeClass('no-js');
+	$('.js-accordion-item').removeClass('no-js');
 
 
 
 	/**
-	 * Accordion Shortcodes plugin function
+	 * Accordion Blocks plugin function
 	 *
 	 * @param object options Plugin settings to override the defaults
 	 */
-	$.fn.accordionBlocks = function(options) {
-		var allItems   = $(this).children('.c-accordion__item');
-		var allTitles  = allItems.children('.c-accordion__title');
-		var allPanels  = allItems.children('.c-accordion__content');
-		var hashID     = window.location.hash.replace('#', '');
-		var duration   = 250;
-		var settings   = $.extend({
+	$.fn.accordionBlockItem = function(options) {
+		var item = {
+			self:    $(this),
+			id:      $(this).attr('id'),
+			title:   $(this).children('.c-accordion__title'),
+			content: $(this).children('.c-accordion__content'),
+		};
+		var hashID   = window.location.hash.replace('#', '');
+		var duration = 250;
+		var settings = $.extend({
 			// Set default settings
-			autoClose:    true,
-			openAll:      false,
-			clickToClose: true,
-			scroll:       false,
-			scrollOffset: false,
+			initiallyOpen: false,
+			autoClose:     true,
+			clickToClose:  true,
+			scroll:        false,
+			scrollOffset:  false,
 		}, options);
 
 
@@ -36,30 +39,35 @@
 		(function initialSetup() {
 			settings.scrollOffset = Math.floor(parseInt(settings.scrollOffset)) | 0;
 
-			// Set initial state of all accordion items
-			if (settings.openAll) {
-				// If open all is set, open them all
-				allTitles.each(function() {
-					openItem($(this));
-				});
+			// If this item has `initally-open prop` set to true, open it
+			if (settings.initiallyOpen) {
+				/**
+				 * We aren't opening the item here (only setting open attributes)
+				 * becuase the openItem() function fires the `openAccordionItem`
+				 * event which, if `autoClose` is set, would override the users
+				 * defined initiallyOpen settings.
+				 *
+				 * Only setting open attributes is fine since the item's content
+				 * display (`display: none|block`) is already set by the plugin.
+				 */
+				setOpenItemAttributes();
 			}
+			// If the hash matches this item, open it
+			else if (item.id === hashID) {
+				/**
+				 * Unlike the `initiallyOpen` case above, if a hash is detected
+				 * that matches one of the accordion items, we probably _want_
+				 * the other items to close so the user can focus on this item.
+				 */
+				openItem();
+			}
+			// Otherwise, close the item
 			else {
-				// if open all isn't set, figure out which items to open
-				allItems.each(function() {
-					// If this item has `initally-open prop` set to true
-					if ($(this).data('initially-open')) {
-						openItem($(this));
-					}
-					// If the hash matches this item, open it
-					else if ($(this).attr('id') === hashID) {
-						openItem($(this));
-					}
-					// Otherwise, close the item
-					else {
-						$(this).children('.c-accordion__content').hide();
-						setCloseItemAttributes($(this));
-					}
-				});
+				/**
+				 * Don't use closeItem() function call since it animates the
+				 * closing. Insteady, we only need to set the closed attributes.
+				 */
+				setCloseItemAttributes();
 			}
 		})();
 
@@ -70,19 +78,14 @@
 		 * Called when an accordion title is clicked.
 		 */
 		function clickHandler() {
-			var item = $(this).parent('.c-accordion__item');
-
 			// Only open the item if item isn't already open
-			if (!item.hasClass('is-open')) {
-				// Close all accordion items
-				maybeCloseItems();
-
+			if (!item.self.hasClass('is-open')) {
 				// Open clicked item
-				openItem(item);
+				openItem();
 			}
 			// If item is open, and click to close is set, close it
 			else if (settings.clickToClose) {
-				closeItem(item);
+				closeItem();
 			}
 
 			return false;
@@ -93,26 +96,24 @@
 		/**
 		 * Opens an accordion item
 		 * Also handles accessibility attribute settings.
-		 *
-		 * @param object item The accordion item to open
 		 */
-		function openItem(item) {
-			var content = item.children('.c-accordion__content');
-
+		function openItem() {
 			// Clear/stop any previous animations before revealing content
-			content.clearQueue().stop().slideDown(duration, function() {
+			item.content.clearQueue().stop().slideDown(duration, function() {
 				// Scroll page to the title
 				if (settings.scroll) {
 					// Pause scrolling until other items have closed
 					setTimeout(function() {
 						$('html, body').animate({
-							scrollTop: item.offset().top - settings.scrollOffset
+							scrollTop: item.self.offset().top - settings.scrollOffset
 						}, duration);
 					}, duration);
 				}
 			});
 
-			setOpenItemAttributes(item);
+			setOpenItemAttributes();
+
+			$(document).trigger('openAccordionItem', item);
 		}
 
 
@@ -120,11 +121,9 @@
 		/**
 		 * Set open item attributes
 		 * Mark accordion item as open and read and set aria attributes.
-		 *
-		 * @param object item The accordion item
 		 */
-		function setOpenItemAttributes(item) {
-			item.addClass('is-open is-read')
+		function setOpenItemAttributes() {
+			item.self.addClass('is-open is-read')
 			.children('.c-accordion__title').attr({
 				'aria-selected': 'true',
 				'aria-expanded': 'true'
@@ -139,14 +138,12 @@
 		/**
 		 * Closes an accordion item
 		 * Also handles accessibility attribute settings.
-		 *
-		 * @param object item The accordion item to close
 		 */
-		function closeItem(item) {
+		function closeItem() {
 			// Close the item
-			item.children('.c-accordion__content').slideUp(duration);
+			item.content.slideUp(duration);
 
-			setCloseItemAttributes(item);
+			setCloseItemAttributes();
 		}
 
 
@@ -154,11 +151,9 @@
 		/**
 		 * Set closed item attributes
 		 * Mark accordion item as closed and set aria attributes.
-		 *
-		 * @param object item The accordion item
 		 */
-		function setCloseItemAttributes(item) {
-			item.removeClass('is-open')
+		function setCloseItemAttributes() {
+			item.self.removeClass('is-open')
 			.children('.c-accordion__title').attr({
 				'aria-selected': 'false',
 				'aria-expanded': 'false'
@@ -173,11 +168,9 @@
 		/**
 		 * Close all items if auto close is enabled
 		 */
-		function maybeCloseItems() {
-			if (settings.autoClose) {
-				allItems.each(function() {
-					closeItem($(this));
-				});
+		function maybeCloseItem() {
+			if (settings.autoClose && item.self.hasClass('is-open')) {
+				closeItem();
 			}
 		}
 
@@ -186,9 +179,23 @@
 		/**
 		 * Add event listeners
 		 */
-		allTitles.click(clickHandler);
+		item.title.click(clickHandler);
 
-		allTitles.keydown(function(e) {
+
+
+		/**
+		 * Listen for other accordion items opening
+		 *
+		 * The `openAccordionItem` event is fired whenever an accordion item is
+		 * opened after initial plugin setup.
+		 */
+		$(document).on('openAccordionItem', function(e, ele) {
+			if (ele !== item) {
+				maybeCloseItem();
+			}
+		});
+
+		item.title.keydown(function(e) {
 			var code = e.which;
 
 			// 13 = Return, 32 = Space
@@ -202,17 +209,15 @@
 		$(window).on('hashchange', function() {
 			hashID = window.location.hash.replace('#', '');
 
-			var ele = $('#' + hashID);
+			// Only open this item if the has matches the ID
+			if (hashID === item.id) {
+				var ele = $('#' + hashID);
 
-			console.log(ele.length, ele.hasClass('c-accordion__item'));
-
-			// If there is a hash and the hash is on an accordion item
-			if (ele.length && ele.hasClass('c-accordion__item')) {
-				// Close all accordion items
-				maybeCloseItems();
-
-				// Open clicked item
-				openItem(ele);
+				// If there is a hash and the hash is on an accordion item
+				if (ele.length && ele.hasClass('js-accordion-item')) {
+					// Open clicked item
+					openItem();
+				}
 			}
 		});
 
@@ -224,14 +229,14 @@
 	// Loop through accordion settings objects
 	// Wait for the entire page to load before loading the accordion
 	$(window).on('load', function() {
-		$('.js-accordion-block').each(function() {
-			$(this).accordionBlocks({
+		$('.js-accordion-item').each(function() {
+			$(this).accordionBlockItem({
 				// Set default settings
-				autoClose:    $(this).data('auto-close'),
-				openAll:      $(this).data('open-all'),
-				clickToClose: $(this).data('click-to-close'),
-				scroll:       $(this).data('scroll'),
-				scrollOffset: $(this).data('scroll-offset'),
+				initiallyOpen: $(this).data('initially-open'),
+				autoClose:     $(this).data('auto-close'),
+				clickToClose:  $(this).data('click-to-close'),
+				scroll:        $(this).data('scroll'),
+				scrollOffset:  $(this).data('scroll-offset'),
 			});
 		});
 	});

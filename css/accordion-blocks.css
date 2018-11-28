@@ -2,23 +2,22 @@
   display: block !important;
 }
 
-.c-accordion--styled .c-accordion {
-  margin-bottom: 1rem;
+.no-js .c-accordion__title {
+  padding-right: none;
+  cursor: default;
 }
 
-.c-accordion--styled .c-accordion__item:not(:first-child) {
-  border-top: 1px solid #ddd;
+.no-js .c-accordion__title:after {
+  display: none;
 }
 
-.c-accordion--styled .c-accordion__title {
+.c-accordion__title {
   position: relative;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   padding-right: 2rem;
   cursor: pointer;
 }
 
-.c-accordion--styled .c-accordion__title:after {
+.c-accordion__title:after {
   position: absolute;
   top: 50%;
   right: 0;
@@ -29,7 +28,7 @@
   transform: translateY(-50%);
 }
 
-.c-accordion--styled .is-open .c-accordion__title:after {
+.is-open .c-accordion__title:after {
   content: "\2212";
 }
 
