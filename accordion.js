@@ -46,7 +46,7 @@
 		 */
 		function clickHandler() {
 			// Only open the item if item isn't already open
-			if (!$(this).hasClass('open')) {
+			if (!$(this).children().hasClass('open')) {
 				// Close all accordion items
 				if (settings.autoClose) {
 					allTitles.each(function() {
@@ -86,12 +86,12 @@
 			});
 
 			// Mark accordion item as open and read and set aria attributes
-			ele.addClass('open read')
+			ele.children().addClass('open read')
 			.attr({
-				'aria-selected': 'true',
+				// 'aria-selected': 'true',
 				'aria-expanded': 'true'
 			})
-			.next().attr({
+			ele.next().attr({
 				'aria-hidden': 'false'
 			});
 		}
@@ -106,16 +106,11 @@
 		 */
 		function closeItem(ele) {
 			ele.next().slideUp(duration);
-			ele.removeClass('open');
+			ele.children().removeClass('open');
 
 			// Set accessibility attributes
-			ele.attr({
-				'aria-selected': 'false',
-				'aria-expanded': 'false'
-			})
-			.next().attr({
-				'aria-hidden': 'true'
-			});
+			ele.children().attr('aria-expanded', 'false');
+			ele.next().attr('aria-hidden', 'true');
 		}
 
 
