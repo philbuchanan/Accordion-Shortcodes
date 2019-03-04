@@ -292,7 +292,7 @@ class Accordion_Shortcodes {
 
 		$ids = $this->get_accordion_id($id);
 
-		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" tabindex="0" %6$s><div role="button" aria-controls="%4$s" aria-expanded="false">%2$s</div></%1$s>',
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" %6$s><div role="button" aria-controls="%4$s" aria-expanded="false" tabindex="0" >%2$s</div></%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			$ids['title'],

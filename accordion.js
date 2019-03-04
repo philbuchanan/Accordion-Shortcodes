@@ -12,8 +12,8 @@
 	 */
 	$.fn.accordionShortcodes = function(options) {
 
-		var allTitles  = this.children('.accordion-title'),
-			allPanels  = this.children('.accordion-content').hide(),
+		var allTitles  = $('.accordion-title').children(),
+			allPanels  = $('.accordion-content').hide(),
 			firstTitle = allTitles.first(),
 			firstPanel = allPanels.first(),
 			selectedId = $(window.location.hash),
@@ -46,7 +46,7 @@
 		 */
 		function clickHandler() {
 			// Only open the item if item isn't already open
-			if (!$(this).children().hasClass('open')) {
+			if (!$(this).hasClass('open')){
 				// Close all accordion items
 				if (settings.autoClose) {
 					allTitles.each(function() {
@@ -76,7 +76,7 @@
 		 */
 		function openItem(ele, scroll) {
 			// Clear/stop any previous animations before revealing content
-			ele.next().clearQueue().stop().slideDown(duration, function() {
+			ele.parent().next().clearQueue().stop().slideDown(duration, function() {
 				// Scroll page to the title
 				if (scroll && settings.scroll) {
 					$('html, body').animate({
@@ -86,12 +86,12 @@
 			});
 
 			// Mark accordion item as open and read and set aria attributes
-			ele.children().addClass('open read')
+			ele.addClass('open read')
 			.attr({
 				// 'aria-selected': 'true',
 				'aria-expanded': 'true'
 			})
-			ele.next().attr({
+			ele.parent().next().attr({
 				'aria-hidden': 'false'
 			});
 		}
@@ -105,12 +105,12 @@
 		 * @param object ele The accordion item title to open
 		 */
 		function closeItem(ele) {
-			ele.next().slideUp(duration);
-			ele.children().removeClass('open');
+			ele.parent().next().slideUp(duration);
+			ele.removeClass('open');
 
 			// Set accessibility attributes
-			ele.children().attr('aria-expanded', 'false');
-			ele.next().attr('aria-hidden', 'true');
+			ele.attr('aria-expanded', 'false');
+			ele.parent().next().attr('aria-hidden', 'true');
 		}
 
 
@@ -142,6 +142,7 @@
 					// Only close it if the hash isn't for this item
 					if ($(this).attr('id') !== selectedId.attr('id')) {
 						closeItem($(this));
+						$(this).removeAttr('aria-expanded');
 					}
 					break;
 			}
@@ -157,10 +158,20 @@
 		allTitles.keydown(function(e) {
 			var code = e.which;
 
-			// 13 = Return, 32 = Space
+			// 13 = Return, 32 = Space, 27 = Esc
 			if ((code === 13) || (code === 32)) {
 				// Simulate click on title
 				$(this).click();
+			}
+		});
+
+		allTitles.on('keyup', function(e) {
+		var code = e.which;
+
+			if (code === 27) {
+				$(this).parent().next('.accordion-content').slideUp();
+				$(this).removeClass('open');
+				$(this).attr('aria-expanded', 'false');
 			}
 		});
 
