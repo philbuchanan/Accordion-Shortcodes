@@ -165,11 +165,11 @@
 			}
 		});
 
-		allTitles.on('keyup', function(e) {
-		var code = e.which;
+		allTitles.on('keydown', function(e) {
+			var code = e.which;
 
 			if (code === 27) {
-				$(this).parent().next('.accordion-content').slideUp();
+				closeItem($(this));
 				$(this).removeClass('open');
 				$(this).attr('aria-expanded', 'false');
 			}
