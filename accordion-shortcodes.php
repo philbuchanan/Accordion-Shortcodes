@@ -265,7 +265,7 @@ class Accordion_Shortcodes {
 		// Add this shortcodes settings instance to the global script data array
 		$this->script_data[] = $script_data;
 
-		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s" role="tablist" aria-multiselectable="true">%1$s</%2$s>',
+		return sprintf('<%2$s id="%3$s" class="accordion no-js%4$s">%1$s</%2$s>',
 			do_shortcode($content),
 			$this->wrapper_tag,
 			"accordion-$this->group_count",
@@ -292,7 +292,7 @@ class Accordion_Shortcodes {
 
 		$ids = $this->get_accordion_id($id);
 
-		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" role="tab" aria-controls="%4$s" aria-selected="false" aria-expanded="false" tabindex="0" %6$s>%2$s</%1$s>',
+		$accordion_title = sprintf('<%1$s id="%3$s" class="accordion-title%5$s" %6$s><div role="button" aria-controls="%4$s" aria-expanded="false" tabindex="0" >%2$s</div></%1$s>',
 			$tag ? $this->check_html_tag($tag) : $this->title_tag,
 			$title ? $title : '<span style="color:red;">' . __('Please enter a title attribute', 'accordion_shortcodes') . '</span>',
 			$ids['title'],
@@ -301,7 +301,7 @@ class Accordion_Shortcodes {
 			$state ? ' data-initialstate="' . $state . '"' : ''
 		);
 
-		$accordion_content = sprintf('<%1$s id="%3$s" class="accordion-content" role="tabpanel" aria-labelledby="%4$s" aria-hidden="true">%2$s</%1$s>',
+		$accordion_content = sprintf('<%1$s id="%3$s" class="accordion-content" aria-hidden="true">%2$s</%1$s>',
 			$this->content_tag,
 			do_shortcode($content),
 			$ids['content'],
