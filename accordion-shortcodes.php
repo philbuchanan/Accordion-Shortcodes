@@ -275,7 +275,8 @@ class Accordion_Shortcodes {
 			'openFirst'    => $this->is_boolean($openfirst),
 			'openAll'      => $this->is_boolean($openall),
 			'clickToClose' => $this->is_boolean($clicktoclose),
-			'scroll'       => $this->check_scroll_value($scroll)
+			'scroll'       => $this->check_scroll_value($scroll),
+			'usebuttons'   => $this->is_boolean($usebuttons),
 		);
 
 		// Add this shortcodes settings instance to the global script data array

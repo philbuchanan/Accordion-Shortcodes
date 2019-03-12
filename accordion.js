@@ -22,7 +22,8 @@
 			openFirst:    false,
 			openAll:      false,
 			clickToClose: false,
-			scroll:       false
+			scroll:       false,
+			usebuttons:   false,
 		}, options);
 
 
@@ -76,13 +77,17 @@
 			$(this).keydown(function(event) {
 				var code = event.which;
 
-				// 13 = Return, 32 = Space
-				if ((code === 13) || (code === 32)) {
-					// Simulate click on controller
-					$(this).click();
+				// We only need to add manual keyboard events if _not_ using `<button>` elements
+				// `<button>` tags will natively fire the click event.
+				if (!settings.usebuttons) {
+					// 13 = Return, 32 = Space
+					if ((code === 13) || (code === 32)) {
+						$(this).click();
+					}
 				}
+
 				// 27 = Esc
-				else if (code === 27) {
+				if (code === 27) {
 					if (settings.clickToClose) {
 						closeAccordionItem(item);
 					}
