@@ -167,7 +167,7 @@
 
 			// Set accessibility attributes
 			item.controller.attr('aria-expanded', 'true');
-			item.controller.next().attr('aria-hidden', 'false');
+			item.content.attr('aria-hidden', 'false');
 
 			item.isOpen = true;
 		}
