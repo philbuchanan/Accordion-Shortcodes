@@ -13,7 +13,7 @@
 	$.fn.accordionShortcodes = function(options) {
 
 		var items          = [];
-		var allControllers = $('.js-accordion-controller');
+		var allControllers = $('#' + options.id + ' .js-accordion-controller');
 		var selectedId     = window.location.hash;
 		var duration       = 250;
 		var settings       = $.extend({
